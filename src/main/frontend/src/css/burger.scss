@@ -1,0 +1,367 @@
+@font-face {
+    font-family: 'Post No Bills Jaffna ExtraBold';
+    src: url('../fonts/Bills/PostNoBillsJaffna-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto/Roboto.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto-light';
+    src: url('../fonts/Roboto/Robotolight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+input[type="text"]::-webkit-inner-spin-button,
+input[type="text"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Убираем внутренние и внешние кнопки */
+}
+
+header {
+    position:fixed;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+}
+header:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 51;
+    width: 100%;
+    height: 100%;
+    background-color: #1f2632;
+}
+.BurgerContainer .NameApp {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: 100%;
+    justify-content: start;
+}
+.header-burger {
+    display: none;
+}
+
+
+.header-list {
+    display: flex;
+    padding: 0;
+    margin: 0 20px 0 0;
+    align-items: center;
+    position: relative;
+    z-index: 52;
+    /* border-bottom: 2px solid #fff; */
+}
+
+.header-link {
+    font-size: 16px;
+    text-decoration: none;
+    color:#fff;
+    font-family: 'Roboto-light';
+}
+@keyframes snake-border {
+    0% {
+        border-color: transparent;
+//         border-width: 0;
+    }
+    25% {
+        border-color: #75F5C5;
+        border-width: 2px;
+//         border-top-width: 0;
+    }
+    50% {
+        border-color: #75F5C5;
+        border-width: 2px;
+//         border-right-width: 0;
+    }
+    75% {
+        border-color: #75F5C5;
+        border-width: 2px;
+//         border-bottom-width: 0;
+    }
+    100% {
+        border-color: #75F5C5;
+        border-width: 2px;
+//         border-left-width: 0;
+    }
+}
+
+.log-out-class {
+    border: 2px solid #fff; /* Начальное состояние */
+    font-size: 16px;
+    margin: 10px 10px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    position: relative; /* Для позиционирования псевдоэлемента */
+}
+
+.log-out-class:hover {
+    animation: snake-border 2s forwards; /* Применение анимации при наведении */
+}
+
+.log-out-class svg {
+    margin-left: 3px;
+}
+
+
+.header-list li {
+    list-style: none;
+    margin: 0 0 0 20px;
+    position: relative;
+}
+.header-list button {
+//     width: px;
+}
+
+.header-list li::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: -3px;
+    background-color: #75F5C5;
+    transition: width 0.3s;
+}
+
+.header-list li:hover::before {
+    width: 100%;
+}
+/* .header-list li:hover a{
+    color:#75F5C5;
+} */
+.header-list svg {
+    cursor: pointer;
+}
+
+
+.BurgerContainer .NameApp .svgLogo {
+    flex: 0 0 80px;
+    margin-left: 20px;
+    display: flex;
+    position: relative;
+    z-index: 52;
+    justify-content: center;
+    align-self: center;
+}
+
+.BurgerContainer .NameApp .svgLogo svg {
+    max-width: 100%;
+    height: 100%;
+}
+
+
+
+.searchParticipant {
+    position: relative;
+}
+
+.searchParticipant::after {
+    content: '\1F50D';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* transform: translateY(-50%); */
+    font-size: 1.2em;
+    color: #888; /* Цвет значка */
+    cursor: pointer;
+}
+
+.BurgerContainer .NameApp h1{
+    font-family: 'Post No Bills Jaffna ExtraBold'; /* Добавлены кавычки вокруг названия шрифта */
+    font-size: 36px;
+    
+    background-image: linear-gradient(to right, #76b0cb, #75F5C5);
+    -webkit-background-clip: text; /* Для поддержки вебкит-браузеров */
+    background-clip: text;
+    color: transparent;
+    width: 600px;
+    padding: 0 20px;
+    text-align: center;
+}
+.BurgerContainer .NameApp .search {
+    display: flex;
+    align-content: center;
+    margin-left: auto;
+    margin-right: 0;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+    z-index: 54;
+}
+.BurgerContainer .NameApp .search svg{
+    width: 100%;
+    height: 100%;
+}
+.BurgerContainer .NameApp .search svg path {
+    fill: #fff;
+}
+.BurgerContainer .NameApp .search:hover svg path{
+    fill: #75F5C5;
+
+}
+.BurgerContainer .NameApp .search:active svg path{
+    fill: #75F5C5;
+
+}
+.button-header-burger {
+    display: none;
+}
+
+@media (max-width:800px) {
+    header {
+        height: 60px;
+    }
+    .BurgerContainer .NameApp .search {
+        margin-right: 15px;
+    }
+    .button-header-burger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 40px;
+        border: none;
+        margin: 0;
+        /* padding: 16px; */
+        background: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 54;
+    }
+    .header-burger {
+        display: block;
+        position: relative;
+        width: 15px;
+        height: 10px;
+        /* margin-right: 20px; */
+        cursor: pointer;
+    }
+    .header-burger span{
+        position: absolute;
+        background-color: #fff;
+        left: 3px;
+        width: 12px;
+        height: 2px;
+        top: 4px;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .header-burger:before,
+    .header-burger:after {
+        content: '';
+        background-color: #fff;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        
+    }
+
+    .header-burger:before {
+        top: 0;
+    }
+    .header-burger:after {
+        bottom: 0;
+    }
+    .header-menu {
+        display: flex;
+        justify-content: flex-end;
+        position: fixed;
+        top: 0;
+        left: 100%;
+        width: 0;
+        height: 100%;
+        // display: none;
+        z-index: 53;
+        transition: background-color 0.3s ease;
+
+    }
+    .header-menu.active {
+        background-color: rgba(0, 0, 0, 0.5);
+        height: 100%;
+        width: 100%;
+        left: 0;
+        // display: flex;
+        transition: background-color 0.3s ease;
+        // z-index: 53;
+    }
+    .header-burger.active:before {
+        transform: rotate(45deg);
+        top: 4px;
+    }
+    .header-burger.active::after {
+        transform: rotate(-45deg);
+        bottom: 4px;
+    }
+    .header-burger.active span {
+        transform: scale(0);
+    }
+    .header-menu-container {
+        position: relative;
+        top: 0;
+        left: 260px;
+        min-width: 260px;
+        max-width: 350px;
+        padding-top: 50px;
+        background-color: #1f2632;
+        transition: all 0.5s ease 0s;
+    }
+    .header-menu-container.active {
+        left: 0;
+        
+    }
+    .BurgerContainer .NameApp .search {
+        transform: translateY(0);
+        margin-left: auto;
+    }
+    .header-list {
+        display: flex;
+        flex-direction: column;
+        justify-items: left;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: flex-start;
+    }
+    .header-list li {
+        margin-left: 50px;
+        margin-top: 20px;
+    }
+    
+}
+@media screen and (max-width: 600px) {
+    .BurgerContainer {
+        height: 60px;
+    }
+    .BurgerContainer .NameApp .searchParticipant {
+        display: none;
+    }
+    .BurgerContainer .NameApp .svgLogo {
+        text-align: center;
+    }
+    .BurgerContainer .NameApp .svgLogo svg{
+        margin-left: 0;
+    }
+    
+    
+}
