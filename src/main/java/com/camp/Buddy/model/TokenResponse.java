@@ -1,23 +1,20 @@
 package com.camp.Buddy.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.net.URL;
 
 @Setter
 @Getter
+@AllArgsConstructor
 public class TokenResponse {
-  // Геттеры и сеттеры
+
   @JsonProperty("access_token")
-  private String access_token;
-  private String token_type;
-  private int expires_in;
+  private String accessToken;
 
-  public String getAccessToken() {
-    return access_token;
-  }
-
-  public void setAccessToken(String accessToken) {
-    this.access_token = accessToken;
-  }
+  // Конструктор будет сгенерирован Lombok
 }

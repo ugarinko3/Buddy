@@ -4,7 +4,6 @@ import com.camp.Buddy.model.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
-@Log4j2
 public class PostService {
     private static final String COLLECTION_TEAM_NAME = "posts";
 
@@ -44,17 +42,3 @@ public class PostService {
         return postList;
     }
 };
-
-
-//        Firestore db = FirestoreClient.getFirestore();
-//        DocumentReference documentReference = db.collection(COLLECTION_TEAM_NAME).document();
-//        ApiFuture<DocumentSnapshot> future = documentReference.get();
-//        DocumentSnapshot document= future.get();
-//
-//        Product product = null;
-//        if(document.exists()) {
-//            product = document.toObject(Product.class);
-//            return product;
-//        } else {
-//            return null;
-//        }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Loading from './loading';
 
 
 function BorderNews() {
@@ -37,7 +38,7 @@ function BorderNews() {
         setPosts(newPosts);
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loading />;
     if (error) return <p>Error: {error}</p>;
 
 

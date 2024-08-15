@@ -6,6 +6,7 @@ import BorderNews from '../pages/news';
 function Main() {
 
     return (
+
         <div>
             <Burger />
             <div className="main">

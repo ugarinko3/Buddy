@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -13,39 +13,34 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Buddy</name>
 	<description>Backend to buddy</description>
-	<url/>
+	<url>http://yourprojecturl.com</url>
 	<licenses>
-		<license/>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
 	</licenses>
 	<developers>
-		<developer/>
+		<developer>
+			<id>your-id</id>
+			<name>Your Name</name>
+			<email>your-email@example.com</email>
+		</developer>
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:git://github.com/yourusername/Buddy.git</connection>
+		<developerConnection>scm:git:ssh://github.com/yourusername/Buddy.git</developerConnection>
+		<url>http://github.com/yourusername/Buddy</url>
 	</scm>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-jdbc</artifactId>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
@@ -70,6 +65,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		<!-- Uncomment if needed -->
+		<!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency> -->
 	</dependencies>
 
 	<build>
@@ -88,5 +96,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
