@@ -7,10 +7,19 @@ export const postSlice = createSlice({
     initialState: {
         posts: [],
         error: null,
+        status: 'idle',
         activeCourse: JSON.parse(localStorage.getItem("active-course"))
     },
     reducers: {
+        getPostStart: state => {
+            state.status = 'loading'
+        },
+        getPostSuccess: (state, action) => {
+            state.status = 'succeeded'
+            state.courses = action.payload
+        },
         getPost: (state, action)  => {
+            state.status = 'failed'
             state.posts = action.payload
         },
         getPostFail: (state, action) => {
@@ -23,7 +32,7 @@ export const postSlice = createSlice({
     }
 })
 
-export const {getPost, getPostFail, setPost} = postSlice.actions
+export const {getPostStart, getPostSuccess,getPost, getPostFail, setPost} = postSlice.actions
 
 export const fetchPost = () => async dispatch => {
     try {

@@ -1,13 +1,12 @@
-import { createStore, combineReducers } from 'redux';
-import postReducer from './slice/postSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import {thunk} from 'redux-thunk'
+
+import postReducer from './slice/postSlice'
 
 // Combine your reducers
-const rootReducer = combineReducers({
+export default configureStore({
+    reducer: {
     post: postReducer,
-    // You can add more reducers here if needed
+    },
+    middleware: () =>  [thunk],
 });
-
-// Create the store with the combined reducer
-const store = createStore(rootReducer);
-
-export default store;
