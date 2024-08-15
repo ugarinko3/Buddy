@@ -14,33 +14,32 @@ const navigate = useNavigate();
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+      event.preventDefault();
 
-    try {
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    login: login,
-                    password: password,
-                }),
-            });
+      try {
+          const response = await fetch('/login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: new URLSearchParams({
+                  login: login,
+                  password: password,
+              }),
+          });
 
-            if (!response.ok) {
-                throw new Error('Login failed');
+          if (!response.ok) {
+              throw new Error('Login failed');
+          }
 
-            }
-
-            const data = await response.json();
-            document.cookie = `access_token=${data.access_token}`;
-            navigate('/post');
-        } catch (error) {
-            setErrorMessage(error.message); // Set the error message if login fails
-            setLogin(''); // Очищаем поле логина
-            setPassword(''); // Очищаем поле пароля
-        }
+          const data = await response.json();
+          document.cookie = `access_token=${data.access_token}; path=/;`;
+          navigate('/post'); // Перенаправляем на защищенную страницу
+      } catch (error) {
+          setErrorMessage(error.message);
+          setLogin('');
+          setPassword('');
+      }
   };
 
   return (
