@@ -32,11 +32,11 @@ function BorderNews() {
             });
     }, []);
 
-    const showPost = (index) => {
-        const newPosts = [...posts];
-        newPosts[index].showFullText = !newPosts[index].showFullText;
-        setPosts(newPosts);
-    };
+//    const showPost = (index) => {
+//        const newPosts = [...posts];
+//        newPosts[index].showFullText = !newPosts[index].showFullText;
+//        setPosts(newPosts);
+//    };
 
     if (loading) return <Loading />;
     if (error) return <p>Error: {error}</p>;

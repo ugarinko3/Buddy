@@ -7,7 +7,8 @@ function Login() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-const navigate = useNavigate();
+    const navigate = useNavigate();
+
 
   const click_login = () => {
     setPasswordVisible(!passwordVisible);
@@ -29,7 +30,7 @@ const navigate = useNavigate();
           });
 
           if (!response.ok) {
-              throw new Error('Login failed');
+              throw new Error('Login and password failed');
           }
 
           const data = await response.json();
