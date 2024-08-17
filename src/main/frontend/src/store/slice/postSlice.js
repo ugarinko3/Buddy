@@ -1,48 +1,39 @@
-import { createSlice } from '@reduxjs/toolkit'
-import {getPostCourses} from '../../utils/Courses'
-
+import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const postSlice = createSlice({
-    name: 'post',
+    name: 'posts',
     initialState: {
         posts: [],
+        loading: false,
         error: null,
-        status: 'idle',
-        activeCourse: JSON.parse(localStorage.getItem("active-course"))
     },
     reducers: {
-        getPostStart: state => {
-            state.status = 'loading'
+        fetchPostsStart: (state) => {
+            state.loading = true;
+            state.error = null;
         },
-        getPostSuccess: (state, action) => {
-            state.status = 'succeeded'
-            state.courses = action.payload
+        fetchPostsSuccess: (state, action) => {
+            state.loading = false;
+            state.posts = action.payload;
         },
-        getPost: (state, action)  => {
-            state.status = 'failed'
-            state.posts = action.payload
+        fetchPostsFail: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         },
-        getPostFail: (state, action) => {
-            state.error = action.payload
-        },
-        setPost: (state, action) => {
-            state.activeCourse = state.courses.find(course => course.id === action.payload)
-            localStorage.setItem("active-course", JSON.stringify(state.activeCourse))
-        }
-    }
-})
+    },
+});
 
-export const {getPostStart, getPostSuccess,getPost, getPostFail, setPost} = postSlice.actions
+export const { fetchPostsStart, fetchPostsSuccess, fetchPostsFail } = postSlice.actions;
 
-export const fetchPost = () => async dispatch => {
+export const fetchPosts = () => async (dispatch) => {
+    dispatch(fetchPostsStart());
     try {
-        dispatch(getPost())
-        getPostCourses()
-            .then((res) => {
-                dispatch(getPost(res))
-            })
+        const response = await axios.get('/post');
+        dispatch(fetchPostsSuccess(response.data));
     } catch (error) {
-        dispatch(getPostFail('Ошибка'))
+        dispatch(fetchPostsFail(error.message));
     }
-}
-export default postSlice.reducer
+};
+
+export default postSlice.reducer;

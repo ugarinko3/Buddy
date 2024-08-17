@@ -1,56 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts } from '../store/slice/postSlice'; // Import your action
 import Loading from './loading';
 
 function BorderNews() {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    function showFullText() {
-        document.getElementById('truncateText').classList.toggle("valerakrutoy123");
-    }
+    const dispatch = useDispatch();
+    const { posts, loading, error } = useSelector((state) => state.post); // Get state from Redux
+    const [expandedPostIndex, setExpandedPostIndex] = useState(null);
 
     useEffect(() => {
-        // Проверяем, есть ли кэшированные данные
-        const cachedPosts = localStorage.getItem('posts');
-        if (cachedPosts) {
-            setPosts(JSON.parse(cachedPosts));
-            setLoading(false); // Устанавливаем загрузку в false, так как данные уже есть
-        } else {
-            fetch('/post')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (Array.isArray(data) && data.length > 0) {
-                        setPosts(data);
-                        // Сохраняем данные в localStorage
-                        localStorage.setItem('posts', JSON.stringify(data));
-                    }
-                })
-                .catch(error => {
-                    setError(error.message);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }
-    }, []);
+        dispatch(fetchPosts());
+    }, [dispatch]);
+    const showFullText = (index) => {
+        setExpandedPostIndex(expandedPostIndex === index ? null : index);
+    };
 
-    if (loading) return <Loading />;
-    if (error) return <p>Error: {error}</p>;
+//    if (loading) return <Loading />;
+    if (error) return <p>Error: {error.message || error}</p>;
 
     return (
         <div className='curator-news'>
             {posts.map((post, index) => (
-                <div key={index} className='post'>
+                <div key={post.id} className='post'> {/* Use a unique key */}
                     <div className='NameBuddy'>
                         <div className='profile-public-news'>
                             <div className='image-news-avatar'>
-                                <img src={post.urlAvatar} alt=''></img>
+                                <img src={post.urlAvatar} alt={`${post.teamName} Avatar`} />
                             </div>
                             <div className='name-curator-a-href'>
                                 <h3>{post.teamName}</h3>
@@ -60,7 +35,7 @@ function BorderNews() {
                         <p>{post.date}</p>
                     </div>
                     <div className='image-news'>
-                        <img src={post.urlPostImage} alt='' />
+                        <img src={post.urlPostImage} alt={`${post.teamName} Post`} />
                     </div>
                     <div className='like'>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,11 +45,11 @@ function BorderNews() {
                     </div>
                     <div className='comment'>
                         <div className='name-patricipant'>
-                            <p id='truncateText' className='valerakrutoy123'>
+                            <p className={expandedPostIndex === index ? '' : 'valerakrutoy123'}>
                                 <a href='!#'>Nickname: {post.curator}<br /></a>
                                 {post.comment}
                             </p>
-                            <span onClick={showFullText}>more</span>
+                            <span onClick={() => showFullText(index)}>more</span>
                         </div>
                     </div>
                 </div>

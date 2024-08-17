@@ -3,7 +3,8 @@ import { AuthProvider } from './AuthContext'; // Убедитесь, что пу
 import {
     BrowserRouter as Router,
     Routes,
-    Route
+    Route,
+    Navigate
 } from "react-router-dom";
 
 import Login from './pages/log_in/login';
@@ -21,6 +22,8 @@ function App() {
                     <Route path="/post" element={<PrivateRoute element={Main} />} />
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
                     <Route path="/calendar-day" element={<PrivateRoute element={Calendar_day} />} />
+                    {/* Добавьте обработку 404, если необходимо */}
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>
         </AuthProvider>

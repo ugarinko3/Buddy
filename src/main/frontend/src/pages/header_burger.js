@@ -50,7 +50,7 @@ function Burger(){
                             <Link to="/post" className="header-link _active-link">News</Link>
                         </li>
                         <li>
-                            <a href="/calendar" className="header-link">Calendar</a>
+                            <Link to="/calendar" className="header-link">Calendar</Link>
                         </li>
                         <li>
                             <a href="/profile" className="header-link">Profile</a>
