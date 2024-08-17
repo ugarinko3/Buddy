@@ -1,0 +1,56 @@
+.profile {
+    margin-top: 80px;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+}
+.profile-img {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 90px; /* Увеличьте значение по необходимости */
+}
+.profile-img img {
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+    background-color: #fff;
+}
+.profile-info {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #28303F;
+}
+
+.profile-cont {
+    min-width: 700px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.profile-info .profile-name {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+.profile-info .profile-name h2 {
+    font-size: 14px;
+    font-family: 'Roboto-light';
+
+}
+
+@media screen and (max-width: 700px){
+    .profile-cont {
+        width: 100%;
+        min-width: auto;
+    }
+}
