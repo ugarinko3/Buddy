@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 @Log4j2
 @Controller
@@ -18,7 +19,7 @@ public class LoginController {
   private LoginService loginService;
 
   @PostMapping
-  public ResponseEntity<String> login(@RequestParam String login, @RequestParam String password) throws IOException {
+  public ResponseEntity<String> login(@RequestParam String login, @RequestParam String password) throws IOException, ExecutionException, InterruptedException {
     return loginService.login(login, password);
   }
 }
