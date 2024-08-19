@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import '../../css/login.scss';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
+import { loginUser, clearError } from '../../store/slice/logSlice';
+import { ClearCookies } from '../../helpFunction/clearCookies'
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+  const errorMessage = useSelector((state) => state.log.errorMessage);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+      ClearCookies();
+      const hasReloaded = sessionStorage.getItem('hasReloaded');
+
+      if (!hasReloaded) {
+        sessionStorage.setItem('hasReloaded', 'true');
+        window.location.reload();
+      }
+  }, []);
 
   const click_login = () => {
     setPasswordVisible(!passwordVisible);
@@ -16,32 +30,26 @@ function Login() {
 
   const handleSubmit = async (event) => {
       event.preventDefault();
+      dispatch(clearError()); // Очистка предыдущего сообщения об ошибке
 
       try {
-          const response = await fetch('/login', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              body: new URLSearchParams({
-                  login: login,
-                  password: password,
-              }),
-          });
-
-          if (!response.ok) {
-              throw new Error('Login and password failed');
-          }
-
-          const data = await response.json();
-          document.cookie = `access_token=${data.access_token}; path=/;`;
-          navigate('/post'); // Перенаправляем на защищенную страницу
+        const action = await dispatch(loginUser({ login, password }));
+        if (loginUser.fulfilled.match(action)) {
+          document.cookie = `access_token=${action.payload.access_token}; path=/;`;
+          navigate('/post');
+        }
       } catch (error) {
-          setErrorMessage(error.message);
-          setLogin('');
-          setPassword('');
+        // Ошибка уже обрабатывается в срезе, поэтому здесь можно ничего не делать
+        setLogin('');
+        setPassword('');
       }
   };
+  const handleInputChange = (setter) => (event) => {
+      setter(event.target.value);
+      if (errorMessage) {
+        dispatch(clearError()); // Сбрасываем сообщение об ошибке при вводе
+      }
+    };
 
   return (
     <div className="entrance">
@@ -66,7 +74,7 @@ function Login() {
                   className="form_input"
                   placeholder='Login'
                   value={login}
-                  onChange={(e) => setLogin(e.target.value)}
+                  onChange={handleInputChange(setLogin)}
                 />
               </div>
               <div className="form_item">
@@ -77,7 +85,7 @@ function Login() {
                   className="form_input"
                   placeholder='Password'
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleInputChange(setPassword)}
                 />
                 {
                   passwordVisible ?

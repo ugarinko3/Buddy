@@ -1,12 +1,11 @@
 import React from 'react';
 import '../css/main.scss';
 import Burger from './header_burger';
-import BorderNews from '../pages/news';
+import BorderNews from '../pages/post/post';
 
 function Main() {
 
     return (
-
         <div>
             <Burger />
             <div className="main">

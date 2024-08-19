@@ -1,6 +1,6 @@
-import '../css/calendar.scss';
+import '../../css/calendar.scss';
 import React from 'react';
-import Burger from './header_burger';
+import Burger from '../header/header_burger';
 import {Link}from 'react-router-dom';
 
 function Calendar () {
@@ -57,7 +57,7 @@ function Calendar () {
             ]
     }
     calendarData['calendar'].forEach(item => {
-        if (item.activity != 'no-active') item.link = "/calendar-day-" + item.day[0];
+        if (item.activity !== 'no-active') item.link = "/calendar-day-" + item.day[0];
     });
     return (
         <div>

@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 
 import Login from './pages/log_in/login';
-import Main from './pages/main';
-import Calendar from './pages/calendar';
-import Calendar_day from './pages/calendar-day';
+import Post from './pages/post/post';
+import Calendar from './pages/calendar/calendar';
+import Profile from './pages/profile/profile';
 import PrivateRoute from './PrivateRoute';
 
 function App() {
@@ -19,9 +19,9 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route path="/post" element={<PrivateRoute element={Main} />} />
+                    <Route path="/post" element={<PrivateRoute element={Post} />} />
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
-                    <Route path="/calendar-day" element={<PrivateRoute element={Calendar_day} />} />
+                    <Route path="/profile" element={<PrivateRoute element={Profile} />} />
                     {/* Добавьте обработку 404, если необходимо */}
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>

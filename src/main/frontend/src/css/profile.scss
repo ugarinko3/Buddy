@@ -1,3 +1,9 @@
+p, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto-light';
+}
+
+
+
 .profile {
     margin-top: 80px;
     display: flex;
@@ -25,6 +31,8 @@
     justify-content: center;
     align-content: center;
     background-color: #28303F;
+    flex-direction: column;
+    border-radius: 7px;
 }
 
 .profile-cont {
@@ -34,23 +42,91 @@
     align-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-}
-.profile-info .profile-name {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    margin-top: 100px;
-}
-.profile-info .profile-name h2 {
-    font-size: 14px;
-    font-family: 'Roboto-light';
 
 }
+.profile-info .profile-name {
+    text-align: center;
+    margin-top: 100px;
+}
+.profile-info .profile-team-name {
+    text-align: center;
+    position: relative;
+    top: 20px;
+}
+.profile-info .profile-name p {
+    font-size: 18px;
+    border-bottom: 1px solid #fff;
+    font-weight: 700;
+    display: inline-block;
+}
+.profile-info .profile-team-name p {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-info .profile-progress {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+}
+.profile-info .profile-progress .profile-progress-day {
+    display:flex;
+    justify-content: space-between;
+    padding: 0 50px;
+}
+.profile-info .profile-progress .progress-bar{
+    padding: 0 40px;
+    height: 10px;
+
+}
+.profile-info .profile-progress .progress-bar .progress {
+    background-color: #d1d3d6;
+    border-radius: 12px;
+    height: 100%;
+    width: 100%;
+}
+
+.profile-info .profile-progress .progress-bar .progress .progress-bar-inner {
+    width: 25%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(to right, #78B2CD, #75F5C5);
+}
+
+.profile-info .profile-active {
+    display: flex;
+    padding: 0 40px;
+    margin-top: 24px;
+    gap: 10px;
+
+    .xp {
+        background: linear-gradient(to right, #41A4FF, #1400FF);
+        text-align: center;
+        border-radius: 5px;
+        padding: 7px 30px;
+    }
+
+    .token {
+        background: linear-gradient(to right, #FF0F00, #FF7528);
+        text-align: center;
+        border-radius: 5px;
+        padding: 7px 30px;
+    }
+}
+
+.profile-goals {
+    .goal {
+    }
+}
+
 
 @media screen and (max-width: 700px){
     .profile-cont {
         width: 100%;
         min-width: auto;
+    }
+    .profile-info .profile-team-name h2 {
+        font-size: 18px;
     }
 }
