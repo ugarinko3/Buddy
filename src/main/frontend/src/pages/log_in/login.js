@@ -71,7 +71,7 @@ function Login() {
                   id="formLogin"
                   type="text"
                   name="login"
-                  className="form_input"
+                  className="f"
                   placeholder='Login'
                   value={login}
                   onChange={handleInputChange(setLogin)}
@@ -82,7 +82,7 @@ function Login() {
                   id="formPassword"
                   type={passwordVisible ? 'text' : 'password'}
                   name="password"
-                  className="form_input"
+                  className="f"
                   placeholder='Password'
                   value={password}
                   onChange={handleInputChange(setPassword)}

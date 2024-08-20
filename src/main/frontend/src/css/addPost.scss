@@ -1,0 +1,245 @@
+$grin-color: #75F5C5;
+$back-color: #2F3849;
+* {
+    box-sizing: border-box; /* Устанавливаем box-sizing для всех элементов */
+}
+
+p {
+    font-family: Roboto;
+}
+
+// #78B2CD
+
+.addPost {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: right;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+
+@keyframes borderGradient {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.addButton {
+    background-color: $back-color;
+    color: transparent; /* Делаем текст прозрачным */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, #c0c0c0 48.9%, $grin-color 49%); /* Градиент фона */
+    background-size: 300% 300%;
+    animation: borderGradient 4s linear both infinite; /* Анимация фона */
+    -webkit-background-clip: text; /* Для поддержки градиента текста */
+    background-clip: text; /* Для поддержки градиента текста */
+
+    path {
+        stroke: #fff;;
+    }
+}
+
+.addButton:hover {
+    animation: borderGradient 4s linear both infinite; /* Анимация фона */
+}
+
+/* Добавьте псевдоэлемент для эффекта градиента */
+.addButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px; /* Закругленные углы */
+    background: linear-gradient(45deg, $back-color 48.9%, $grin-color 49%);
+    background-size: 300% 300%;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.addButton:hover::before {
+    opacity: 1;
+}
+
+.addButton {
+    -webkit-text-fill-color: transparent; /* Для поддержки старых браузеров */
+    text-fill-color: transparent; /* Для поддержки старых браузеров */
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Начальная прозрачность */
+    visibility: hidden; /* Скрыто по умолчанию */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Переходы для плавного появления */
+    z-index: 50;
+}
+
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    background-color: $back-color;
+    padding: 0 0 10px 10px;;
+    border-radius: 10px;
+    width: 500px;
+    position: relative;
+    transform: scale(0.7); /* Начальный масштаб */
+    transition: transform 0.3s ease; /* Переход для масштаба */
+}
+.modal.show {
+    opacity: 1; /* Полная непрозрачность */
+    visibility: visible; /* Видимо */
+}
+
+.modalContent.show {
+    transform: scale(1); /* Полный масштаб */
+}
+
+.close {
+    margin-left: auto;
+    cursor: pointer;
+
+    svg {
+        width: 30px;
+        height: 30px;
+    }
+    path {
+        transform: rotate(45deg);
+        transform-origin: center;
+        stroke: #fff;
+    }
+}
+
+.container-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px 20px 20px;
+    margin-right: 10px;
+//     align-content: center;
+//     flex-wrap: wrap;
+
+}
+
+.border-gradient {
+    position: relative;
+    display: inline-block;
+    padding: 1px; /* Отступ для границы */
+    border-radius: 10px; /* Закругленные углы */
+
+
+}
+
+.border-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(#76D7C9, #75F5C5); /* Градиентная граница */
+    z-index: -1; /* Псевдоэлемент под input */
+    border-radius: 10px; /* Закругленные углы */
+//     border: 2px solid transparent; /* Прозрачная граница */
+}
+.uploaded::before {
+    display: none; /* Скрываем псевдоэлемент при загрузке изображения */
+}
+.upload-an-image {
+    border-radius: 10px;
+    background-color: $back-color;
+    min-height: 80px;
+    max-width: 450px;
+    position: relative;
+    cursor: pointer;
+
+    svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.form_input {
+    position: absolute; // Позиционируем input абсолютно
+    top: 0; // Устанавливаем его в верхний левый угол
+    left: 0; // Устанавливаем его в верхний левый угол
+    width: 100%; // Занимаем всю ширину родителя
+    height: 100%; // Занимаем всю высоту родителя
+    opacity: 0; // Делаем его невидимым
+    cursor: pointer;/* Указываем, что элемент кликабельный */
+}
+.upload {
+    text-align: right;
+    padding: 8px 0 28px 0;
+    font-weight: bold;
+    color: #B4B4B4;
+}
+.commentContainer {
+    border-radius: 10px;
+    background-color: #fff;
+    position: relative; /* Для позиционирования псевдоэлемента */
+    width: 100%; /* Занимаем всю ширину родителя */
+    max-width: 446px;
+    padding: 0;
+}
+
+.form_input-comm {
+    width: 100%;
+    background-color: #e4e4e4;
+    min-height: 80px; /* Установите минимальную высоту */
+    border-radius: 10px;
+    padding: 10px;
+    color: #535353de;
+    display: flex; /* Используйте flexbox для управления внутренними элементами */
+    flex-direction: column; /* Вертикальное выравнивание */
+    font-size: 14px;
+    font-family: Roboto;
+}
+.comment-counter {
+    font-family: Roboto;
+    text-align: right;
+    padding: 0 10px;
+    color: #535353de;
+
+}
+
+.button-from {
+    margin-top: 12px;
+    width: 120px;
+    padding: 8px 0;
+    margin-left: auto;
+    border-radius: 5px;
+    background: linear-gradient(#76D7C9, #75F5C5);
+    color: #fff;
+    font-family: Roboto;
+    border: none; /* Уберите границу, если нужно */
+    cursor: pointer; /* Указатель при наведении */
+    text-align: center; /* Центрирование текста */
+}
+
+
