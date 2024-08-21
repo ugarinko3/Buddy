@@ -1,35 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const userSlice = createSlice({
-    name: 'users',
-    initialState: {
-        users: [],
-        error: null,
-    },
-    reducers: {
-        fetchUsersStart: (state) => {
-            state.error = null;
-        },
-        fetchUsersSuccess: (state, action) => {
-            state.users = action.payload;
-        },
-        fetchUsersFail: (state, action) => {
-            state.error = action.payload;
-        },
-    },
-});
+const API_URL = '/post/role-user-cur'; // Замените на ваш фактический URL
 
-export const { fetchUsersStart, fetchUsersSuccess, fetchUsersFail } = userSlice.actions;
-
-export const fetchUsers = () => async (dispatch) => {
-    dispatch(fetchUsersStart());
+export const fetchUserRole = async (login) => {
     try {
-        const response = await axios.get('/users-status-role');
-        dispatch(fetchUsersSuccess(response.data));
+        const response = await axios.get(API_URL, {
+            params: { login } // Передаем login как параметр запроса
+        });
+        return response.data; // Предполагается, что данные содержат информацию о пользователе
     } catch (error) {
-        dispatch(fetchUsersFail(error.message));
+        throw new Error('Ошибка при получении роли пользователя: ' + error.message);
     }
 };
-
-export default userSlice.reducer;
+export default fetchUserRole.reducer;

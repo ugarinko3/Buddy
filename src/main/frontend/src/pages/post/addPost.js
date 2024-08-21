@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { submitPost } from '../../store/slice/addPostSlice'; // Import the API function
 import '../../css/addPost.scss';
+import { getCookie } from '../cookie/getCookie.js'
+import { formatDate } from './dateFun.js'
+
 
 function AddPost() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -8,13 +12,13 @@ function AddPost() {
     const [fileName, setFileName] = useState('');
     const [isUploaded, setIsUploaded] = useState(false);
     const [message, setMessage] = useState('');
-    const [error, setError] = useState(''); // Состояние для хранения сообщения об ошибке
+    const [error, setError] = useState('');
     const textareaRef = useRef(null);
     const maxLength = 512;
 
     const handleChange = (event) => {
         setMessage(event.target.value);
-        setError(''); // Сбрасываем ошибку при изменении текста
+        setError('');
     };
 
     const adjustHeight = () => {
@@ -39,13 +43,9 @@ function AddPost() {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result);
-                setFileName(file.name);
-                setIsUploaded(true);
-            };
-            reader.readAsDataURL(file);
+            setImage(file); // Store the file object directly
+            setFileName(file.name);
+            setIsUploaded(true);
         }
     };
 
@@ -53,12 +53,11 @@ function AddPost() {
         setIsAnimating(false);
         setTimeout(() => {
             setIsModalOpen(false);
-            // Сбрасываем состояние при закрытии модального окна
             setImage(null);
             setFileName('');
             setIsUploaded(false);
             setMessage('');
-            setError(''); // Сбрасываем ошибку
+            setError('');
         }, 300);
     };
 
@@ -68,23 +67,40 @@ function AddPost() {
         }
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); // Предотвращаем стандартное поведение формы
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         if (!isUploaded) {
-            setError('Please, upload an image'); // Устанавливаем сообщение об ошибке
-            return; // Выходим из функции, если изображение не загружено
+            setError('Please, upload an image');
+            return;
         } else if (!message.trim()) {
-            setError('Please, enter a comment.'); // Устанавливаем сообщение об ошибке
-            return; // Выходим из функции, если сообщение пустое
+            setError('Please, enter a comment.');
+            return;
         }
 
+       const now = new Date(); // Получаем текущую дату и время
+       const formattedDate = formatDate(now);
+        const formData = new FormData();
+        formData.append('teamName', 'Team A');
+        formData.append('likes', 0);
+        formData.append('date', formattedDate); // Дата в формате "dd-MM-yyyy HH:mm"
+        formData.append('teamNumber', 1);
+        formData.append('urlAvatar', 'http://example.com/avatar.jpg');
+        formData.append('photo', image); // Append the image file
+        formData.append('comment', message);
+        formData.append('curator', getCookie('login'));// Append the comment
 
-        // Здесь можно добавить логику для отправки данных
-        console.log('Submitted:', { message, image, fileName });
+        try {
+            // Call the submitPost function from the API service
+            const result = await submitPost(formData);
+            console.log('Success:', result);
 
-        // После успешной отправки можно сбросить состояние
-        handleCloseModal();
+            // Close the modal after successful submission
+            handleCloseModal();
+        } catch (error) {
+            console.error('Error:', error);
+            setError('There was an error submitting the form.');
+        }
     };
 
     return (
@@ -139,7 +155,7 @@ function AddPost() {
                                     )}
                                     {image && (
                                         <>
-                                            <img src={image} alt="Uploaded" style={{ borderRadius: '10px', height: 'auto', maxWidth: '100%' }} />
+                                            <img src={URL.createObjectURL(image)} alt="Uploaded" style={{ borderRadius: '10px', height: 'auto', maxWidth: '100%' }} />
                                             <p className="upload" onClick={() => {
                                                 setImage(null);
                                                 setFileName('');

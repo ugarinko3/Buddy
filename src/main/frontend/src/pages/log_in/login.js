@@ -2,26 +2,26 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/login.scss';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, clearError } from '../../store/slice/logSlice';
-import { ClearCookies } from '../../helpFunction/clearCookies'
+import { ClearCookies } from '../../helpFunction/clearCookies';
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [login, setLogin] = useState('');
+  const [login, setLogin] = useState(''); // Изменено на setLoginState
   const [password, setPassword] = useState('');
   const errorMessage = useSelector((state) => state.log.errorMessage);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-      ClearCookies();
-      const hasReloaded = sessionStorage.getItem('hasReloaded');
+    ClearCookies();
+    const hasReloaded = sessionStorage.getItem('hasReloaded');
 
-      if (!hasReloaded) {
-        sessionStorage.setItem('hasReloaded', 'true');
-        window.location.reload();
-      }
+    if (!hasReloaded) {
+      sessionStorage.setItem('hasReloaded', 'true');
+      window.location.reload();
+    }
   }, []);
 
   const click_login = () => {
@@ -29,27 +29,29 @@ function Login() {
   };
 
   const handleSubmit = async (event) => {
-      event.preventDefault();
-      dispatch(clearError()); // Очистка предыдущего сообщения об ошибке
+    event.preventDefault();
+    dispatch(clearError()); // Очистка предыдущего сообщения об ошибке
 
-      try {
-        const action = await dispatch(loginUser({ login, password }));
-        if (loginUser.fulfilled.match(action)) {
-          document.cookie = `access_token=${action.payload.access_token}; path=/;`;
-          navigate('/post');
-        }
-      } catch (error) {
-        // Ошибка уже обрабатывается в срезе, поэтому здесь можно ничего не делать
-        setLogin('');
-        setPassword('');
+    try {
+      const action = await dispatch(loginUser({ login, password }));
+      if (loginUser.fulfilled.match(action)) {
+        document.cookie = `access_token=${action.payload.access_token}; path=/;`;
+        document.cookie = `login=${login}; path=/;`;
+        navigate('/post'); // Перейдите на другую страницу
       }
+    } catch (error) {
+      // Ошибка уже обрабатывается в срезе, поэтому здесь можно ничего не делать
+      setLogin(''); // Сбрасываем состояние login
+      setPassword(''); // Сбрасываем состояние password
+    }
   };
+
   const handleInputChange = (setter) => (event) => {
-      setter(event.target.value);
-      if (errorMessage) {
-        dispatch(clearError()); // Сбрасываем сообщение об ошибке при вводе
-      }
-    };
+    setter(event.target.value);
+    if (errorMessage) {
+      dispatch(clearError()); // Сбрасываем сообщение об ошибке при вводе
+    }
+  };
 
   return (
     <div className="entrance">

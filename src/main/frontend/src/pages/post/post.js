@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../store/slice/postSlice';
-import { fetchUsers } from '../../store/slice/userSlice';
+import { fetchUserRole } from '../../store/slice/userSlice';
 import '../../css/post.scss';
 import Burger from '../header/header_burger';
 import Loading from '../loading/loading';
 import AddPost from './addPost';
+import { getCookie } from '../cookie/getCookie.js'
+
 
 function BorderNews() {
     const dispatch = useDispatch();
     const { posts, error, loading } = useSelector((state) => state.post); // состояние из Redux
-    const { users } = useSelector((state) => state.user);
     const [expandedPostIndex, setExpandedPostIndex] = useState(null);
+    const [isCurator, setIsCurator] = useState(false);
+
+
+
+    const login = getCookie('login');
 
     useEffect(() => {
         if (posts.length === 0) {
@@ -19,11 +25,24 @@ function BorderNews() {
         }
     }, [dispatch, posts.length]);
 
+
     useEffect(() => {
-        if (users.length === 0) {
-            dispatch(fetchUsers());
-        }
-    }, [dispatch, users.length]);
+        const checkUserRole = async () => {
+            try {
+                const data = await fetchUserRole(login);
+                if (data !== 'curator') {
+                    document.cookie = `${'login'}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+                } else {
+                    setIsCurator(true);
+                }
+            } catch (error) {
+                console.error(error.message);
+            }
+        };
+
+        checkUserRole();
+    }, [login]);
+
 
     const showFullText = (index) => {
         setExpandedPostIndex(expandedPostIndex === index ? null : index);
@@ -37,7 +56,9 @@ function BorderNews() {
         <div className='conteiner-main-news'>
             <Burger />
                 <div className='curator-news'>
-                    <AddPost />
+                    {isCurator && (
+                        <AddPost />
+                    )}
                     {posts.map((post, index) => (
                         <div key={post.id} className='post'>
                             <div className='NameBuddy'>
@@ -77,5 +98,4 @@ function BorderNews() {
         </div>
     );
 }
-
 export default BorderNews;
