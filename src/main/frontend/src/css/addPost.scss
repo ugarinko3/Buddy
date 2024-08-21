@@ -193,6 +193,9 @@ p {
     opacity: 0; // Делаем его невидимым
     cursor: pointer;/* Указываем, что элемент кликабельный */
 }
+.upload-an-image .upload {
+    padding: 8px 0 1px 0;
+}
 .upload {
     text-align: right;
     padding: 8px 0 28px 0;
@@ -231,6 +234,7 @@ p {
 .button-from {
     margin-top: 12px;
     width: 120px;
+    font-weight: bold;
     padding: 8px 0;
     margin-left: auto;
     border-radius: 5px;
@@ -240,6 +244,27 @@ p {
     border: none; /* Уберите границу, если нужно */
     cursor: pointer; /* Указатель при наведении */
     text-align: center; /* Центрирование текста */
+}
+
+.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.error-message {
+    color: #721c24;
+    padding: 10px;
+    font-size: 12px;
+    margin-top: 0;
+}
+.error-icon {
+    margin-right: 10px;
+    font-size: 24px;
 }
 
 

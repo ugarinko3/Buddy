@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../store/slice/postSlice';
+import { fetchUsers } from '../../store/slice/userSlice';
 import '../../css/post.scss';
 import Burger from '../header/header_burger';
 import Loading from '../loading/loading';
@@ -9,6 +10,7 @@ import AddPost from './addPost';
 function BorderNews() {
     const dispatch = useDispatch();
     const { posts, error, loading } = useSelector((state) => state.post); // состояние из Redux
+    const { users } = useSelector((state) => state.user);
     const [expandedPostIndex, setExpandedPostIndex] = useState(null);
 
     useEffect(() => {
@@ -16,6 +18,12 @@ function BorderNews() {
             dispatch(fetchPosts());
         }
     }, [dispatch, posts.length]);
+
+    useEffect(() => {
+        if (users.length === 0) {
+            dispatch(fetchUsers());
+        }
+    }, [dispatch, users.length]);
 
     const showFullText = (index) => {
         setExpandedPostIndex(expandedPostIndex === index ? null : index);
