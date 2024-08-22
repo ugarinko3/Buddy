@@ -8,6 +8,8 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static java.util.logging.Level.parse;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,10 +25,18 @@ public class Post {
     private String urlPostImage;
 
 
-    public LocalDateTime getDate() {
+//    public String getDate() {
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//        return String.valueOf(parse(date, formatter));
+//    }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return LocalDateTime.parse(date, formatter);
+    public void setImageUrl(String imageUrl) {
+        this.urlPostImage = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return urlPostImage;
     }
 //    public void setDate(LocalDateTime date) {
 //

@@ -29,7 +29,7 @@ function BorderNews() {
     useEffect(() => {
         const checkUserRole = async () => {
             try {
-                const data = await fetchUserRole(login);
+                const data = 'curator';//await fetchUserRole(login);
                 if (data !== 'curator') {
                     document.cookie = `${'login'}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
                 } else {

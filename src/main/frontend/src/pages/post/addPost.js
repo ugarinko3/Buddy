@@ -80,27 +80,45 @@ function AddPost() {
 
        const now = new Date(); // Получаем текущую дату и время
        const formattedDate = formatDate(now);
-        const formData = new FormData();
-        formData.append('teamName', 'Team A');
-        formData.append('likes', 0);
-        formData.append('date', formattedDate); // Дата в формате "dd-MM-yyyy HH:mm"
-        formData.append('teamNumber', 1);
-        formData.append('urlAvatar', 'http://example.com/avatar.jpg');
-        formData.append('photo', image); // Append the image file
-        formData.append('comment', message);
-        formData.append('curator', getCookie('login'));// Append the comment
 
-        try {
-            // Call the submitPost function from the API service
-            const result = await submitPost(formData);
-            console.log('Success:', result);
+       // Создаем объект с данными
+       const postData = new FormData();
+       postData.append('teamName', 'Team A');
+       postData.append('likes', 0);
+       postData.append('date', formattedDate); // Дата в формате "dd-MM-yyyy HH:mm"
+       postData.append('teamNumber', 1);
+       postData.append('urlAvatar', 'http://example.com/avatar.jpg');
+       postData.append('photo', await getBase64(image)); // Преобразуем изображение в base64
+       postData.append('comment', message);
+       postData.append('curator', getCookie('login')); // Получаем куки
 
-            // Close the modal after successful submission
-            handleCloseModal();
-        } catch (error) {
-            console.error('Error:', error);
-            setError('There was an error submitting the form.');
-        }
+       try {
+           // Отправляем POST-запрос с данными в формате FormData
+           const response = await fetch('post/add-post-in-curator', {
+               method: 'POST',
+               body: postData,
+           });
+
+           const result = await response.json();
+           console.log('Success:', result);
+
+           // Закрываем модальное окно после успешной отправки
+           handleCloseModal();
+       } catch (error) {
+           console.error('Error:', error);
+           setError('There was an error submitting the form.');
+       }
+
+
+       // Функция для преобразования изображения в base64
+       function getBase64(file) {
+           return new Promise((resolve, reject) => {
+               const reader = new FileReader();
+               reader.readAsDataURL(file);
+               reader.onload = () => resolve(reader.result);
+               reader.onerror = error => reject(error);
+           });
+       }
     };
 
     return (
