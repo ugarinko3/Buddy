@@ -16,5 +16,4 @@ public class TokenResponse {
   @JsonProperty("access_token")
   private String accessToken;
 
-  // Конструктор будет сгенерирован Lombok
 }

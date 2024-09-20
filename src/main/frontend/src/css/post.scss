@@ -17,19 +17,101 @@
     margin:20px 10px;
     display: grid;
     max-width: 700px;
+    width: 100%;
     grid-template-columns: 1fr; /* Один столбец */
 //     gap: 20px;
-}
-.conteiner-main-news .curator-news .post {
-    margin-bottom: 20px; /* Отступ между постами */
 }
 
 .conteiner-main-news .curator-news .post{
     background-color: #2F3849;
     border-radius: 7px;
+    margin-bottom: 20px;
+    width: 100%;
+
+}
+.curator-news .button-curator {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; /* Размещает элементы по краям */
+    align-items: center;
+
+}
+.my-post {
+    //width: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: right;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
 }
 
 
+@keyframes borderGradient {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+$back-color: #2F3849;
+$grin-color: #75F5C5;
+p {
+    font-family: Roboto;
+}
+.my-post {
+    background-color: $back-color;
+    color: transparent; /* Делаем текст прозрачным */
+    border: none;
+    padding: 11px 20px;
+    text-align: center;
+    display: flex;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, #c0c0c0 48.9%, $grin-color 49%); /* Градиент фона */
+    background-size: 300% 300%;
+    animation: borderGradient 4s linear both infinite; /* Анимация фона */
+    -webkit-background-clip: text; /* Для поддержки градиента текста */
+    background-clip: text; /* Для поддержки градиента текста */
+
+    path {
+        stroke: #fff;;
+    }
+}
+
+.my-post:hover {
+    animation: borderGradient 4s linear both infinite; /* Анимация фона */
+}
+
+/* Добавьте псевдоэлемент для эффекта градиента */
+.my-post::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px; /* Закругленные углы */
+    background: linear-gradient(45deg, $back-color 48.9%, $grin-color 49%);
+    background-size: 300% 300%;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.my-post:hover::before {
+    opacity: 1;
+}
+
+.my-post {
+    -webkit-text-fill-color: transparent; /* Для поддержки старых браузеров */
+    text-fill-color: transparent; /* Для поддержки старых браузеров */
+}
 
 .conteiner-main-news .curator-news .NameBuddy {
     display: flex;
@@ -62,6 +144,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    overflow: hidden;
     z-index: 1;
 }
 
@@ -85,21 +168,41 @@
     padding: 2px 0 0;
 }
 .conteiner-main-news .curator-news .image-news {
-    max-width: 100%;
+    width: 100%;
     height: 600px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 
 .conteiner-main-news .curator-news .image-news img{
     width: 100%;
     height: 100%;
-
     object-fit: cover;
+}
+.conteiner-main-news .curator-news .loader {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Цвет фона */
+    border-top: 4px solid #3498db; /* Цвет верхней части */
+    border-radius: 50%; /* Круглая форма */
+    width: 40px; /* Ширина */
+    height: 40px; /* Высота */
+    animation: spin 1s linear infinite; /* Анимация вращения */
+    margin: auto; /* Центрирование */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 .conteiner-main-news .curator-news .like {
     padding: 10px 18px;
     text-align: left;
     display: flex;
     align-items: center;
+
+    //svg path {
+    //    fill: #fff;
+    //}
 }
 .conteiner-main-news .curator-news .like p{
     font-size: 16px;
@@ -137,6 +240,116 @@
     // display: inline;
 
 }
+
+.date-container {
+    display: flex;
+    align-items: center;
+     /* Aligns items vertically */
+}
+
+.delete-icon {
+    margin-left: 8px; /* Adds some space between the date and the icon */
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    margin-right: 10px;
+    color: #cccccc; /* Более светлый цвет по умолчанию */
+    transition: color 0.3s ease; /* Плавный переход цвета */
+}
+
+.delete-icon:hover {
+    color: #FF4C4C; /* Красный цвет при наведении */
+}
+
+.no-active-post {
+    max-width: 700px;
+    height: 80px;
+    border-radius: 12px;
+    text-align: center; /* Горизонтальное центрирование текста */
+    background-color: $back-color;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.active {
+    margin: 0 0 0 0;
+}
+
+//.moreButton {
+//    height: 50px;
+//    background-color: $back-color;
+//    border-radius: 12px;
+//    padding: 7px;
+//    display: flex;
+//    justify-content: center;
+//    cursor: pointer;
+//
+//    .container {
+//        width: 100%;
+//        transform: translate(0%, 0%);
+//        display: flex;
+//        justify-content: center;
+//        align-items: center;
+//    }
+//
+//    .center {
+//        height: 100%;
+//        width: 100%;
+//        position: absolute;
+//    }
+//
+//    .btn {
+//        height: 100%;
+//        width: 100%;
+//        cursor: pointer;
+//        background: transparent;
+//        border: 1px solid #91C9FF;
+//        border-radius: 10px;
+//        outline: none;
+//        transition: 1s ease-in-out;
+//    }
+//
+//    svg {
+//        width: 100%;
+//        height: 100%;
+//        position: absolute;
+//        left: 0;
+//        top: 0;
+//        fill: none;
+//        stroke: #fff;
+//        stroke-dasharray: 150 480;
+//        stroke-dashoffset: 150;
+//        transition: 1s ease-in-out;
+//
+//    }
+//    svg polyline {
+//        width: 100%;
+//        height: 100%;
+//    }
+//
+//    .btn:hover {
+//        transition: 1s ease-in-out;
+//        background: #40465a;
+//    }
+//
+//    .btn:hover svg {
+//        stroke-dashoffset: -480;
+//    }
+//
+//    .btn span {
+//        color: white;
+//        font-size: 18px;
+//        font-weight: 100;
+//    }
+//}
+
+
+@media screen and (max-width: 720px){
+    .conteiner-main-news .curator-news {
+        width: 90%;
+        height: 400px;
+    }
+}
+
 @media screen and (max-width: 600px){
     .conteiner-main-news .curator-news .image-news {
         max-width: 100%;

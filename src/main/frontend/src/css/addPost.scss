@@ -11,7 +11,7 @@ p {
 // #78B2CD
 
 .addPost {
-    width: 100%;
+    //width: 100%;
     display: flex;
     align-self: center;
     justify-content: right;
@@ -93,23 +93,18 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0; /* Начальная прозрачность */
-    visibility: hidden; /* Скрыто по умолчанию */
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Переходы для плавного появления */
-    z-index: 50;
+    z-index: 1000;
 }
 
-
 .modalContent {
-    display: flex;
-    flex-direction: column;
-    background-color: $back-color;
-    padding: 0 0 10px 10px;;
-    border-radius: 10px;
-    width: 500px;
-    position: relative;
-    transform: scale(0.7); /* Начальный масштаб */
-    transition: transform 0.3s ease; /* Переход для масштаба */
+    background-color: #2c3443;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px; /* Максимальная ширина модального окна */
+    max-height: 80vh; /* Максимальная высота модального окна */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 .modal.show {
     opacity: 1; /* Полная непрозрачность */
@@ -183,7 +178,38 @@ p {
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    img {
+        max-width: 100%; /* Ограничиваем ширину изображения */
+        height: auto; /* Автоматическая высота для сохранения пропорций */
+        border-radius: 10px;
+    }
 }
+
+.custom-select {
+    margin: 20px 0;
+    padding: 10px; /* Отступы внутри селекта */
+    border: 1px solid #ccc; /* Цвет рамки */
+    border-radius: 12px; /* Закругление углов */
+    background-color: #f9f9f9; /* Цвет фона */
+    font-size: 16px; /* Размер шрифта */
+    color: rgba(83, 83, 83, 0.8705882353);
+    appearance: none; /* Убираем стандартный стиль */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,5" fill="%23333"/></svg>'); /* Стрелка вниз */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Позиция стрелки */
+    background-size: 10px; /* Размер стрелки */
+    cursor: pointer; /* Курсор при наведении */
+}
+
+.custom-select:focus {
+    border-color: #007bff; /* Цвет рамки при фокусе */
+    outline: none; /* Убираем стандартный контур */
+}
+
+.custom-select option {
+    padding: 10px; /* Отступы для опций */
+}
+
 .form_input {
     position: absolute; // Позиционируем input абсолютно
     top: 0; // Устанавливаем его в верхний левый угол
@@ -244,7 +270,32 @@ p {
     border: none; /* Уберите границу, если нужно */
     cursor: pointer; /* Указатель при наведении */
     text-align: center; /* Центрирование текста */
+    transition: background-color 0.3s; /* Плавный переход цвета */
+
+    &:hover {
+        background: linear-gradient(#75F5C5, #76D7C9); /* Цвет при наведении */
+    }
+
+    &:disabled {
+        background: #ccc; /* Цвет для отключенной кнопки */
+        cursor: not-allowed; /* Курсор для отключенной кнопки */
+    }
 }
+
+.loading-spinner {
+    border: 2px solid transparent;
+    border-top: 2px solid white; // Цвет индикатора
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite; // Анимация вращения
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 .error {
     background-color: #f8d7da;

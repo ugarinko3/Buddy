@@ -1,31 +1,25 @@
 package com.camp.Buddy.service;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
-import com.google.firebase.cloud.FirestoreClient;
+import com.camp.Buddy.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.camp.Buddy.model.User;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class AppUserBase {
+  private FirebaseStorageService firebaseStorageService;
+  private UserService userService;
+  private final UserRepository userRepository;
 
-  private static final String COLLECTION_NAME = "users";
-
-  public static void addUser(String login) throws InterruptedException, ExecutionException {
-    Firestore db = FirestoreClient.getFirestore();
-    String username = login.split("@")[0];
-    DocumentReference docRef = db.collection(COLLECTION_NAME).document(username);
-
-    DocumentSnapshot document = docRef.get().get();
-
-    if (!document.exists()) {
-      Map<String, Object> user = new HashMap<>();
-      user.put("login", login);
-      user.put("role", "user");
-      ApiFuture<WriteResult> resultApiFuture = docRef.set(user);
-    }
+  public void addUser(String login) {
+    String username = login.split("@")[0]; // Извлекаем имя пользователя из логина
+    User user = new User();
+    user.setLogin(username);
+    user.setRole("user");
+    user.setUrlAvatar(firebaseStorageService.getPhotoUrl(username));
+    userService.createUser(user);
   }
 }

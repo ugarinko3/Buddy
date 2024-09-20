@@ -115,11 +115,12 @@ header:before{
 }
 
 .log-out-class:hover {
-    animation: snake-border 2s forwards; /* Применение анимации при наведении */
+    //animation: snake-border 2s forwards; /* Применение анимации при наведении */
+    background-color: #FF4C4C;
 }
 
 .log-out-class svg {
-    margin-left: 3px;
+    //margin-left: 3px;
 }
 
 
@@ -340,12 +341,13 @@ header:before{
         flex-direction: column;
         justify-items: left;
         flex-wrap: wrap;
-        align-content: flex-start;
-        align-items: flex-start;
+        //align-content: flex-start;
+        align-items: center;
     }
     .header-list li {
-        margin-left: 50px;
-        margin-top: 20px;
+        //margin-left: 50px;
+        //margin-top: 20px;
+        margin: 0 0 20px 0;
     }
     
 }

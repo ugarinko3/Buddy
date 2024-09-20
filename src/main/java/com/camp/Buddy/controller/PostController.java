@@ -1,63 +1,57 @@
 package com.camp.Buddy.controller;
 
 import com.camp.Buddy.model.Post;
+import com.camp.Buddy.model.PostResponse;
 import com.camp.Buddy.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import java.util.UUID;
 
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/post")
 public class PostController {
-    @Autowired
-    private PostService postService;
 
-    @PostMapping("/add-post-in-curator")
-    public ResponseEntity<Map<String, String>> addPost(
-            @RequestParam("teamName") String teamName,
-            @RequestParam("likes") int likes,
-            @RequestParam("date") String date,
-            @RequestParam("teamNumber") int teamNumber,
-            @RequestParam("urlAvatar") String urlAvatar,
-            @RequestParam("photo") String photo, // This will be the base64 string
-            @RequestParam("comment") String comment,
-            @RequestParam("curator") String curator) {
+    private final PostService postService;
 
-        Map<String, String> response = new HashMap<>();
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<UUID> addPost(
+            @RequestPart("post") Post post,  // Получаем JSON-строку
+            @RequestParam("photo") MultipartFile photo  // файл
+    ) throws IOException {
+//        Post post = objectMapper.readValue(postJson, Post.class); // Десериализация JSON в объект Post
+        return ResponseEntity.ok(postService.createPost(post, photo));
+    }
 
-        try {
-            // Создаем объект Post
-            Post post = new Post();
-            post.setTeamName(teamName);
-            post.setLikes(likes);
-            post.setDate(date);
-            post.setUrlPostImage(photo); // Assuming this is the image URL or base64
-            post.setTeamNumber(teamNumber);
-            post.setUrlAvatar(urlAvatar);
-            post.setComment(comment);
-            post.setCurator(curator);
-
-            // Save the post using the PostService
-            String result = postService.savePost(post);
-            response.put("message", "Post added successfully");
-            response.put("updateTime", result);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            response.put("message", "Error adding post: " + e.getMessage());
-            return ResponseEntity.status(500).body(response);
-        }
+    @GetMapping("/get")
+    public ResponseEntity<List<PostResponse>> getPosts(@RequestParam String login) {
+        List<PostResponse> postResponses = postService.getPostDetails(login);
+        return ResponseEntity.ok(postResponses);
     }
 
 
-    @GetMapping
-    public List<Post> getPost() throws ExecutionException, InterruptedException {
-        return postService.getPostDetails();
+    @PostMapping("/like/{postId}")
+    public void likePost(@PathVariable UUID postId, @RequestParam String login) {
+        postService.likePost(postId, login);
     }
+    @PostMapping("/unlike/{postId}")
+    public void unlikePost(@PathVariable UUID postId, @RequestParam String login) {
+        postService.unlikePost(postId, login);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePost(@PathVariable UUID id) {
+        postService.deletePost(id);
+    }
+
 }

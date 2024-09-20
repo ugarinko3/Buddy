@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/main.scss';
 import Burger from './header_burger';
-import BorderNews from '../pages/post/post';
+import BorderNews from './post/BorderNews';
 
 function Main() {
 

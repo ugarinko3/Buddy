@@ -1,6 +1,7 @@
 package com.camp.Buddy.controller;
 
 import com.camp.Buddy.service.LoginService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,10 @@ import java.util.concurrent.ExecutionException;
 
 @Log4j2
 @Controller
+@AllArgsConstructor
 @RequestMapping("/login")
 public class LoginController {
 
-  @Autowired
   private LoginService loginService;
 
   @PostMapping

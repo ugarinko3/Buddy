@@ -1,43 +1,59 @@
 package com.camp.Buddy.model;
 
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static java.util.logging.Level.parse;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "post")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @Column(name = "team_name")
     private String teamName;
+
+    @Column(name = "curator")
     private String curator;
-    private int likes;
+
+    @Column(name = "likes")
+    private Integer likes;
+
+    @Column(name = "comment")
     private String comment;
-    private String date;
-    private int teamNumber;
+
+    @Column(name = "date")
+    private LocalDateTime date;
+
+    @Column(name = "team_number")
+    private Integer teamNumber;
+
+    @Column(name = "url_avatar")
     private String urlAvatar;
+
+    @Column(name = "url_post_image")
     private String urlPostImage;
 
 
-//    public String getDate() {
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-//        return String.valueOf(parse(date, formatter));
+//    public LocalDateTime parseDate() {
+//        try {
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//            return LocalDateTime.parse(this.date, formatter);
+//        } catch (DateTimeParseException e) {
+//            e.printStackTrace();
+//            return null;  // Возвращаем null в случае ошибки парсинга
+//        }
 //    }
-
-    public void setImageUrl(String imageUrl) {
-        this.urlPostImage = imageUrl;
-    }
-
-    public String getImageUrl() {
-        return urlPostImage;
-    }
 //    public void setDate(LocalDateTime date) {
 //
 //    }

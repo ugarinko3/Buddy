@@ -1,66 +1,65 @@
 package com.camp.Buddy.service;
 
 import com.camp.Buddy.model.Post;
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
-import com.google.firebase.cloud.FirestoreClient;
+import com.camp.Buddy.model.PostResponse;
+import com.camp.Buddy.repository.PostRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.*;
 
+@AllArgsConstructor
 @Service
 public class PostService {
-    private static final String COLLECTION_TEAM_NAME = "posts";
+    private final UserService userService;
+    private PostRepository postRepository;
+    private FirebaseStorageService firebaseStorageService;
 
-  public String savePost(Post post) throws InterruptedException, ExecutionException {
-    Firestore db = FirestoreClient.getFirestore();
-    DocumentReference docRef = db.collection(COLLECTION_TEAM_NAME).document(); // Generates a new document ID
-
-    // Create a map from the Post object
-    Map<String, Object> postMap = new HashMap<>();
-    postMap.put("teamName", post.getTeamName());
-    postMap.put("likes", post.getLikes());
-    postMap.put("date", post.getDate());
-    postMap.put("urlPostImage", post.getUrlPostImage());
-    postMap.put("teamNumber", post.getTeamNumber());
-    postMap.put("urlAvatar", post.getUrlAvatar());
-    postMap.put("comment", post.getComment());
-    postMap.put("curator", post.getCurator());
-
-    try {
-      // Save the post to Firestore
-      ApiFuture<WriteResult> resultApiFuture = docRef.set(postMap);
-      return resultApiFuture.get().getUpdateTime().toString();
-    } catch (Exception e) {
-      System.err.println("Error saving post: " + e.getMessage());
-      throw e; // Rethrow the exception to handle it in the controller
+    public UUID createPost(Post post, MultipartFile photo) throws IOException {
+        String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/"+post.getId());
+        post.setUrlPostImage(imageUrlPost);
+        post.setUrlAvatar(userService.getAvatarUrlByLogin(post.getCurator()));
+        post.setDate(LocalDateTime.now());
+        return postRepository.save(post).getId();
     }
-  }
 
-    public List<Post> getPostDetails() throws ExecutionException, InterruptedException {
-        Firestore db = FirestoreClient.getFirestore();
-        List<Post> postList = new ArrayList<>();
-        CollectionReference documentReference = db.collection(COLLECTION_TEAM_NAME);
-        documentReference.listDocuments().forEach(
-                document -> {
-                    ApiFuture<DocumentSnapshot> future = document.get();
-                    DocumentSnapshot documentSnapshot = null;
-                    try {
-                        documentSnapshot = future.get();
-                    } catch (InterruptedException | ExecutionException e) {
-                        throw new RuntimeException(e);
-                    }
+    public List<PostResponse> getPostDetails(String login) {
+        List<Post> posts = postRepository.findAllByOrderByDateDesc();
+        List<PostResponse> postResponses = new ArrayList<>();
 
-                    if (documentSnapshot.exists()) {
-                        postList.add(documentSnapshot.toObject(Post.class));
-                    }
-                }
-        );
-        return postList;
+        for (Post post : posts) {
+            PostResponse postResponse = new PostResponse();
+            postResponse.setPost(post);
+            postResponse.setLiked(userService.checkLikePost(post.getId(), login));
+            postResponse.setRole(userService.getUserRole(login));
+            postResponses.add(postResponse);
+        }
+
+        return postResponses;
+    }
+
+    public void deletePost(UUID id){
+        postRepository.deleteById(id);
+    }
+    public void likePost(UUID postId, String login) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NoSuchElementException("Post not found"));
+        post.setLikes(post.getLikes() + 1);
+        userService.getLike(postId, login);
+        postRepository.save(post);
+    }
+
+    public void unlikePost(UUID postId, String login) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NoSuchElementException("Post not found"));
+        if (post.getLikes() > 0) {
+            post.setLikes(post.getLikes() - 1);
+            userService.getLike(postId, login);
+        }
+        postRepository.save(post);
     }
 
 };

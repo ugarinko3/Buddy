@@ -1,0 +1,69 @@
+$back-color: #2F3849;
+$grin-color: #75F5C5;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 50;
+}
+
+.modal-content {
+  background: $back-color;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transform: scale(0.7);
+  transition: transform 0.3s ease;
+
+  .modal-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .text {
+     padding: 20px 0;
+    font-size: 16px;
+   }
+
+}
+
+.modal-overlay.show {
+  opacity: 1;
+}
+
+.modal-content.show {
+  transform: scale(1);
+
+  .da {
+    padding: 5px 20px;
+    background-color: #424955;
+    border: none;
+    border-radius: 7px;
+  }
+  .da p {
+    font-weight: bold;
+    font-size: 22px;
+    color: $grin-color;
+  }
+  .net {
+    padding: 5px 20px;
+    background-color: #424955;
+    border: none;
+    border-radius: 7px;
+  }
+  .net p {
+    font-weight: bold;
+    font-size: 22px;
+    color: #FF4C4C;
+  }
+}

@@ -1,6 +1,7 @@
+// api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/post/add-post-in-curator'; // Replace with your actual backend URL
+const API_URL = 'http://localhost:8080/post'; // Replace with your actual backend URL
 
 export const submitPost = async (formData) => {
     try {

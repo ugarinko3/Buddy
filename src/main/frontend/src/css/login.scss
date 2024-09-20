@@ -176,7 +176,6 @@ input::placeholder{
   border: 0;
   transition: background-color 0.5s ease;
   transition: color 0.5s ease;
-  // transition: stroke 0.5s ease;
 }
 .submit a{
   color: rgb(125, 125, 125);
@@ -184,19 +183,49 @@ input::placeholder{
   text-decoration: none;
 }
 
-.submit button:hover{
+.submit button {
+  transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.submit button:hover {
   background-color: #a08ae8;
   color: #ffffff;
-  transition: color 0.5s ease;
-  transition: background-color 0.5s ease;
 
-  svg path{
-    stroke: #ffffff;
-    transition: stroke 0.001s ease;
-  }
   p {
-    color: #ffffff;
+    color: #fff;
   }
+}
+
+.submit button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+
+  .loading-spinner {
+    border: 4px solid rgb(186, 174, 251);
+    border-top: 4px solid #a08ae8;
+  }
+}
+
+.loading-spinner {
+  border: 4px solid rgb(160, 138, 232);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 

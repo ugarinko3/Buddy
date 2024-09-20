@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { submitPost } from '../../store/slice/addPostSlice'; // Import the API function
 import '../../css/addPost.scss';
-import { getCookie } from '../cookie/getCookie.js'
-import { formatDate } from './dateFun.js'
-
+import { getCookie } from '../cookie/getCookie.js';
+import { submitPost } from "../../store/slice/addPostSlice";
+import { fetchTeamList } from "../../store/slice/teamList";
 
 function AddPost() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,12 +12,37 @@ function AddPost() {
     const [isUploaded, setIsUploaded] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [teamName, setTeamName] = useState(''); // Инициализируем состояние для выбранной команды
+    const [teams, setTeams] = useState([]);
     const textareaRef = useRef(null);
     const maxLength = 512;
+    const [isLoading, setIsLoading] = useState(false);
+
+    // function getBase64(file) {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result);
+    //         reader.onerror = error => reject(error);
+    //     });
+    // }
+
+    const loadTeams = async () => {
+        try {
+            const teamList = await fetchTeamList(getCookie('login').split('@')[0]); // Получаем логин
+            teamList.forEach(team => {
+                console.log('Team:', team, 'Type:', typeof team); // Логируем каждую команду и её тип
+            });
+            setTeams(teamList); // Устанавливаем полученные команды в состояние
+        } catch (error) {
+            console.error('Ошибка при загрузке команд:', error);
+        }
+    };
 
     const handleChange = (event) => {
         setMessage(event.target.value);
-        setError('');
+        setError(''); // Сбрасываем ошибку при изменении текста
+        setIsLoading(false);
     };
 
     const adjustHeight = () => {
@@ -40,12 +64,30 @@ function AddPost() {
         }, 50);
     };
 
+    const handleTeamChange = (event) => {
+        setTeamName(event.target.value); // Обновляем состояние выбранной команды
+        setError(''); // Сбрасываем ошибку при выборе команды
+        setIsLoading(false);
+    };
+
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setImage(file); // Store the file object directly
+            const maxSizeInMB = 5; // Максимальный размер в МБ
+            const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Переводим в байты
+
+            if (file.size > maxSizeInBytes) {
+                setError(`Файл слишком большой. Максимальный размер: ${maxSizeInMB} МБ.`);
+                setImage(null);
+                setFileName('');
+                setIsUploaded(false);
+                return;
+            }
+
+            setImage(file);
             setFileName(file.name);
             setIsUploaded(true);
+            setError(''); // Сбрасываем ошибку, если файл корректный
         }
     };
 
@@ -58,6 +100,7 @@ function AddPost() {
             setIsUploaded(false);
             setMessage('');
             setError('');
+            setIsLoading(false);
         }, 300);
     };
 
@@ -69,57 +112,50 @@ function AddPost() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         if (!isUploaded) {
             setError('Please, upload an image');
+            setIsLoading(false);
             return;
         } else if (!message.trim()) {
             setError('Please, enter a comment.');
+            setIsLoading(false);
+            return;
+        } else if (!teamName) {
+            setError('Please select a team.');
+            setIsLoading(false);
             return;
         }
 
-       const now = new Date(); // Получаем текущую дату и время
-       const formattedDate = formatDate(now);
 
-       // Создаем объект с данными
-       const postData = new FormData();
-       postData.append('teamName', 'Team A');
-       postData.append('likes', 0);
-       postData.append('date', formattedDate); // Дата в формате "dd-MM-yyyy HH:mm"
-       postData.append('teamNumber', 1);
-       postData.append('urlAvatar', 'http://example.com/avatar.jpg');
-       postData.append('photo', await getBase64(image)); // Преобразуем изображение в base64
-       postData.append('comment', message);
-       postData.append('curator', getCookie('login')); // Получаем куки
+        const LocationDate = new Date();
+        const post = {
+            "teamName": teamName,
+            "likes": 0,
+            "date": LocationDate.toISOString().replace('Z', ''),
+            "teamNumber": 1,
+            "comment": message,
+            "curator": getCookie('login').split('@')[0],
+        };
+        const postData = new FormData();
 
-       try {
-           // Отправляем POST-запрос с данными в формате FormData
-           const response = await fetch('post/add-post-in-curator', {
-               method: 'POST',
-               body: postData,
-           });
-
-           const result = await response.json();
-           console.log('Success:', result);
-
-           // Закрываем модальное окно после успешной отправки
-           handleCloseModal();
-       } catch (error) {
-           console.error('Error:', error);
-           setError('There was an error submitting the form.');
-       }
-
-
-       // Функция для преобразования изображения в base64
-       function getBase64(file) {
-           return new Promise((resolve, reject) => {
-               const reader = new FileReader();
-               reader.readAsDataURL(file);
-               reader.onload = () => resolve(reader.result);
-               reader.onerror = error => reject(error);
-           });
-       }
+        postData.append('photo', image);
+        postData.append('post', JSON.stringify(post))
+        try {
+            const result = await submitPost(postData);
+            console.log('Success:', result);
+            handleCloseModal();
+        } catch (error) {
+            console.error('Error:', error.response ? error.response.data : error.message);
+            setError('There was an error submitting the form. ' + (error.response ? error.response.data.message : ''));
+        }
     };
+
+    useEffect(() => {
+        if (isModalOpen) {
+            loadTeams(); // Загружаем команды при открытии модального окна
+        }
+    }, [isModalOpen]);
 
     return (
         <div className="addPost">
@@ -147,15 +183,20 @@ function AddPost() {
                                 <div className="upload-an-image">
                                     {!isUploaded && (
                                         <>
-                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="16.5" y1="0.5" x2="16.5" y2="31.5" stroke="url(#paint0_linear_0_1)" strokeLinecap="round"/>
-                                                <line x1="31.5" y1="16.5" x2="0.5" y2="16.5" stroke="url(#paint1_linear_0_1)" strokeLinecap="round"/>
+                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <line x1="16.5" y1="0.5" x2="16.5" y2="31.5"
+                                                      stroke="url(#paint0_linear_0_1)" strokeLinecap="round"/>
+                                                <line x1="31.5" y1="16.5" x2="0.5" y2="16.5"
+                                                      stroke="url(#paint1_linear_0_1)" strokeLinecap="round"/>
                                                 <defs>
-                                                    <linearGradient id="paint0_linear_0_1" x1="16" y1="16" x2="15" y2="16" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="paint0_linear_0_1" x1="16" y1="16" x2="15"
+                                                                    y2="16" gradientUnits="userSpaceOnUse">
                                                         <stop stopColor="#76D7C9"/>
                                                         <stop offset="1" stopColor="#75F5C5"/>
                                                     </linearGradient>
-                                                    <linearGradient id="paint1_linear_0_1" x1="16" y1="16" x2="16" y2="15" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="paint1_linear_0_1" x1="16" y1="16" x2="16"
+                                                                    y2="15" gradientUnits="userSpaceOnUse">
                                                         <stop stopColor="#76D7C9"/>
                                                         <stop offset="1" stopColor="#75F5C5"/>
                                                     </linearGradient>
@@ -173,7 +214,8 @@ function AddPost() {
                                     )}
                                     {image && (
                                         <>
-                                            <img src={URL.createObjectURL(image)} alt="Uploaded" style={{ borderRadius: '10px', height: 'auto', maxWidth: '100%' }} />
+                                            <img src={URL.createObjectURL(image)} alt="Uploaded"
+                                                 style={{borderRadius: '10px', height: 'auto', maxWidth: '100%'}}/>
                                             <p className="upload" onClick={() => {
                                                 setImage(null);
                                                 setFileName('');
@@ -186,6 +228,14 @@ function AddPost() {
                             <p className="upload">
                                 {isUploaded ? 'Файл: ' + fileName : 'Upload in image'}
                             </p>
+                            <select id="teamSelect" value={teamName} onChange={handleTeamChange}
+                                    className="custom-select">
+                                <option value="" disabled>Select a team</option>
+                                {teams.map((team, index) => (
+                                    <option key={index} value={team}>{team}</option>
+                                ))}
+                            </select>
+
                             <div className="border-gradient">
                                 <div className="commentContainer">
                                     <textarea
@@ -216,7 +266,17 @@ function AddPost() {
                                     <div className="error-icon">⚠️</div>
                                 </div>
                             )}
-                            <button className="button-from" type="submit">SUBMIT</button>
+                            <button
+                                className="button-from"
+                                type="submit"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <div className="loading-spinner"></div>
+                                ) : (
+                                    <p>SUBMIT</p>
+                                )}
+                            </button>
                         </form>
                     </div>
                 </div>
