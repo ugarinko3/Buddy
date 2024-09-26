@@ -16,8 +16,11 @@
 .conteiner-main-news .curator-news {
     margin:20px 10px;
     display: grid;
+    //display: flex;
     max-width: 700px;
     width: 100%;
+    justify-items: center;
+
     grid-template-columns: 1fr; /* Один столбец */
 //     gap: 20px;
 }

@@ -33,8 +33,7 @@ public class PostService {
         for (Post post : posts) {
             PostResponse postResponse = new PostResponse();
             postResponse.setPost(post);
-            postResponse.setLiked(userService.checkLikePost(post.getId(), login));
-            postResponse.setRole(userService.getUserRole(login));
+            postResponse.setLiked(userService.checkLikePost(post.getId(), login)); // Added closing parenthesis
             postResponses.add(postResponse);
         }
 

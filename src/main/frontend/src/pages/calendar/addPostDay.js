@@ -1,18 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../../css/addPost.scss';
 import { getCookie } from '../cookie/getCookie.js';
-import { submitPost, submitPostDay} from "../../store/slice/addPostSlice";
+import { submitPost } from "../../store/slice/addPostSlice";
 import { fetchTeamList } from "../../store/slice/teamList";
-import handleAddPost from "./BorderNews"
+// import handleAddPost from "./BorderNews"
 import { adjustTextareaHeight, handleCommentChange, getCommentCounter, maxLength } from '../textArea/text';
-import {useCheckToken} from "../token/token";
 
 
-function AddPost({boolean, idDay}) {
+function AddPostDay() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(true);
     const [image, setImage] = useState(null);
-    const { login, role } = useCheckToken(); // Use the custom hook
     const [fileName, setFileName] = useState('');
     const [isUploaded, setIsUploaded] = useState(false);
     const [message, setMessage] = useState('');
@@ -21,7 +19,17 @@ function AddPost({boolean, idDay}) {
     const [teams, setTeams] = useState([]);
     const textareaRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
-    let post;
+
+
+
+    // function getBase64(file) {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result);
+    //         reader.onerror = error => reject(error);
+    //     });
+    // }
 
     const loadTeams = async () => {
         try {
@@ -35,6 +43,18 @@ function AddPost({boolean, idDay}) {
         }
     };
 
+    // const handleChange = (event) => {
+    //     setMessage(event.target.value);
+    //     setError(''); // Сбрасываем ошибку при изменении текста
+    //     setIsLoading(false);
+    // };
+    //
+    // const adjustHeight = () => {
+    //     if (textareaRef.current) {
+    //         textareaRef.current.style.height = 'auto';
+    //         textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    //     }
+    // };
     useEffect(() => {
         adjustTextareaHeight(textareaRef);
     }, [message]);
@@ -104,7 +124,7 @@ function AddPost({boolean, idDay}) {
             setError('Please, enter a comment.');
             setIsLoading(false);
             return;
-        } else if (!teamName && boolean) {
+        } else if (!teamName) {
             setError('Please select a team.');
             setIsLoading(false);
             return;
@@ -112,37 +132,22 @@ function AddPost({boolean, idDay}) {
 
 
         const LocationDate = new Date();
-        if (boolean){
-            post = {
-                "teamName": teamName,
-                "likes": 0,
-                "date": LocationDate.toISOString().replace('Z', ''),
-                "teamNumber": 1,
-                "comment": message,
-                "curator": getCookie('login').split('@')[0],
-            }
-        } else {
-            post = {
-                "idDay": idDay,
-                "role": role,
-                "nameUser": login,
-                "comment": message,
-            }
-
-        }
-
+        const post = {
+            "teamName": teamName,
+            "likes": 0,
+            "date": LocationDate.toISOString().replace('Z', ''),
+            "teamNumber": 1,
+            "comment": message,
+            "curator": getCookie('login').split('@')[0],
+        };
         const postData = new FormData();
 
         postData.append('photo', image);
         postData.append('post', JSON.stringify(post))
         try {
-            if (boolean) {
-                await submitPost(postData);
-            } else {
-                await submitPostDay(postData);
-            }
+            await submitPost(postData);
             handleCloseModal();
-            handleAddPost();
+            // handleAddPost();
         } catch (error) {
             setError('There was an error submitting the form. ' + (error.response ? error.response.data.message : ''));
         }
@@ -225,15 +230,6 @@ function AddPost({boolean, idDay}) {
                             <p className="upload">
                                 {isUploaded ? 'Файл: ' + fileName : 'Upload in image'}
                             </p>
-                            {boolean && (
-                                <select id="teamSelect" value={teamName} onChange={handleTeamChange}
-                                        className="custom-select">
-                                    <option value="" disabled>Select a team</option>
-                                    {teams.map((team, index) => (
-                                        <option key={index} value={team}>{team}</option>
-                                    ))}
-                                </select>
-                            )}
                             <div className="border-gradient">
                                 <div className="commentContainer">
                                     <textarea
@@ -285,4 +281,4 @@ function AddPost({boolean, idDay}) {
     );
 }
 
-export default AddPost;
+export default AddPostDay;

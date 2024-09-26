@@ -2,13 +2,17 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const PrivateRoute = ({ element: Component, ...rest }) => {
+const PrivateRoute = ({ element: Component, ...props }) => {
   const token = Cookies.get('access_token');
 
-  // Здесь можно добавить дополнительную проверку токена, если необходимо
-  const isAuthenticated = Boolean(token); // Простой способ проверки
+  // Простой способ проверки токена
+  const isAuthenticated = Boolean(token);
 
-  return isAuthenticated ? <Component {...rest} /> : <Navigate to="/" />;
+  return isAuthenticated ? (
+      <Component {...props} />
+  ) : (
+      <Navigate to="/" replace state={{ from: props.location }} />
+  );
 };
 
 export default PrivateRoute;

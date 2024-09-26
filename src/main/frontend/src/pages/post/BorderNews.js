@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useCheckToken } from '../token/token'; // Update the path accordingly
 import { fetchPosts, deletePost, likePost, unlikePost, updatePostState, toggleMyPosts } from '../../store/slice/postSlice';
 import '../../css/post.scss';
 import Burger from '../header/header_burger';
 import Loading from '../loading/loading';
 import AddPost from './addPost';
-import { getCookie } from '../cookie/getCookie.js';
 import ConfirmModal from './configModal';
 import Post from './post';
 
 function BorderNews() {
     const dispatch = useDispatch();
-    const { posts, error, loading, showMyPosts } = useSelector((state) => state.post);
+    const { login, role } = useCheckToken(); // Use the custom hook
+    const { posts, error: postError, loading, showMyPosts } = useSelector((state) => state.post);
     const [expandedPostIndex, setExpandedPostIndex] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
-    const login = getCookie('login').split('@')[0];
-    const userRole = posts.length > 0 ? posts[0].role : 'user';
-
 
     useEffect(() => {
-        const loadData = async () => {
+        const loadPosts = async () => {
             try {
                 await dispatch(fetchPosts(login));
             } catch (error) {
-                console.error(error.message);
+                console.error('Failed to fetch posts:', error.message);
             }
         };
 
-        loadData();
+        loadPosts();
     }, [dispatch, login]);
 
 
@@ -80,7 +78,7 @@ function BorderNews() {
         setPostToDelete(null);
     };
 
-    const handleAddPost = (newPost) => {
+    const handleAddPost = () => {
         dispatch(fetchPosts(login));
     };
 
@@ -93,10 +91,10 @@ function BorderNews() {
     };
 
     if (loading && posts.length === 0) return <Loading />;
-    if (error) return <p>Error: {error.message || error}</p>;
+    if (postError) return <p>Error: {postError}</p>;
 
     const postsToDisplay = showMyPosts
-        ? posts.filter(posts => posts.post.curator === login)
+        ? posts.filter(posts => posts.curator === login)
         : posts;
 
     return (
@@ -104,12 +102,12 @@ function BorderNews() {
             <div className='conteiner-main-news'>
                 <Burger />
                 <div className='curator-news'>
-                    {(userRole === 'admin' || userRole === 'curator') && (
+                    {(role === 'admin' || role === 'curator') && (
                         <div className='button-curator'>
                             <button className={`my-post ${showMyPosts ? 'active' : ''}`} onClick={handleToggleMyPosts}>
                                 {showMyPosts ? 'Все посты' : 'Мои посты'}
                             </button>
-                            <AddPost onAddPost={handleAddPost}/>
+                            <AddPost onAddPost={handleAddPost} boolean={true}/>
                         </div>
                     )}
                     {showMyPosts && postsToDisplay.length === 0 && (
@@ -120,12 +118,14 @@ function BorderNews() {
                     {postsToDisplay.map((item, index) => (
                         <Post
                             key={item.post.id}
+                            role={role}
                             item={item}
                             login={login}
                             handleLikePost={handleLikePost}
                             handleDeletePost={handleDeletePost}
                             showFullText={showFullText}
                             index={index}
+                            usePostDayUser={false}
                         />
                     ))}
                 </div>

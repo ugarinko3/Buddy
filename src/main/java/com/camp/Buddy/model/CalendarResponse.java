@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class PostResponse {
+public class CalendarResponse {
 
-    private Post post;
-    private boolean liked;
+    private Day day;
+    private String status;
 }

@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Setter
@@ -25,8 +23,8 @@ public class User {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "array_command")
-    private List<String> arrayCommand;
+//    @Column(name = "array_command")
+//    private List<String> arrayCommand;
 
     @Column(name = "like_post")
     private List<String> likePost;

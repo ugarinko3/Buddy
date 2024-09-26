@@ -7,13 +7,12 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.net.URL;
+import java.util.UUID;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class TokenResponse {
-
-  @JsonProperty("access_token")
-  private String accessToken;
-
+  private String role;
+  private String login;
+  private boolean create;
 }

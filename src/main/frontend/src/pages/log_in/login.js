@@ -103,6 +103,7 @@ function Login() {
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 <div className='submit'>
                   <button
+                      className='btn create-btn login-submit'
                       id='login-submit'
                       type="submit"
                       disabled={isLoading} // Отключаем кнопку во время загрузки

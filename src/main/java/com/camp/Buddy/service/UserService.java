@@ -1,6 +1,8 @@
 package com.camp.Buddy.service;
 
+import com.camp.Buddy.model.Day;
 import com.camp.Buddy.model.User;
+import com.camp.Buddy.repository.CalendarRepository;
 import com.camp.Buddy.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,16 +14,6 @@ import java.util.*;
 public class UserService {
 
     private UserRepository userRepository;
-    private FirebaseStorageService firebaseStorageService;
-
-    public void createUser(User user) {
-        Optional<User> existingUser = userRepository.findByLogin(user.getLogin());
-        if (existingUser.isPresent()) {
-            return;
-        }
-        user.setUrlAvatar(firebaseStorageService.getPhotoUrl(user.getLogin()));
-        userRepository.save(user);
-    }
 
     public String getAvatarUrlByLogin(String login) {
         return userRepository.findByLogin(login)
@@ -86,6 +78,9 @@ public class UserService {
         String idString = id.toString();
         return stringList.contains(idString);
     }
+//    public <List> Day getDay(){
+//
+//    }
 
 
 }

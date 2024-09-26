@@ -12,6 +12,7 @@ import Post from './pages/post/BorderNews';
 import Calendar from './pages/calendar/calendar';
 import Profile from './pages/profile/profile';
 import PrivateRoute from './PrivateRoute';
+import DayDetails from './pages/calendar/dayDetails';
 
 function App() {
     return (
@@ -21,8 +22,7 @@ function App() {
                     <Route path="/" element={<Login />} />
                     <Route path="/post" element={<PrivateRoute element={Post} />} />
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
-                    <Route path="/profile" element={<PrivateRoute element={Profile} />} />
-                    {/* Добавьте обработку 404, если необходимо */}
+                    <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails} />} />                    <Route path="/profile" element={<PrivateRoute element={Profile} />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </AuthProvider>

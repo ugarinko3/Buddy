@@ -23,6 +23,7 @@ import java.util.UUID;
 public class PostController {
 
     private final PostService postService;
+//    private final ObjectMapper objectMapper;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UUID> addPost(
@@ -35,10 +36,8 @@ public class PostController {
 
     @GetMapping("/get")
     public ResponseEntity<List<PostResponse>> getPosts(@RequestParam String login) {
-        List<PostResponse> postResponses = postService.getPostDetails(login);
-        return ResponseEntity.ok(postResponses);
+        return ResponseEntity.ok(postService.getPostDetails(login));
     }
-
 
     @PostMapping("/like/{postId}")
     public void likePost(@PathVariable UUID postId, @RequestParam String login) {

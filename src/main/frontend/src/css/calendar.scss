@@ -1,9 +1,17 @@
+$back-color: #2F3849;
+$grin-color: #75F5C5;
+$fon-color: #1f2632;
+
 @font-face {
     font-family: 'Roboto-light';
     src: url('../fonts/Roboto/Robotolight.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+.no-wrap {
+    white-space: nowrap;
+}
+
 p {
     font-family: 'Roboto-light';
     color: #fff;
@@ -16,6 +24,8 @@ a {
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     // background-color: #2F3849;
     z-index: 54;
 }
@@ -45,6 +55,9 @@ a {
 .calendar-container .calendar-day.progress {
     border: 2px solid #1B6CE0;
 }
+.calendar-container .calendar-day.fail {
+    border: 2px solid #ff4f4f;
+}
 .calendar-container .calendar-day:hover {
     scale: 1.07;
     transition: all 0.5s ease 0s;
@@ -60,20 +73,27 @@ a {
     background-color: #28303F;
 }
 .calendar-container .calendar-day .day {
+    display: flex;
+    justify-content: space-between;
+}
+.calendar-container .calendar-day .day p{
     margin: 7px;
+    padding: 8px;
     border-radius: 8px;
     max-width: 81.91px;
     background-color: #ADADAD;
 }
 
-.calendar-container .calendar-day.active .day {
+.calendar-container .calendar-day.active .day p{
     background-color: #75F5C5;
 }
 
-.calendar-container .calendar-day.progress .day {
+.calendar-container .calendar-day.progress .day p{
     background-color: #1B6CE0;
-}
-.calendar-container .calendar-day.no-active .day {
+}.calendar-container .calendar-day.fail .day p{
+     background-color: #df5c5c;
+ }
+.calendar-container .calendar-day.no-active .day p{
     background-color: #2F3849;
 }
 .calendar-container .calendar-day .day p {
@@ -96,7 +116,45 @@ a {
 .calendar-container .calendar-day .data {
     margin-top: auto;
     margin-left: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    .dataDay{
+        display: flex;
+        align-items: center;
+    }
+
+    //svg {
+    //    cursor: pointer;
+    //    display: block;
+    //    margin: 20px;
+    //}
+    //
+    //.circle-border {
+    //    stroke-dasharray: 69;
+    //    stroke-dashoffset: 69;
+    //    transition: stroke-dashoffset 0.5s ease, fill 0.3s ease;
+    //}
+    //
+    //svg:hover .circle-border {
+    //    stroke-dashoffset: 0;
+    //}
+    //
+    //svg:hover path {
+    //    fill: #FFFFFF;
+    //    width: 25px;
+    //    height: 25px;
+    //}
 }
+.button-edit-day {
+    display: flex; /* Включаем flex для кнопки */
+    align-self: flex-end;
+    margin-top: auto;
+    z-index: 50;
+}
+
+
+
 .calendar-container .calendar-day .data p{
     font-size: 12px;
     color: #C8CFD9;
@@ -104,7 +162,270 @@ a {
 .calendar-container .calendar-day.no-active .data p{
     color: #434E63;
 }
+.calendar-day.no-active .task p{
+    color: #434E63;
+}
+.calendar-day.progress .task p{
+    color: #C8CFD9;
+}
 
+.calendar-day.active .task p{
+    color: #C8CFD9;
+}
+
+.button-create-calendar-day {
+    width: 100%;
+    position: relative;
+
+    button {
+        background-color: $back-color;
+        color: transparent; /* Делаем текст прозрачным */
+        border: none;
+        padding: 11px 20px;
+        text-align: center;
+        display: flex;
+        font-size: 16px;
+        margin-left: auto;
+        margin-right: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(45deg, #c0c0c0 48.9%, $grin-color 49%); /* Градиент фона */
+        background-size: 300% 300%;
+        animation: borderGradient 4s linear both infinite; /* Анимация фона */
+        -webkit-background-clip: text; /* Для поддержки градиента текста */
+        background-clip: text; /* Для поддержки градиента текста */
+
+        path {
+            stroke: #fff;;
+        }
+    }
+
+    button:hover {
+        animation: borderGradient 4s linear both infinite; /* Анимация фона */
+    }
+
+    /* Добавьте псевдоэлемент для эффекта градиента */
+    button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 10px; /* Закругленные углы */
+        background: linear-gradient(45deg, $back-color 48.9%, $grin-color 49%);
+        background-size: 300% 300%;
+        z-index: -1;
+        opacity: 1;
+        transition: opacity 0.3s;
+    }
+
+    button:hover::before {
+        opacity: 1;
+    }
+
+    button {
+        -webkit-text-fill-color: transparent; /* Для поддержки старых браузеров */
+        text-fill-color: transparent; /* Для поддержки старых браузеров */
+    }
+}
+
+
+
+
+
+/* Задний затемнённый фон */
+.modal-overlay {
+    min-width: 300px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* немного темнее для большего контраста */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+
+    h2{
+        margin-bottom: 30px;
+    }
+}
+
+
+/* Контент модального окна */
+.modal-content {
+    background-color:  $fon-color;
+    border: 0.5px solid $grin-color;
+    padding: 30px;
+    border-radius: 15px;
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-40px);
+    opacity: 0;
+    animation: slideIn 0.4s forwards;
+}
+.edit-comment {
+    text-align: left;
+    padding: 7px 7px;
+    color: $grin-color;
+}
+
+.date-inputs {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0 20px 0;
+}
+
+.date-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.date-picker label {
+    font-size: 14px;
+    color: $grin-color;
+    margin-bottom: 8px;
+}
+
+.date-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.date-field:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Кнопки модального окна */
+/* Кнопки модального окна */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 10px 30px;
+    border: 1px solid $grin-color;
+    background-color: #434E63;
+    color: $grin-color;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Добавляем тень для кнопки */
+}
+
+/* Добавляем эффект при наведении */
+.btn:hover {
+    //transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличиваем тень при наведении */
+}
+
+/* Стили для кнопки отмены */
+.cancel-btn {
+    margin: auto;
+}
+
+.cancel-btn:hover {
+    background-color: #cf2828;
+    color: #fff;
+    border: 1px solid #cf2828;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(207, 40, 40, 0.4); /* Красная тень при наведении */
+}
+
+/* Стили для кнопки создания */
+.create-btn {
+    margin: auto;
+}
+
+.create-btn:hover {
+    background-color: $grin-color;
+    color: #FFFFFF;
+    transform: translateY(-3px); /* Чуть больше подъём */
+    box-shadow: 0 8px 16px rgba(117, 245, 197, 0.4); /* Светло-зелёная тень при наведении */
+}
+.log-out {
+    display: flex;
+    padding: 10px 15px;
+    align-items: center;
+    font-size: 16px;
+    //border: none;
+    margin: 0 10px;
+    background-color:  #434E63;
+    gap: 10px;
+    border: 1px solid #75F5C5;
+
+    path {
+        fill: #75F5C5;
+    }
+
+}
+.log-out:hover {
+    //box-shadow: 0 8px 16px rgba(207, 40, 40, 0.4);
+    //background-color: #cf2828;
+    //color: #fff;
+    //border: 1px solid #cf2828;
+    path {
+        fill:#fff;
+    }
+}
+
+
+.modal-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); // затемнение фона
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; // чтобы модальное окно отображалось поверх остальных элементов
+}
+
+
+
+/* Анимации */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: 450px){
+    .modal-overlay .date-inputs {
+        flex-direction: column;
+
+        .date-picker {
+            margin-top: 10px;
+        }
+    }
+}
 
 
 
