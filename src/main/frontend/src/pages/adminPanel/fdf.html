@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список пользователей</title>
+    <style>
+        .faq__col {
+            margin-bottom: 10px; /* Отступ между элементами */
+        }
+
+        .faq__item {
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 7px 12px;
+            overflow: hidden; /* Скрываем переполнение */
+            transition: max-height 0.3s ease; /* Плавный переход */
+        }
+
+        .faq__item h3 {
+            font-size: 21px;
+            font-weight: 500;
+            position: relative;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .faq__item h3:before {
+            content: '';
+            background: #3D230B;
+            width: 7px;
+            height: 100%;
+            position: absolute;
+            left: -25px;
+        }
+
+        .faq__item h3 span {
+            width: 20px;
+            height: 20px;
+            background: #10160F;
+            position: absolute;
+            right: 0;
+            border-radius: 50%;
+            transition: all .3s;
+        }
+
+        .faq__item h3 span:before {
+            content: '';
+            background: #fff;
+            width: 10px;
+            height: 2px;
+            position: absolute;
+            left: 5px;
+            top: 9px;
+            transition: all .3s;
+        }
+
+        .faq__item h3 span:after {
+            content: '';
+            background: #fff;
+            height: 10px;
+            width: 2px;
+            position: absolute;
+            left: 9px;
+            top: 5px;
+        }
+
+        .faq__item p {
+            max-height: 0; /* Скрываем текст по умолчанию */
+            overflow: hidden; /* Скрываем переполнение */
+            opacity: 0; /* Начальная непрозрачность */
+            transition: max-height 0.3s ease, opacity 0.3s ease; /* Плавный переход */
+        }
+
+        .faq__item p.show {
+            max-height: 500px; /* Увеличиваем максимальную высоту для анимации */
+            opacity: 1; /* Полная непрозрачность */
+        }
+    </style>
+</head>
+<body>
+
+<div class="faq__col">
+    <div class="faq__item">
+        <h3>Из чего состоит услуга дизайн интерьера?<span></span></h3>
+        <p>Создание дизайна интерьера вашего пространства – это комплексная работа. </p>
+        <p>Мы начинаем ее с глубинного интервью, которое включает в себя проработку ваших пожеланий, видения, ваших привычек и рутины жизни, а также самого пространства. Это нужно для того, чтобы создать дизайн, который будет радовать вас каждый день, а также будет функциональным, просторным  и по всем правилам эргономики.</p>
+        <p>Затем мы разрабатываем 3D-визуализацию, планировочные решения, чертежи, планы освещения, потолков, сантехоборудование, комплектацию, спецификации и др. Согласовываем с вами все детали в течение 5 встреч.</p>
+        <p>По окончании 3-х месяцев работы вы получите все требующиеся технические документы для реализации дизайна интерьера со своими или нашими строителями и сможете приступить сразу к работе.</p>
+        <p>Детальное описание состава услуги дизайна интерьера:<br>
+            <a href="/services/chastnye-interery/">Для жилых помещений </a><br>
+            <a href="/services/dizajn-kommercheskih-pomeshhenij/">Для коммерческих помещений</a></p>
+    </div>
+</div>
+<div class="faq__col">
+    <div class="faq__item">
+        <h3>Из чего состоит услуга дизайн интерьера?<span></span></h3>
+        <p>Создание дизайна интерьера вашего пространства – это комплексная работа. </p>
+        <p>Мы начинаем ее с глубинного интервью, которое включает в себя проработку ваших пожеланий, видения, ваших привычек и рутины жизни, а также самого пространства. Это нужно для того, чтобы создать дизайн, который будет радовать вас каждый день, а также будет функциональным, просторным  и по всем правилам эргономики.</p>
+        <p>Затем мы разрабатываем 3D-визуализацию, планировочные решения, чертежи, планы освещения, потолков, сантехоборудование, комплектацию, спецификации и др. Согласовываем с вами все детали в течение 5 встреч.</p>
+        <p>По окончании 3-х месяцев работы вы получите все требующиеся технические документы для реализации дизайна интерьера со своими или нашими строителями и сможете приступить сразу к работе.</p>
+        <p>Детальное описание состава услуги дизайна интерьера:<br>
+            <a href="/services/chastnye-interery/">Для жилых помещений </a><br>
+            <a href="/services/dizajn-kommercheskih-pomeshhenij/">Для коммерческих помещений</a></p>
+    </div>
+</div>
+
+<script>
+    const items = document.querySelectorAll('.faq__item h3');
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            const paragraphs = item.nextElementSibling;
+            paragraphs.classList.toggle('show'); // Переключаем класс show
+        });
+    });
+</script>
+
+</body>
+</html>

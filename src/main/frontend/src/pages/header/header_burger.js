@@ -1,9 +1,11 @@
 import '../../css/burger.scss';
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom'
+import {useSelector} from "react-redux";
 
 function Burger() {
     const [activeMenu, setActiveMenu] = useState('');
+    const {role}  = useSelector((state) => state.token);
     function clickBurger(){
         activeMenu === '' ? setActiveMenu('active') : setActiveMenu('');
     }
@@ -45,6 +47,11 @@ function Burger() {
             <nav className={'header-menu ' + activeMenu} id="menu">
                 <div className={"header-menu-container " + activeMenu} id='header-menu-function'>
                     <ul className="header-list">
+                        {role === "curator" && (
+                            <li>
+                                <Link to="/admin-panel" className="header-link">Panel</Link>
+                            </li>
+                        )}
                         <li>
                             <Link to="/post" className="header-link _active-link">News</Link>
                         </li>

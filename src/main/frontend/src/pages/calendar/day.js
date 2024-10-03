@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import CardDay from "./cardDay"
 
 function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
     const handleEditClick = (event) => {
@@ -8,22 +9,24 @@ function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
         handleDayClick(dayNumber);
     };
 
-
     return (
         <div className={`calendar-day ${item.status}`}>
-            <Link to={`/calendar/${item.day.id}`} className='day-link'>
-                <div key={item.day.id} className='day'>
-                    <p className="no-wrap"><strong>{dayNumber}<sup className="superscript">{suffix}</sup> day</strong></p>
-                    <p>{item.status}</p>
-                </div>
-                <div className='task'><p>{item.day.id}</p></div>
-                <div className='data'>
-                    <div className='dataDay'>
-                        <p>{item.day.date}</p>
-                    </div>
-                </div>
-            </Link>
-            {(role === "curator" && item.status !== "active") && (
+            {item.status !== "no-active" ? (
+                <Link to={`/calendar/${item.day.id}`}>
+                    <CardDay
+                        item={item}
+                        dayNumber={dayNumber}
+                        suffix={suffix}
+                    />
+                </Link>
+            ):(
+                <CardDay
+                    item={item}
+                    dayNumber={dayNumber}
+                    suffix={suffix}
+                />
+            )}
+            {(role === "curator") && (
                 <div className="button-edit-day">
                     <button
                         className="btn create-btn "

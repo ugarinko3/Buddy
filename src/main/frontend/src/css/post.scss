@@ -213,7 +213,10 @@ p {
     margin-left: 10px;
 }
 .conteiner-main-news .curator-news .comment {
-    padding: 0 18px 24px 18px;
+    padding: 24px 18px 24px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .conteiner-main-news .curator-news .comment a{
     font-size: 16px;
@@ -276,6 +279,68 @@ p {
 .active {
     margin: 0 0 0 0;
 }
+
+//.button-post-day {
+//    width: 35px;
+//    height: 35px;
+//    border-radius: 7px;
+//    display: flex;
+//    align-items: center;
+//    justify-items: center;
+//
+//    path {
+//        fill: #fff;
+//    }
+//}
+.button-curator-container {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    gap: 7px;
+}
+.true-button {
+    background-color: #75F5C5;
+    display: flex;
+}
+.false-button {
+    padding: 8px 30px;
+    display: flex;
+}
+.nickName {
+    font-size: 16px;
+}
+.loading-line {
+    width: 100%;
+    height: 4px; /* Высота линии */
+    background-color: #3498db; /* Цвет линии */
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -100%; /* Начальная позиция за пределами */
+    height: 100%;
+    width: 100%;
+    background-color: #2980b9; /* Цвет анимации */
+    animation: loading 2s linear infinite; /* Анимация */
+}
+
+@keyframes loading {
+    0% {
+        left: -100%; /* Начальная позиция */
+    }
+    50% {
+        left: 100%; /* Конечная позиция */
+    }
+    100% {
+        left: 100%; /* Остается на конечной позиции */
+    }
+}
+
 
 //.moreButton {
 //    height: 50px;

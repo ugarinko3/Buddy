@@ -1,13 +1,14 @@
 // src/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import {useCheckToken} from "./pages/token/token";
 // Создаем контекст
 const AuthContext = createContext();
 
 // Провайдер аутентификации
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+    // useCheckToken();
     useEffect(() => {
         let timer;
 

@@ -15,6 +15,6 @@ public interface CalendarDayRepository extends JpaRepository<PostDayUser, UUID> 
 
     List<PostDayUser> findAllByIdDay(UUID dayId);
     List<PostDayUser> findAllByOrderByDateDesc();
-
-    Optional<PostDayUser> findByNameUser(String login);
+    Boolean existsByIdDayAndLogin(UUID dayId, String login);
+//    List<PostDayUser> findAllByNameUser(String login);
 }

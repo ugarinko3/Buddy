@@ -13,6 +13,7 @@ import Calendar from './pages/calendar/calendar';
 import Profile from './pages/profile/profile';
 import PrivateRoute from './PrivateRoute';
 import DayDetails from './pages/calendar/dayDetails';
+import AdminPanel from "./pages/adminPanel/adminPanel";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
             <AuthProvider>
                 <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/admin-panel" element = {<PrivateRoute element={AdminPanel} />} />
                     <Route path="/post" element={<PrivateRoute element={Post} />} />
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
                     <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails} />} />                    <Route path="/profile" element={<PrivateRoute element={Profile} />} />

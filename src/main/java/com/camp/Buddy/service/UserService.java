@@ -1,8 +1,10 @@
 package com.camp.Buddy.service;
 
 import com.camp.Buddy.model.Day;
+import com.camp.Buddy.model.Team;
 import com.camp.Buddy.model.User;
 import com.camp.Buddy.repository.CalendarRepository;
+import com.camp.Buddy.repository.TeamRepository;
 import com.camp.Buddy.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.*;
 @Service
 public class UserService {
 
+    private final TeamRepository teamRepository;
     private UserRepository userRepository;
 
     public String getAvatarUrlByLogin(String login) {
@@ -78,6 +81,7 @@ public class UserService {
         String idString = id.toString();
         return stringList.contains(idString);
     }
+
 //    public <List> Day getDay(){
 //
 //    }

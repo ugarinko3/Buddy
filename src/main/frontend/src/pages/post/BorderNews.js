@@ -11,7 +11,7 @@ import Post from './post';
 
 function BorderNews() {
     const dispatch = useDispatch();
-    const { login, role } = useCheckToken(); // Use the custom hook
+    const { login, role } = useCheckToken();
     const { posts, error: postError, loading, showMyPosts } = useSelector((state) => state.post);
     const [expandedPostIndex, setExpandedPostIndex] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +28,6 @@ function BorderNews() {
 
         loadPosts();
     }, [dispatch, login]);
-
 
     const handleLikePost = async (item) => {
         try {
@@ -107,7 +106,7 @@ function BorderNews() {
                             <button className={`my-post ${showMyPosts ? 'active' : ''}`} onClick={handleToggleMyPosts}>
                                 {showMyPosts ? 'Все посты' : 'Мои посты'}
                             </button>
-                            <AddPost onAddPost={handleAddPost} boolean={true}/>
+                            <AddPost onAddPost={handleAddPost} boolean={true} login={login} role={role}/>
                         </div>
                     )}
                     {showMyPosts && postsToDisplay.length === 0 && (
@@ -120,6 +119,7 @@ function BorderNews() {
                             key={item.post.id}
                             role={role}
                             item={item}
+                            nickName={item.post.curator}
                             login={login}
                             handleLikePost={handleLikePost}
                             handleDeletePost={handleDeletePost}

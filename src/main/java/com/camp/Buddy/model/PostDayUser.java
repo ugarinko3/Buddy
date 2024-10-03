@@ -26,8 +26,8 @@ public class PostDayUser {
     @Column(name="role")
     private String role;
 
-    @Column(name="name_user")
-    private String nameUser;
+    @Column(name="login")
+    private String login;
 
     @Column(name="comment")
     private String comment;
@@ -40,5 +40,8 @@ public class PostDayUser {
 
     @Column(name="url_post")
     private String urlPost;
+
+    @Column(name="status")
+    private String status;
 
 }

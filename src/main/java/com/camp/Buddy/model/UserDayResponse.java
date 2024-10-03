@@ -26,5 +26,7 @@ public class UserDayResponse {
     private Day day;
 
     @Column(name = "status")
-    private String status; // Статус для связи пользователь-день
+    private String status;
+
+
 }

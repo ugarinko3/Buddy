@@ -6,7 +6,7 @@ export const calendarSlice = createSlice({
     initialState: {
         day: [],
         dayPost: [],
-        availability:false,
+        availability: true,
         loading: false,
         error: null,
         // calendar: false,
@@ -16,6 +16,7 @@ export const calendarSlice = createSlice({
         fetchCalendarStart: (state) => {
             state.loading = true;
             state.error = null;
+            // state.dayPost = [];
         },
 
         // Успешная загрузка постов
@@ -76,10 +77,11 @@ export const fetchCalendar = (login) => async (dispatch) => {
 export const fetchCalendarDay = (login, idPost) => async (dispatch) => {
     dispatch(fetchCalendarStart());
     try {
-        const response = await axios.get(`/calendar/get-day/${idPost}`,{
+        const response = await axios.get(`/calendar/get-day/${idPost}`, {
             params: { login },
         });
-        console.log(response.data);
+        // console.log(response)
+
         dispatch(fetchCalendarDaySuccess(response.data));
     } catch (error) {
         dispatch(fetchCalendarDayFail(error.message));

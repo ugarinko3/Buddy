@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../../css/addPost.scss';
-import { getCookie } from '../cookie/getCookie.js';
 import { submitPost, submitPostDay} from "../../store/slice/addPostSlice";
 import { fetchTeamList } from "../../store/slice/teamList";
 import handleAddPost from "./BorderNews"
 import { adjustTextareaHeight, handleCommentChange, getCommentCounter, maxLength } from '../textArea/text';
-import {useCheckToken} from "../token/token";
+import {useSelector} from "react-redux";
 
 
 function AddPost({boolean, idDay}) {
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(true);
     const [image, setImage] = useState(null);
-    const { login, role } = useCheckToken(); // Use the custom hook
+    const {login, role} = useSelector((state) => state.token) // Use the custom hook
     const [fileName, setFileName] = useState('');
     const [isUploaded, setIsUploaded] = useState(false);
     const [message, setMessage] = useState('');
@@ -23,17 +23,7 @@ function AddPost({boolean, idDay}) {
     const [isLoading, setIsLoading] = useState(false);
     let post;
 
-    const loadTeams = async () => {
-        try {
-            const teamList = await fetchTeamList(getCookie('login').split('@')[0]); // Получаем логин
-            teamList.forEach(team => {
-                console.log('Team:', team, 'Type:', typeof team); // Логируем каждую команду и её тип
-            });
-            setTeams(teamList); // Устанавливаем полученные команды в состояние
-        } catch (error) {
-            console.error('Ошибка при загрузке команд:', error);
-        }
-    };
+
 
     useEffect(() => {
         adjustTextareaHeight(textareaRef);
@@ -119,13 +109,13 @@ function AddPost({boolean, idDay}) {
                 "date": LocationDate.toISOString().replace('Z', ''),
                 "teamNumber": 1,
                 "comment": message,
-                "curator": getCookie('login').split('@')[0],
+                "curator": login,
             }
         } else {
             post = {
                 "idDay": idDay,
                 "role": role,
-                "nameUser": login,
+                "login": login,
                 "comment": message,
             }
 
@@ -150,12 +140,23 @@ function AddPost({boolean, idDay}) {
 
     useEffect(() => {
         if (isModalOpen) {
-            loadTeams(); // Загружаем команды при открытии модального окна
+            const loadTeams = async () => {
+                try {
+                    const teamList = await fetchTeamList(login); // Получаем логин
+                    teamList.forEach(team => {
+                        console.log('Team:', team, 'Type:', typeof team); // Логируем каждую команду и её тип
+                    });
+                    setTeams(teamList); // Устанавливаем полученные команды в состояние
+                } catch (error) {
+                    console.error('Ошибка при загрузке команд:', error);
+                }
+            }; // Загружаем команды при открытии модального окна
+            loadTeams();
         }
-    }, [isModalOpen]);
+    }, [isModalOpen, login]);
 
     return (
-        <div className="addPost">
+        <div className={`addPost${!boolean ? ' active-button' : ''}`}>
             <button className="addButton" onClick={handleOpenModal}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                     <g id="Edit / Add_Plus">

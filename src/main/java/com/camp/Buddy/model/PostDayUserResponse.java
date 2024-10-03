@@ -8,4 +8,5 @@ import lombok.Setter;
 public class PostDayUserResponse {
     private PostDayUser postDayUser;
     private boolean availability;
+    private String messagePost;
 }

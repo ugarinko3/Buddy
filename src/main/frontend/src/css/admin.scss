@@ -1,0 +1,198 @@
+
+
+
+.panel-admin {
+  display: flex;
+  //width: 100%;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  z-index: 49;
+  padding: 0 0 20px 0;
+}
+.container-function {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #2F3849;
+  border-radius: 12px;
+  //flex-wrap: wrap;
+  gap: 5px;
+}
+.container-width {
+  min-width: 220px;
+}
+.create-role {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.label-left {
+  //margin-right: 40px;
+  font-size: 16px;
+  color: #75F5C5;
+}
+.nick-name {
+  padding: 10px;
+  border: 1px solid #75F5C5;
+  border-radius: 12px;
+  background-color: #cccccc;
+  font-size: 12px;
+  font-family: 'SB Sans Text', Helvetica, sans-serif;
+  transition: border-color 0.3s;
+}
+
+.nick-name:focus {
+  border-color: #2b735b; /* Цвет рамки при фокусе */
+  outline: none; /* Убираем стандартный контур */
+}
+.message {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.message.success {
+  color: green; // Цвет для успешного сообщения
+  background-color: #d4edda; // Светлый зеленый фон
+}
+
+.message.error {
+  color: red; // Цвет для сообщения об ошибке
+  background-color: #f8d7da; // Светлый красный фон
+}
+.btn-top {
+  margin-top: 5px;
+}
+.nameTeam {
+  text-align: left;
+  margin-right: auto;
+
+  p{
+    padding: 5px;
+    background-color: #75F5C5;
+    color: #1f2632;
+    border-radius: 5px;
+  }
+}
+.box-number {
+  display: flex;
+  gap: 5px;
+  align-itemss: center;
+}
+.box {
+  //width: 20px;
+  //height: 20px;
+  padding: 2px 6px;
+  text-align: center;
+  background-color: #75F5C5;
+  color: #1f2632;
+  border-radius: 5px;
+}
+.summ-participants {
+  margin-right: auto;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  padding: 10px 0px;
+}
+
+.faq__item {
+  border: 1px solid #75F5C5;
+  border-radius: 12px;
+  //padding: 10px;
+  //transition: border 0.3s ease;
+  padding: 10px;
+}
+
+//.faq__item.active {
+//  border: 1px solid #000; /* Добавляем рамку при активном состоянии */
+//}
+
+.faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  margin-top: 0;
+  transition: max-height 1s ease,  margin-top 1s ease;
+}
+
+.faq-answer.open {
+  margin-top: 10px;
+  max-height: 500px; /* Достаточное значение для высоты */
+  transition: max-height 1s ease, margin-top 1s ease;
+}
+
+.modal.show .modalContent.show {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+.string-mini-info {
+  display: flex;
+  gap: 20px;
+  min-width: 250px;
+}
+.image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.text-flex {
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+  flex-direction: column;
+}
+.curator-border {
+  border-radius: 12px;
+  border: 1px solid wheat;
+}
+.center {
+  justify-content: space-around;
+}
+.margin {
+  margin: 0;
+  min-width: 210px;
+}
+.gradient-border {
+  position: relative;
+  padding: 1px; /* Пространство для градиентного бордера */
+  border-radius: 10px; /* Закругляем углы */
+}
+.border-curator-background {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+}
+.border-user-background {
+  background: linear-gradient(97.87deg, #0078B0 0.47%, #59EBFF 62.34%);
+}
+
+.gradient-border .inner-content {
+  background: #2F3849;
+  border-radius: 8px; /* Закругленные углы внутреннего содержимого */
+  padding: 10px; /* Отступы для содержимого */
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  width: 100%;
+}
+@media screen and (max-width: 340px){
+  .string-mini-info {
+    min-width: 0;
+  }
+}
+
+

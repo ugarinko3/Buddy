@@ -35,6 +35,7 @@ export const fetchToken = (login, token) => async (dispatch) => {
             token: token,
             login: login
         });
+        // console.log(response.data)
         dispatch(fetchTokenSuccess(response.data));
     } catch (error) {
         dispatch(fetchTokenFail(error.message));

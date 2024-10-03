@@ -1,6 +1,5 @@
 package com.camp.Buddy.model;
 
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
