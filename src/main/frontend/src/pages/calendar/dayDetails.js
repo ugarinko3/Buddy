@@ -41,7 +41,7 @@ function DayDetails (){
                 <div className='conteiner-main-news'>
                     <Burger/>
                     <div className="curator-news">
-                        {!availability &&(
+                        {(!availability && role === "user" )&&(
                             <div className='container-bottom'>
                                 <div className={`conteiner-comment-day`}>
                                     <div className={`comment-dayDetails`}>

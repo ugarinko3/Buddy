@@ -1,8 +1,6 @@
 package com.camp.Buddy.repository;
 
-import com.camp.Buddy.model.Day;
-import com.camp.Buddy.model.PostDayUser;
-import com.camp.Buddy.model.UserDayResponse;
+import com.camp.Buddy.model.Response.UserDayResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

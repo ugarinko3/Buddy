@@ -30,9 +30,9 @@ a {
     z-index: 54;
 }
 .calendar-container {
-    //max-width: 850px;
     display: flex;
-    width: 100%;
+    //width: 610px;
+    border-radius: 15px;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
@@ -40,6 +40,9 @@ a {
     padding: 0 0 20px 0;
     background-color: #28303F;
     //border-radius: 15px;
+}
+.rbc-calendar {
+    width: 610px;
 }
 .link-name {
     padding: 20px;
@@ -283,9 +286,6 @@ a {
     opacity: 0;
     animation: fadeIn 0.3s forwards;
 
-    h2{
-        margin-bottom: 30px;
-    }
 }
 
 

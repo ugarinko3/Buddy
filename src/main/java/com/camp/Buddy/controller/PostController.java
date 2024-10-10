@@ -1,15 +1,13 @@
 package com.camp.Buddy.controller;
 
 import com.camp.Buddy.model.Post;
-import com.camp.Buddy.model.PostResponse;
+import com.camp.Buddy.model.Response.PostResponse;
 import com.camp.Buddy.service.PostService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import java.io.IOException;

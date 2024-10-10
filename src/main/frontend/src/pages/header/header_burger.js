@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 function Burger() {
     const [activeMenu, setActiveMenu] = useState('');
-    const {role}  = useSelector((state) => state.token);
+    const {role, login}  = useSelector((state) => state.token);
     function clickBurger(){
         activeMenu === '' ? setActiveMenu('active') : setActiveMenu('');
     }
@@ -59,7 +59,7 @@ function Burger() {
                             <Link to="/calendar" className="header-link">Calendar</Link>
                         </li>
                         <li>
-                            <a href="/profile" className="header-link">Profile</a>
+                            <a href={`/profile/${login}`} className="header-link">Profile</a>
                         </li>
                         <li>
                             <a href="/tournament" className="header-link">Tournament</a>

@@ -1,5 +1,6 @@
 package com.camp.Buddy.model;
 
+import com.camp.Buddy.model.Goal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -28,6 +30,10 @@ public class User {
 
     @Column(name = "like_post")
     private List<String> likePost;
+
+//    @ManyToOne
+//    @JoinColumn(name = "goals")
+//    private Goal goals;
 
     @Column(name = "role")
     private String role;

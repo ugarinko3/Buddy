@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import {thunk} from 'redux-thunk'; // Правильный импорт redux-thunk
 import postReducer from './slice/postSlice';
 import logReducer from './slice/logSlice';
-import userReducer from './slice/userSlice';
+import profileReducer from './slice/profileSlice';
 import calendarReducer from './slice/calendarSlice';
 import tokenReducer from './slice/tokenSlice';
 import teamReducer from './slice/teamSlice';
@@ -12,6 +12,7 @@ const store = configureStore({
     reducer: {
         post: postReducer,
         log: logReducer,
+        profile:profileReducer,
         // user: userReducer,
         calendar: calendarReducer,
         token: tokenReducer,

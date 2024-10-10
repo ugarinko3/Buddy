@@ -5,28 +5,29 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.camp.Buddy.model.User;
 
-@Setter
+import java.util.UUID;
+
 @Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "user_days")
-public class UserDayResponse {
+@Table(name = "goals")
+public class Goal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "day_id")
-    private Day day;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "status")
-    private String status;
-
-
+    private boolean status = false;
 }

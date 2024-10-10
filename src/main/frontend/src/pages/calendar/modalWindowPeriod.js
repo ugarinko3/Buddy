@@ -56,7 +56,7 @@ const Modal = ({ isOpen, onClose }) => {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Выберите период</h2>
+                <h2 className={`mr-1`}>Выберите период</h2>
                 <div className="date-inputs">
                     <div className="date-picker">
                         <label htmlFor="start-date">С какого:</label>

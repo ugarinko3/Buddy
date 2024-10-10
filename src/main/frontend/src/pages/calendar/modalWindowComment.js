@@ -27,7 +27,7 @@ function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, rol
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2>{day} Day</h2>
+                <h2 className={`mr-1`}>{day} Day</h2>
                 <p className="edit-comment"> Изменение комментария:</p>
                 <div className="commentContainer">
                     <textarea

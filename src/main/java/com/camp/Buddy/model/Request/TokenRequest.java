@@ -1,4 +1,4 @@
-package com.camp.Buddy.model;
+package com.camp.Buddy.model.Request;
 
 
 import lombok.Getter;

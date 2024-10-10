@@ -1,5 +1,6 @@
-package com.camp.Buddy.model;
+package com.camp.Buddy.model.Response;
 
+import com.camp.Buddy.model.Day;
 import lombok.Getter;
 import lombok.Setter;
 

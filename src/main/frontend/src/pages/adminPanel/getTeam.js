@@ -1,6 +1,9 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Loading from "../loading/loading";
+import Curator from "./curator";
+import User from "./user";
+
 
 function GetTeam ({handleModalClick, isAnimating}) {
     // const dispatch = useDispatch();
@@ -42,31 +45,14 @@ function GetTeam ({handleModalClick, isAnimating}) {
                                     <div className={`faq__item ${activeIndex === index ? 'active' : ''}`}>
                                         {/* Заголовок, по которому происходит клик */}
                                         <div className={`curator`}>
-                                            <div className='string-mini-info gradient-border border-curator-background'
-                                                 onClick={() => toggleAnswer(index)}>
-                                                <div className='inner-content'>
-                                                    <div className='image'>
-                                                        {imageLoading.avatar && <div className='loader'></div>}
-                                                        <img
-                                                            src={item.curator.urlAvatar}
-                                                            alt={`${item.curator.login} Avatar`}
-                                                            onLoad={() => setImageLoading(prev => ({
-                                                                ...prev,
-                                                                avatar: false
-                                                            }))}
-                                                            onError={() => setImageLoading(prev => ({
-                                                                ...prev,
-                                                                avatar: false
-                                                            }))}
-                                                            style={{display: imageLoading.avatar ? 'none' : 'block'}}
-                                                        />
-                                                    </div>
-                                                    <div className='text-flex'>
-                                                        <h3>{item.curator.login} <span></span></h3>
-                                                        <p>{item.curator.role}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <Curator
+                                                toggleAnswer={toggleAnswer}
+                                                index = {index}
+                                                item={item.curator}
+                                                imageLoading={imageLoading}
+                                                setImageLoading={setImageLoading}
+                                                bool = {true}
+                                            />
                                         </div>
                                         <div
                                             className={`faq-answer ${activeIndex === index ? 'open' : ''}`}
@@ -75,32 +61,11 @@ function GetTeam ({handleModalClick, isAnimating}) {
                                             }}
                                         >
                                             {item.participants.map((itemParticipants, i) => (
-                                                <div
-                                                    className={`string-mini-info gradient-border border-user-background`}>
-                                                    <div className={`inner-content `}>
-                                                        <div className='image'>
-                                                            {imageLoading.avatar &&
-                                                                <div className='loader'></div>}
-                                                            <img
-                                                                src={itemParticipants.urlAvatar}
-                                                                alt={`${itemParticipants.login} Avatar`}
-                                                                onLoad={() => setImageLoading(prev => ({
-                                                                    ...prev,
-                                                                    avatar: false
-                                                                }))}
-                                                                onError={() => setImageLoading(prev => ({
-                                                                    ...prev,
-                                                                    avatar: false
-                                                                }))}
-                                                                style={{display: imageLoading.avatar ? 'none' : 'block'}}
-                                                            />
-                                                        </div>
-                                                        <div className='text-flex'>
-                                                            <h3>{itemParticipants.login} <span></span></h3>
-                                                            <p>{itemParticipants.role}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <User
+                                                    itemParticipants={itemParticipants}
+                                                    imageLoading={imageLoading}
+                                                    setImageLoading={setImageLoading}
+                                                />
                                             ))}
                                         </div>
                                     </div>

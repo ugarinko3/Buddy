@@ -24,7 +24,8 @@ function App() {
                     <Route path="/admin-panel" element = {<PrivateRoute element={AdminPanel} />} />
                     <Route path="/post" element={<PrivateRoute element={Post} />} />
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
-                    <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails} />} />                    <Route path="/profile" element={<PrivateRoute element={Profile} />} />
+                    <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails} />} />
+                    <Route path="/profile/:userName" element={<PrivateRoute element={Profile} />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </AuthProvider>

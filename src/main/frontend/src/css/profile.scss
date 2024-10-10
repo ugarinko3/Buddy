@@ -5,19 +5,104 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 .profile {
-    margin-top: 80px;
+    width: 100%;
+    margin-top: 180px;
     display: flex;
     align-content: center;
     flex-wrap: wrap;
     flex-direction: column;
+    //max-width: 600px;
 
 }
-.profile-img {
-    width: 90%;
+.lvl_1 {
     display: flex;
+    width: 100%;
+    gap: 20px;
+
+    //flex-wrap: wrap;
     justify-content: center;
-    position: relative;
-    top: 90px; /* Увеличьте значение по необходимости */
+}
+.lvl_2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.create-goal {
+    margin: 0;
+    margin-left: auto;
+}
+.mr-2 {
+    margin-bottom: 20px;
+}
+.mr-3 {
+    margin-top: 10px;
+}
+.container-width {
+    margin-top: 20px;
+    width: 100%;
+}
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.profileInfo {
+    background-color: #2c3443;
+    border-radius: 15px;
+}
+.info-team-goals {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-info {
+    display: flex;
+    gap: 20px;
+    border-radius: 15px;
+    background-color: #2c3443;
+    padding: 10px;
+    //border-radius: 15px;
+}
+.mini-info {
+    border: 1px solid #484f64;
+    border-radius: 15px;
+    padding: 10px;
+    max-width: 300px;
+}
+.name-title {
+    padding: 10px 30px;
+    //background-color: #343E51;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+
+}
+.line {
+    width: 90%;
+    height: 1px;
+    background-color: #ADADAD;
+    margin-bottom: 10px
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    //align-items: center;
+    justify-content: center;
+}
+
+
+.profile-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .profile-img img {
     border-radius: 50%;
@@ -26,27 +111,56 @@ p, h1, h2, h3, h4, h5, h6 {
     background-color: #fff;
 }
 .profile-info {
-    width: 90%;
+    border: 1px solid #434E63;
+    padding: 10px 0;
+    height: 100%;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
-    background-color: #28303F;
     flex-direction: column;
     border-radius: 7px;
+    position: relative;
+}
+.role {
+    position: absolute;
+    transform: rotate(90deg);
+    left: calc( 100% - 32px);
+    top: 50px;
+    border-radius: 8px;
+    padding: 2px 8px;
+    text-align: center;
+    background-color: #6be0c6;
+}
+.role.curator {
+    background-color: rgb(255, 165, 0);
+}
+.role.user {
+    left: calc( 100% - 24px);
+}
+.role.admin {
+    left: calc( 100% - 30px);
+    background-color: rgb(255, 74, 80);
+}
+
+.top-1 {
+    margin-bottom: 2px;
 }
 
 .profile-cont {
-    min-width: 700px;
+    min-width: 300px;
+    height: 100%;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-content: center;
     flex-direction: column;
     flex-wrap: wrap;
+    position: relative;
 
 }
 .profile-info .profile-name {
     text-align: center;
-    margin-top: 100px;
 }
 .profile-info .profile-team-name {
     text-align: center;
@@ -119,7 +233,108 @@ p, h1, h2, h3, h4, h5, h6 {
     .goal {
     }
 }
+.goal-user {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c0c0c0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Позволяет переносить элементы внутри контейнера */
+    max-width: 100%; /* Ограничивает максимальную ширину, если это необходимо */
+}
+.true {
+    border: 1px solid #75F5C5;
+}
 
+.title-goal {
+    word-wrap: break-word; /* Позволяет переносить длинные слова */
+    overflow-wrap: anywhere; /* Современный аналог word-wrap */
+    white-space: normal;
+    flex: 1; /* Позволяет элементу занимать доступное пространство */
+    min-width: 0; /* Позволяет тексту правильно переноситься в флекс-контейнере */
+}
+.no-filter-goal {
+    text-align: left;
+}
+.change-goal {
+    display: flex;
+    gap: 5px;
+    margin-left: 10px;
+}
+.button-goal {
+    border: 1px solid #75F5C5;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #434E63;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.max-goal {
+    padding: 30px 10px;
+    border-radius: 12px;
+    border: 1px solid #75F5C5;
+    margin-top: 20px;
+}
+.text-h3 {
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+}
+
+
+.checkbox-goal {
+    appearance: none; /* Убираем стандартный стиль чекбокса */
+    margin-left: 20px;
+    width: 20px; /* Ширина чекбокса */
+    height: 20px; /* Высота чекбокса */
+    border: 2px solid #ccc; /* Цвет рамки */
+    border-radius: 4px; /* Скругление углов */
+    cursor: pointer; /* Курсор при наведении */
+    outline: none; /* Убираем обводку */
+    position: relative; /* Позиционирование для псевдоэлементов */
+    transition: background-color 0.3s, border-color 0.3s; /* Плавный переход */
+}
+
+.checkbox-goal:checked {
+    background-color: #6be0c6; /* Цвет фона при checked */
+    border-color: #75F5C5; /* Цвет рамки при checked */
+}
+
+.checkbox-goal:checked::after {
+    content: ''; /* Создаем псевдоэлемент */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 5px; /* Смещение по горизонтали */
+    top: 2px; /* Смещение по вертикали */
+    width: 5px; /* Ширина галочки */
+    height: 10px; /* Высота галочки */
+    border: solid white; /* Цвет галочки */
+    border-width: 0 2px 2px 0; /* Толщина галочки */
+    transform: rotate(45deg); /* Поворот для создания галочки */
+}
+
+@media screen and (max-width: 970px){
+
+    .profileInfo {
+        margin: 20px;
+    }
+
+    .profile-img {
+        position: absolute;
+        top: -90px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .profile-name {
+        margin-top: 100px;
+    }
+    .lvl_1 {
+        flex-direction: column;
+        max-width: 610px;
+    }
+}
 
 @media screen and (max-width: 700px){
     .profile-cont {
@@ -128,5 +343,14 @@ p, h1, h2, h3, h4, h5, h6 {
     }
     .profile-info .profile-team-name h2 {
         font-size: 18px;
+    }
+}
+@media screen and (max-width: 600px){
+    .profile {
+        flex-wrap: nowrap;
+    }
+    .container-info {
+        flex-direction: column;
+        gap: 30px;
     }
 }

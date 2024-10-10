@@ -1,7 +1,7 @@
 package com.camp.Buddy.service;
 
 import com.camp.Buddy.model.Post;
-import com.camp.Buddy.model.PostResponse;
+import com.camp.Buddy.model.Response.PostResponse;
 import com.camp.Buddy.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

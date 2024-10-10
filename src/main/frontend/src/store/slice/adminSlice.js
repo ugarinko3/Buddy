@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {fetchGetTeam} from "./teamSlice";
+// import {fetchGetTeam} from "./teamSlice";
 
 
 export const fetchCreateCurator = async (login) => {

@@ -2,6 +2,9 @@ package com.camp.Buddy.controller;
 
 
 import com.camp.Buddy.model.*;
+import com.camp.Buddy.model.Request.CalendarRequest;
+import com.camp.Buddy.model.Response.CalendarResponse;
+import com.camp.Buddy.model.Response.PostDayUserResponse;
 import com.camp.Buddy.service.CalendarService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +60,6 @@ public class CalendarController {
             calendarService.selectStatus(postDayUser);
             return ResponseEntity.status(HttpStatus.OK).build(); // Return 200 OK
         } catch (Exception e) {
-            // Log the exception and return an appropriate error response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Return 500 Internal Server Error
         }
     }

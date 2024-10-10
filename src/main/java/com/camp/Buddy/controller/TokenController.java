@@ -1,14 +1,12 @@
 package com.camp.Buddy.controller;
 
 
-import com.camp.Buddy.model.TokenResponse;
+import com.camp.Buddy.model.Response.TokenResponse;
 import com.camp.Buddy.service.TokenService;
-import com.camp.Buddy.model.TokenRequest;
+import com.camp.Buddy.model.Request.TokenRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

@@ -1,12 +1,9 @@
 import '../../css/calendar.scss';
 import React, { useEffect, useState } from 'react';
-import CreateDaysForm from './createDay';
 import Burger from '../header/header_burger';
 import Modal from './modalWindowPeriod';
-import { Link } from 'react-router-dom';
 import { fetchCalendar } from "../../store/slice/calendarSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useCheckToken } from "../token/token";
 import Day from "./day";
 import Loading from "../loading/loading";
 import ModalWindowComment from "./modalWindowComment";
@@ -61,8 +58,9 @@ function Calendar() {
     // Фильтрация дней по статусу
     const filteredDays = day.filter(item => {
         if (filter === 'Success') return item.status === 'Success';
+        if (filter === 'Process') return item.status === 'Process';
         if (filter === 'no-active') return item.status === 'no-active';
-        if (filter === 'Fail') return item.status === 'Fail';
+        if (filter === 'Failed') return item.status === 'Failed';
         return true; // Возвращаем все дни, если фильтр 'all'
     });
     const handleFilterChange = (filter) => {
@@ -81,7 +79,7 @@ function Calendar() {
                     <h2>Calendar</h2>
                 </div>
                 <ul className="header-list padding-list">
-                    {['All', 'Success', 'in Process', 'no-active', 'Failed'].map((filter) => (
+                    {['All', 'Success', 'Process', 'no-active', 'Failed'].map((filter) => (
                         <li
                             key={filter}
                             className={`header-link ${activeFilter === filter ? 'active' : ''}`}

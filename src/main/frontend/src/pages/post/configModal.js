@@ -25,7 +25,7 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
     return (
         <div className={`modal-overlay ${isOpen ? 'show' : ''}`}>
             <div className={`modal-content ${isAnimating ? 'show' : ''}`}>
-                <h2>Подтверждение удаления</h2>
+                <h2 className={`mr-1`}>Подтверждение удаления</h2>
                 <p className='text'>Вы уверены, что хотите удалить этот пост?</p>
                 <div className="modal-actions">
                     <button className='da' onClick={onConfirm}><p>Да</p></button>
