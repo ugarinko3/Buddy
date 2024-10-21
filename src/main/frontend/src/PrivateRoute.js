@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { fetchToken } from './store/slice/tokenSlice'; // ваш redux slice
 import { getCookie } from './pages/cookie/getCookie';
-import Loading from "./pages/loading/loading"; // функция для получения токенов из куки
+import Loading from "./pages/loading/loading";
+import Error from "./pages/error/error"; // функция для получения токенов из куки
 
 const PrivateRoute = ({ element: Component }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,12 @@ const PrivateRoute = ({ element: Component }) => {
   // }
 
   // Если токен еще не загружен, показываем индикатор загрузки
-  if (!login) {
+
+  if(error && error !== 429) {
+    return <Error
+        code={error}
+    />;
+  } else if (!login) {
     return <Loading />; // Здесь можно сделать более сложный индикатор
   }
 

@@ -2,29 +2,34 @@ import React, {useEffect, useState} from 'react';
 import '../../css/profile.scss';
 import Burger from '../header/header_burger';
 import {fetchCreateGoal, fetchDeleteGoal, fetchStatusGoal, fetchUser} from "../../store/slice/profileSlice";
-import Curator from "../adminPanel/curator";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import User from "../adminPanel/user";
 import CreateGoal from "./createGoal";
 import MiniCalendar from "./mini-calendar";
 import Loading from "../loading/loading";
-import Error from "../error/error"; // Импортируйте useParams
+import Error from "../error/error";
+import ListTeam from "../adminPanel/listTeam"; // Импортируйте useParams
 
 function Profile() {
     const { userName } = useParams(); // Получите параметр login из URL
     // const [activeIndex, setActiveIndex] = useState(null); // Отслеживание активного индекса
-    const [imageLoading, setImageLoading] = useState({ image: true, avatar: true });
+    const [imageLoading, setImageLoading] = useState({ avatar: true });
     const dispatch = useDispatch();
     const { login } = useSelector((state) => state.token);
     const { days, user, team, goals,  error} = useSelector((state) => state.profile);
     const [message, setMessage] = useState('');
+    const [activeIndex, setActiveIndex] = useState(null);
     const [modalWindow, setModalWindow] = useState(false);
     const isUserLoggedIn = user?.login && login === user?.login;
+    const successDaysCount = days.filter(item => item.status === "Success").length;
+    const percentage =  Math.round((successDaysCount / days.length) * 100);
 
     // const toggleAnswer = (index) => {
     //     setActiveIndex(activeIndex === index ? null : index); // Переключение активного индекса
     // };
+    const toggleAnswer = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
 
 
     useEffect(() => {
@@ -82,35 +87,37 @@ function Profile() {
                         <div className="profile-cont">
                             <div className="profile-info">
                                 <div className="profile-img">
+                                    {imageLoading.avatar && <div className='loader profile-loader'></div>}
                                     <img
-                                        src='https://firebasestorage.googleapis.com/v0/b/buddy-ea86a.appspot.com/o/avatars%2Favatar_1.png?alt=media&token=d668660e-6835-4c0c-8fff-8bb6c8f093f9'
-                                        alt='avatar-profile'></img>
+                                        src={user.urlAvatar}
+                                        alt={`${user.login} avatar`}
+                                        onLoad={() => setImageLoading(prev => ({...prev, avatar: false}))}
+                                        onError={() => setImageLoading(prev => ({...prev, avatar: false}))}
+                                        style={{display: imageLoading.avatar ? 'none' : 'block'}}/>
                                 </div>
                                 <div className={`role ${user.role}`}><p className={`top-1`}>{user.role}</p></div>
                                 <div className="profile-name">
-                                    <p>{userName}@student.21-school.ru</p> {/* Исправлено здесь */}
-                                </div>
-                                <div className="profile-team-name">
-                                    <p>Team Name</p>
+                                    <h2 className={`username-profile`}>{userName}@student.21-school.ru</h2> {/* Исправлено здесь */}
+                                    <p className={`core-programm`}>{user.coreProgramm}</p>
                                 </div>
                                 <div className="profile-progress">
                                     <div className="profile-progress-day">
                                         <div className="completed-days">
-                                            <p>7/30</p>
+                                            <p>{successDaysCount}/{days.length}</p>
                                         </div>
                                         <div className="percentage-of-days">
-                                            <p>25%</p>
+                                            <p>{percentage}%</p>
                                         </div>
                                     </div>
                                     <div className="progress-bar">
                                         <div className="progress">
-                                            <div className="progress-bar-inner"></div>
+                                            <div className="progress-bar-inner" style={{width: `${percentage}%`}}></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="profile-active">
-                                    <div className="token">564 token</div>
-                                    <div className="xp">4815 XP</div>
+                                    <div className="token">{user.token} TOKEN</div>
+                                    <div className="xp">{user.xp} XP</div>
                                 </div>
                             </div>
                         </div>
@@ -136,9 +143,9 @@ function Profile() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div>No goals available</div> // Сообщение, если нет целей
+                                        <div className={`no-goals`}>No goals available</div> // Сообщение, если нет целей
                                     )}
-                                    { isUserLoggedIn && (
+                                    {isUserLoggedIn && (
                                         <CreateGoal
                                             user={user}
                                             goals={goals} // Передаем цели
@@ -153,32 +160,29 @@ function Profile() {
                                         />
                                     )}
                                 </div>
-
                             </div>
                             <div className={`mini-info`}>
                                 <div className={`name-title`}>
                                     <h2 className={`ft108`}>TEAM</h2>
                                     <div className={`line`}></div>
                                 </div>
-
-                                {user && user.role === "user" && team && team.length > 0 && (
-                                    <div className={`list`} key={user.id}>
-                                            <Curator
-                                                index={team[0].curator.id}
-                                                item={team[0].curator} // Передаем объект куратора
-                                                imageLoading={imageLoading}
-                                                setImageLoading={setImageLoading}
-                                                bool={false}
-                                            />
-                                            {team[0].participants.map((itemParticipants, i) => (
-                                                <User
-                                                    index={itemParticipants.id}
-                                                    itemParticipants={itemParticipants}
-                                                    imageLoading={imageLoading}
-                                                    setImageLoading={setImageLoading}
-                                                />
-                                            ))}
-                                        </div>
+                                {team && team.length > 0 ? (
+                                    team.map((item, index) => (
+                                    <ListTeam
+                                        key={index} // Добавление уникального ключа
+                                         activeIndex={activeIndex}
+                                         toggleAnswer={toggleAnswer}
+                                         index={index}
+                                         item={item}
+                                         imageLoading={imageLoading}
+                                         setImageLoading={setImageLoading}
+                                         bool={true}
+                                    />
+                                    ))
+                                ):(
+                                    <div className={`no-goals no-team`}>
+                                        <p>The user does not have a command</p>
+                                    </div>
                                 )}
                             </div>
                         </div>

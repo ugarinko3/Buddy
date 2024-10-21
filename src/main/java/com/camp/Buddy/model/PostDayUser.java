@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +24,9 @@ public class PostDayUser {
     @Column(name="id_day")
     private UUID idDay;
 
+    @Column(name="name_team")
+    private String nameTeam;
+
     @Column(name="role")
     private String role;
 
@@ -37,6 +41,10 @@ public class PostDayUser {
 
     @Column(name="url_avatar")
     private String urlAvatar;
+
+    @ManyToOne
+    @JoinColumn(name = "curator")
+    private User curator;
 
     @Column(name="url_post")
     private String urlPost;

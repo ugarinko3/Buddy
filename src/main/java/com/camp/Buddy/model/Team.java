@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Setter
@@ -25,5 +26,5 @@ public class Team {
     private User curator;
 
     @OneToMany
-    private List<User> participants;
+    private Set<User> participants;
 }

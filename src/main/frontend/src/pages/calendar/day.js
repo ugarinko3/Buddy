@@ -33,7 +33,7 @@ function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
                         style={{ padding: '10px 20px'}}
                         onClick={handleEditClick}
                     >
-                        edit
+                        create
                     </button>
                 </div>
             )}

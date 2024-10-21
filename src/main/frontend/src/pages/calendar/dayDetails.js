@@ -4,10 +4,9 @@ import Burger from "../header/header_burger";
 import AddPost from "../post/addPost";
 import Post from "../post/post";
 import '../../css/post.scss'
-import {fetchCalendarDay} from "../../store/slice/calendarSlice";
+import {fetchCalendarDay, fetchStatus} from "../../store/slice/calendarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import Loading from "../loading/loading";
-import {fetchStatus} from "../../store/slice/statusSlice";
 
 
 
@@ -15,6 +14,7 @@ function DayDetails (){
     const dispatch = useDispatch();
     const {login, role}  = useSelector((state) => state.token);
     const { dayPost, error, loading, availability} = useSelector((state) => state.calendar);
+    // const { success } = useSelector((state) => state.status); // Следим за успешным обновлением статуса
     const { id} = useParams();
     // const [imageLoading, setImageLoading] = useState({ image: true, avatar: true });
 
@@ -22,19 +22,17 @@ function DayDetails (){
         dispatch(fetchCalendarDay(login, id));
     };
     useEffect(() => {
-        // if (Array.isArray(dayPost) && dayPost.length === 0) {
-            dispatch(fetchCalendarDay(login, id));
-        // }
+        dispatch(fetchCalendarDay(login, id)); // Перезагружаем календарь при успешном обновлении статуса
     }, [dispatch, id, login]);
+    console.log(dayPost)
+    const functionStatus =  async (post) => {
 
-    const functionStatus = (post) => {
-        // Call the fetchStatus action with the item
-        dispatch(fetchStatus(post));
+        await dispatch(fetchStatus(post));
+        dispatch(fetchCalendarDay(login, id));
     };
 
     if (loading) return <Loading />;
     if (error) return <p>Error: {error}</p>;
-    console.log(dayPost)
     return (
         <div>
             <div className='main'>

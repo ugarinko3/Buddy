@@ -2,10 +2,7 @@ package com.camp.Buddy.model;
 
 import com.camp.Buddy.model.Goal;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode
 @Table(name = "users")
 public class User {
 
@@ -34,6 +32,15 @@ public class User {
 //    @ManyToOne
 //    @JoinColumn(name = "goals")
 //    private Goal goals;
+
+    @Column(name = "token")
+    private Integer token;
+
+    @Column(name = "core_programm")
+    private String coreProgramm;
+
+    @Column(name = "xp")
+    private Integer xp;
 
     @Column(name = "role")
     private String role;

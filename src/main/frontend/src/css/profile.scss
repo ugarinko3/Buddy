@@ -65,13 +65,31 @@ p, h1, h2, h3, h4, h5, h6 {
     border-radius: 15px;
     background-color: #2c3443;
     padding: 10px;
+    min-height: 389px;
     //border-radius: 15px;
 }
 .mini-info {
     border: 1px solid #484f64;
     border-radius: 15px;
     padding: 10px;
-    max-width: 300px;
+    max-width: 322px;
+}
+.mini-name-team {
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    margin-bottom: 0;
+    transition: font-size 1s ease, margin-bottom 1s ease;
+}
+.mini-name-team.open {
+    font-size: 10px;
+    margin-bottom: 30px;
+    transition: font-size 0.4s ease, margin-bottom 1s ease;
+}
+.faq-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 .name-title {
     padding: 10px 30px;
@@ -102,6 +120,8 @@ p, h1, h2, h3, h4, h5, h6 {
 .profile-img {
     display: flex;
     align-items: center;
+    width: 100%;
+    height: 100%;
     justify-content: center;
 }
 .profile-img img {
@@ -132,6 +152,26 @@ p, h1, h2, h3, h4, h5, h6 {
     text-align: center;
     background-color: #6be0c6;
 }
+.list-team {
+    border-radius: 8px;
+    border: 1px solid #c0c0c0;
+    min-height: 60px;
+    padding: 13px;
+    position: relative;
+}
+.faq__item.active .click-me {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.click-me {
+    position: absolute;
+    top: 37px;
+    left: 211px;
+    color: #434E63;
+    transition: opacity 2s;
+}
+
+
 .role.curator {
     background-color: rgb(255, 165, 0);
 }
@@ -159,19 +199,14 @@ p, h1, h2, h3, h4, h5, h6 {
     position: relative;
 
 }
-.profile-info .profile-name {
+.profile-name {
     text-align: center;
+    margin-top: 10px;
 }
 .profile-info .profile-team-name {
     text-align: center;
     position: relative;
     top: 20px;
-}
-.profile-info .profile-name p {
-    font-size: 18px;
-    border-bottom: 1px solid #fff;
-    font-weight: 700;
-    display: inline-block;
 }
 .profile-info .profile-team-name p {
     font-size: 24px;
@@ -180,17 +215,26 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .profile-info .profile-progress {
     display: flex;
+    margin-top: 30px;
     width: 100%;
     justify-content: center;
     flex-direction: column;
 }
+.username-profile {
+    font-family: Roboto;
+    font-size: 18px;
+}
+.core-programm {
+    font-size: 12px;
+    font-family: Roboto;
+}
 .profile-info .profile-progress .profile-progress-day {
     display:flex;
     justify-content: space-between;
-    padding: 0 50px;
+    padding: 0px 25px;
 }
 .profile-info .profile-progress .progress-bar{
-    padding: 0 40px;
+    padding: 0 15px;
     height: 10px;
 
 }
@@ -202,7 +246,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-info .profile-progress .progress-bar .progress .progress-bar-inner {
-    width: 25%;
+    //width: %;
     height: 100%;
     border-radius: 12px;
     background: linear-gradient(to right, #78B2CD, #75F5C5);
@@ -210,9 +254,11 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .profile-info .profile-active {
     display: flex;
-    padding: 0 40px;
-    margin-top: 24px;
+    padding: 5px;
+    margin-top: 10px;
     gap: 10px;
+    justify-content: space-around;
+
 
     .xp {
         background: linear-gradient(to right, #41A4FF, #1400FF);
@@ -221,20 +267,29 @@ p, h1, h2, h3, h4, h5, h6 {
         padding: 7px 30px;
     }
 
-    .token {
-        background: linear-gradient(to right, #FF0F00, #FF7528);
-        text-align: center;
-        border-radius: 5px;
-        padding: 7px 30px;
-    }
+
+}
+.token {
+    background: linear-gradient(to right, #FF0F00, #FF7528);
+    text-align: center;
+    border-radius: 5px;
+    padding: 7px 30px;
 }
 
-.profile-goals {
-    .goal {
-    }
+.no-goals {
+    min-width: 276px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #75F5C5;
+}
+.no-team {
+    //height: 100%;
+    max-height: 500px;
 }
 .goal-user {
     padding: 10px;
+    min-width: 276px;
     border-radius: 8px;
     border: 1px solid #c0c0c0;
     display: flex;
@@ -243,7 +298,7 @@ p, h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap; /* Позволяет переносить элементы внутри контейнера */
     max-width: 100%; /* Ограничивает максимальную ширину, если это необходимо */
 }
-.true {
+.goal-user.true {
     border: 1px solid #75F5C5;
 }
 
@@ -294,6 +349,7 @@ p, h1, h2, h3, h4, h5, h6 {
     border-radius: 4px; /* Скругление углов */
     cursor: pointer; /* Курсор при наведении */
     outline: none; /* Убираем обводку */
+    cursor: default;
     position: relative; /* Позиционирование для псевдоэлементов */
     transition: background-color 0.3s, border-color 0.3s; /* Плавный переход */
 }
@@ -314,6 +370,12 @@ p, h1, h2, h3, h4, h5, h6 {
     border-width: 0 2px 2px 0; /* Толщина галочки */
     transform: rotate(45deg); /* Поворот для создания галочки */
 }
+//.profile-loader {
+//    width: 100%;
+//    height: 100%;
+//    //border: 2px solid #434E63;
+//    padding: 7px;
+//}
 
 @media screen and (max-width: 970px){
 
@@ -325,18 +387,26 @@ p, h1, h2, h3, h4, h5, h6 {
         position: absolute;
         top: -90px;
         left: 50%;
+        width: 180px;
+        height: 180px;
         transform: translateX(-50%);
     }
     .profile-name {
-        margin-top: 100px;
+        margin-top: 90px;
     }
     .lvl_1 {
         flex-direction: column;
         max-width: 610px;
     }
+    .container-info {
+        min-height: 0;
+    }
 }
 
 @media screen and (max-width: 700px){
+    .profile-name {
+        margin-top: 90px;
+    }
     .profile-cont {
         width: 100%;
         min-width: auto;

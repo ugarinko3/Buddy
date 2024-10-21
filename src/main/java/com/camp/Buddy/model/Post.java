@@ -22,8 +22,8 @@ public class Post {
     @Column(name = "team_name")
     private String teamName;
 
-    @Column(name = "curator")
-    private String curator;
+    @Column(name = "login")
+    private String login;
 
     @Column(name = "likes")
     private Integer likes;
@@ -34,8 +34,8 @@ public class Post {
     @Column(name = "date")
     private LocalDateTime date;
 
-    @Column(name = "team_number")
-    private Integer teamNumber;
+//    @Column(name = "team_number")
+//    private Integer teamNumber;
 
     @Column(name = "url_avatar")
     private String urlAvatar;

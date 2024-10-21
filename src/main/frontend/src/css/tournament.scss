@@ -1,0 +1,58 @@
+
+.tournament-container {
+  padding: 10px;
+  border: 1px solid #6be0c6;
+  border-radius: 15px;
+  max-width: 550px;
+}
+.user-flex {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.container-user {
+  display: flex;
+  //margin-left: 20px;
+  gap: 20px;
+}
+.container-user-token {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.sp-1231 {
+  justify-content: space-between;
+}
+.tk-12 {
+  padding: 7px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.token p {
+  margin: 0;
+  padding: 0;
+}
+.leader-0 {
+  path {
+    //fill: #fff;
+  }
+
+}
+.curator-tour {
+  background: linear-gradient(98.94deg, rgba(255, 15, 0, 0.9) -18.57%, rgba(255, 117, 40, 0.9) 96.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+.user-tour {
+  background: linear-gradient(97.87deg, #0078B0 0.47%, #59EBFF 62.34%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.admin-tour {
+  color: #cf2828;
+}

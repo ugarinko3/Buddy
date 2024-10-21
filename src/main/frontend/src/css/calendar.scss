@@ -31,13 +31,13 @@ a {
 }
 .calendar-container {
     display: flex;
-    //width: 610px;
+    width: 100%;
     border-radius: 15px;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     z-index: 49;
-    padding: 0 0 20px 0;
+    //padding: 0 0 20px 0;
     background-color: #28303F;
     //border-radius: 15px;
 }
@@ -54,12 +54,19 @@ a {
     padding: 10px;
     //border: 2px solid #ADADAD;
     border-radius: 15px;
-    margin-top: 20px;
+    margin: 10px 0 ;
     display: flex; /* Добавляем flex для внутренних элементов */
     flex-direction: column;
     transition: all 0.5s ease 0s;
-     box-shadow: 1px 4px 8px rgba(28, 28, 28, 0.71);
+     box-shadow:
+             0px -4px 8px rgba(67, 74, 103, 0.73), /* Светлая тень сверху */
+             0px 4px 8px rgba(37, 37, 37, 0.71);   /* Темная тень снизу */
 }
+ .calendar-day.active {
+     box-shadow:
+             0px -4px 8px rgba(57, 65, 86, 0.66), /* Светлая тень сверху */
+             0px 4px 8px rgba(28, 28, 28, 0.71);
+ }
  .day {
      p{
          font-size: 12px;
@@ -206,66 +213,10 @@ a {
 .Success .task p{
     color: #C8CFD9;
 }
-
 .button-create-calendar-day {
-    width: 100%;
-    position: relative;
-
-    button {
-        background-color: $back-color;
-        color: transparent; /* Делаем текст прозрачным */
-        border: none;
-        padding: 11px 20px;
-        text-align: center;
-        display: flex;
-        font-size: 16px;
-        margin-left: auto;
-        margin-right: 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        background: linear-gradient(45deg, #c0c0c0 48.9%, $grin-color 49%); /* Градиент фона */
-        background-size: 300% 300%;
-        animation: borderGradient 4s linear both infinite; /* Анимация фона */
-        -webkit-background-clip: text; /* Для поддержки градиента текста */
-        background-clip: text; /* Для поддержки градиента текста */
-
-        path {
-            stroke: #fff;;
-        }
-    }
-
-    button:hover {
-        animation: borderGradient 4s linear both infinite; /* Анимация фона */
-    }
-
-    /* Добавьте псевдоэлемент для эффекта градиента */
-    button::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 10px; /* Закругленные углы */
-        background: linear-gradient(45deg, $back-color 48.9%, $grin-color 49%);
-        background-size: 300% 300%;
-        z-index: -1;
-        opacity: 1;
-        transition: opacity 0.3s;
-    }
-
-    button:hover::before {
-        opacity: 1;
-    }
-
-    button {
-        -webkit-text-fill-color: transparent; /* Для поддержки старых браузеров */
-        text-fill-color: transparent; /* Для поддержки старых браузеров */
-    }
+    margin-left: auto;
+    margin-right: 20px;
 }
-
 
 
 

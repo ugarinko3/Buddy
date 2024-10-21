@@ -2,7 +2,11 @@ import "../../css/error.scss"
 
 function Error({code}){
     const handleGoBack = () => {
-        window.history.back(); // Возвращает на предыдущую страницу
+        if (code === 404) {
+            window.location.href = '/'; // Перенаправление на главную страницу (или другую указанную)
+        } else {
+            window.history.back(); // Возвращает на предыдущую страницу
+        }
     };
     return(
         <div className={`container-error`}>

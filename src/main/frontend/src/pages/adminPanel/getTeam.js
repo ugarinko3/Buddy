@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import Loading from "../loading/loading";
-import Curator from "./curator";
-import User from "./user";
+// import Curator from "./curator";
+// import User from "./user";
+import ListTeam from "./listTeam";
 
 
 function GetTeam ({handleModalClick, isAnimating}) {
@@ -20,10 +21,11 @@ function GetTeam ({handleModalClick, isAnimating}) {
 
     if (loading && listTeam.length === 0) return <Loading />;
     if (error) return <p>Error: {error}</p>;
+    // console.log(listTeam)
 
     return (
         <div className={`modal ${isAnimating ? 'show' : ''}`} onClick={handleModalClick}>
-            <div className={`modalContent ${isAnimating ? 'show' : ''}`}>
+            <div className={`modalContent modalWidth ${isAnimating ? 'show' : ''}`}>
                 <div className="conteiner-team">
                     {listTeam.map((item, index) => (
                         <div key={item.id} className="container-function">
@@ -40,37 +42,15 @@ function GetTeam ({handleModalClick, isAnimating}) {
                                     <p>user</p>
                                 </div>
                             </div>
-                            <div className="list-team">
-                                <div className="faq__col">
-                                    <div className={`faq__item ${activeIndex === index ? 'active' : ''}`}>
-                                        {/* Заголовок, по которому происходит клик */}
-                                        <div className={`curator`}>
-                                            <Curator
-                                                toggleAnswer={toggleAnswer}
-                                                index = {index}
-                                                item={item.curator}
-                                                imageLoading={imageLoading}
-                                                setImageLoading={setImageLoading}
-                                                bool = {true}
-                                            />
-                                        </div>
-                                        <div
-                                            className={`faq-answer ${activeIndex === index ? 'open' : ''}`}
-                                            style={{
-                                                maxHeight: activeIndex === index ? '500px' : '0px'
-                                            }}
-                                        >
-                                            {item.participants.map((itemParticipants, i) => (
-                                                <User
-                                                    itemParticipants={itemParticipants}
-                                                    imageLoading={imageLoading}
-                                                    setImageLoading={setImageLoading}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <ListTeam
+                                activeIndex={activeIndex}
+                                toggleAnswer={toggleAnswer}
+                                index={index}
+                                item={item}
+                                imageLoading={imageLoading}
+                                setImageLoading={setImageLoading}
+                                bool={true}
+                            />
                         </div>
                     ))}
                 </div>

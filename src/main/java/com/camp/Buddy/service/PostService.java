@@ -21,7 +21,7 @@ public class PostService {
     public UUID createPost(Post post, MultipartFile photo) throws IOException {
         String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/"+post.getId());
         post.setUrlPostImage(imageUrlPost);
-        post.setUrlAvatar(userService.getAvatarUrlByLogin(post.getCurator()));
+        post.setUrlAvatar(userService.getAvatarUrlByLogin(post.getLogin()));
         post.setDate(LocalDateTime.now());
         return postRepository.save(post).getId();
     }

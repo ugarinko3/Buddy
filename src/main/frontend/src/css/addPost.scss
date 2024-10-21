@@ -259,29 +259,10 @@ p {
 
 }
 
-.button-from {
-    margin-top: 12px;
-    width: 120px;
-    font-weight: bold;
-    padding: 8px 0;
-    margin-left: auto;
-    border-radius: 5px;
-    background: linear-gradient(#76D7C9, #75F5C5);
-    color: #fff;
-    font-family: Roboto;
-    border: none; /* Уберите границу, если нужно */
-    cursor: pointer; /* Указатель при наведении */
-    text-align: center; /* Центрирование текста */
-    transition: background-color 0.3s; /* Плавный переход цвета */
-
-    &:hover {
-        background: linear-gradient(#75F5C5, #76D7C9); /* Цвет при наведении */
-    }
-
-    &:disabled {
-        background: #ccc; /* Цвет для отключенной кнопки */
-        cursor: not-allowed; /* Курсор для отключенной кнопки */
-    }
+.container-bottom.buttom-from {
+    align-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 15px;
 }
 
 .modalContentDay {

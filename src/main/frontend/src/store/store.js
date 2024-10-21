@@ -6,6 +6,9 @@ import profileReducer from './slice/profileSlice';
 import calendarReducer from './slice/calendarSlice';
 import tokenReducer from './slice/tokenSlice';
 import teamReducer from './slice/teamSlice';
+import tournamentReducer from "./slice/tournamentSlice";
+import seasonReduser from "./slice/seasonSlice";
+
 
 // Configure the Redux store
 const store = configureStore({
@@ -17,6 +20,9 @@ const store = configureStore({
         calendar: calendarReducer,
         token: tokenReducer,
         team: teamReducer,
+        season: seasonReduser,
+        tournament: tournamentReducer,
+
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Подключаем thunk
 });

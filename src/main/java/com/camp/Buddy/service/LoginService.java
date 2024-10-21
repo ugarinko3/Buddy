@@ -24,15 +24,15 @@ public class LoginService {
 
   private final RestTemplate restTemplate;
   private final ObjectMapper objectMapper;
-  private final AppUserBase appUserBase;
   private final String url; // Уберите @Value здесь
+  private final UserService userService;
 
   @Autowired
-  public LoginService(RestTemplate restTemplate, ObjectMapper objectMapper, AppUserBase appUserBase, @Value("${url}") String url) {
+  public LoginService(RestTemplate restTemplate, ObjectMapper objectMapper, @Value("${url}") String url, UserService userService) {
     this.restTemplate = restTemplate;
     this.objectMapper = objectMapper;
-    this.appUserBase = appUserBase;
     this.url = url; // Инициализируйте url здесь
+    this.userService = userService;
   }
 
   public ResponseEntity<String> login(String login, String password) throws IOException, ExecutionException, InterruptedException {
@@ -52,7 +52,7 @@ public class LoginService {
     JsonNode jsonNode = objectMapper.readTree(response.getBody());
     String accessToken = jsonNode.get("access_token").asText();
 
-    appUserBase.addUser(login);
+    userService.addUser(login, accessToken);
     return ResponseEntity.ok("{\"access_token\":\"" + accessToken + "\"}");
   }
 }

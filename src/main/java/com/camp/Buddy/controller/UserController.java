@@ -3,6 +3,7 @@ package com.camp.Buddy.controller;
 import com.camp.Buddy.model.Goal;
 import com.camp.Buddy.model.Post;
 import com.camp.Buddy.model.Response.ErrorResponse;
+import com.camp.Buddy.model.User;
 import com.camp.Buddy.service.GoalService;
 import com.camp.Buddy.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -61,14 +64,19 @@ public class UserController {
         goalService.deleteGoal(goal);
     }
 
+    @GetMapping("/tournament")
+    public ResponseEntity<List<User>> getTournament() {
+        return userService.getTournament();
+    }
 
-//    @GetMapping("/team/{id}")
-//    public ResponseEntity<List<String>> getTeamPost(@PathVariable String id) {
-//        try {
-//            List<String> teamDetails = userService.getTeam(id);
-//            return ResponseEntity.ok(teamDetails);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(500).body(Collections.singletonList(e.getMessage()));
-//        }
-//    }
+
+    @GetMapping("/team/{login}")
+    public ResponseEntity<List<String>> getTeamPost(@PathVariable String login) {
+        try {
+            List<String> teamDetails = userService.getTeam(login);
+            return ResponseEntity.ok(teamDetails);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Collections.singletonList(e.getMessage()));
+        }
+    }
 }

@@ -15,15 +15,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
+  border: 1px solid #ADADAD;
   padding: 20px;
   background-color: #2F3849;
   border-radius: 12px;
   //flex-wrap: wrap;
   gap: 5px;
 }
-.container-width {
+.conteiner-team {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  //max-width: 00px;
+}
+.container-width-panel {
   min-width: 220px;
+}
+.wh-120 {
+  margin-top: 20px;
 }
 .create-role {
   display: flex;
@@ -107,6 +118,7 @@
 .faq__item {
   border: 1px solid #75F5C5;
   border-radius: 12px;
+  cursor: pointer;
   //padding: 10px;
   //transition: border 0.3s ease;
   padding: 10px;
@@ -131,6 +143,9 @@
 
 .modal.show .modalContent.show {
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.modalWidth {
+  max-width: 900px;
 }
 
 
@@ -180,7 +195,7 @@
   background: linear-gradient(97.87deg, #0078B0 0.47%, #59EBFF 62.34%);
 }
 
-.gradient-border .inner-content {
+.inner-content {
   background: #2F3849;
   border-radius: 8px; /* Закругленные углы внутреннего содержимого */
   padding: 10px; /* Отступы для содержимого */
@@ -192,6 +207,12 @@
 @media screen and (max-width: 340px){
   .string-mini-info {
     min-width: 0;
+  }
+}
+@media screen and (max-width:750px){
+  .modalWidth {
+    max-width: 400px;
+
   }
 }
 

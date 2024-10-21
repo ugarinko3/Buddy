@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from "axios";
 
 // Create a slice for managing status
 const statusSlice = createSlice({
@@ -32,26 +31,7 @@ const statusSlice = createSlice({
 export const { fetchStatusLoading, fetchStatusSuccess, fetchStatusError } = statusSlice.actions;
 
 // Async action creator
-export const fetchStatus = (item) => {
-    return async (dispatch) => {
-        dispatch(fetchStatusLoading());
-        try {
-            await axios.post('/calendar/change-of-status-active', item, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            dispatch(fetchStatusSuccess());
 
-            // Очистка успеха через 2 секунды
-            setTimeout(() => {
-                dispatch(clearSuccess()); // Новый экшен для очистки флага успеха
-            }, 2000);
-        } catch (error) {
-            dispatch(fetchStatusError(error.message));
-        }
-    };
-};
 
 // Новый экшен для очистки состояния успеха
 export const clearSuccess = () => (dispatch) => {

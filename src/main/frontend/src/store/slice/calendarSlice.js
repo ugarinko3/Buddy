@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import {clearSuccess, fetchStatusError, fetchStatusLoading, fetchStatusSuccess} from "./statusSlice";
 
 export const calendarSlice = createSlice({
     name: 'calendar',
@@ -116,6 +117,26 @@ export const fetchCreateComment = (comment) => async (dispatch) => {
     } catch (error) {
         dispatch(createCommentFail(error.message));
     }
+};
+export const fetchStatus = (item) => {
+    return async (dispatch) => {
+        dispatch(fetchStatusLoading());
+        try {
+            await axios.post('/calendar/change-of-status-active', item, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            dispatch(fetchStatusSuccess());
+
+            // Очистка успеха через 2 секунды
+            setTimeout(() => {
+                dispatch(clearSuccess()); // Новый экшен для очистки флага успеха
+            }, 2000);
+        } catch (error) {
+            dispatch(fetchStatusError(error.message));
+        }
+    };
 };
 
 

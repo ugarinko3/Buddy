@@ -101,32 +101,37 @@ function AdminPanel() {
                         </div>
                     </div>
                     {message && (
-                        <p className={`message container-width ${isError ? 'error' : 'success'}`}>
+                        <p className={`message container-width-panel ${isError ? 'error' : 'success'}`}>
                             {message}
                         </p>
                     )}
                     <div className={`create-role`}>
                         <form onSubmit={handleSubmitCurator} className={`container-function`}>
-                            <label className={`label-left container-width`}>Введите никнейм</label>
+                            <label className={`label-left`}>Назначение куратора</label>
+                            <label className={`label-left container-width-panel wh-120`}>Введите никнейм</label>
                             <input
-                                className={`nick-name container-width`}
+                                className={`nick-name container-width-panel`}
                                 value={curatorNickName}
                                 onChange={handleCuratorInputChange}
                             />
-                            <button className={`btn create-btn btn-top container-width`} type="submit">Назначить
+                            <button className={`btn create-btn btn-top container-width-panel`} type="submit">Назначить
                                 куратора
                             </button>
                         </form>
                         <form onSubmit={handleSubmitUser} className={`container-function`}>
-                            <label className={`label-left container-width`}>Введите никнейм</label>
+                            <label className={`label-left`}>Снятие кураторства</label>
+                            <label className={`label-left container-width-panel wh-120`}>Введите никнейм</label>
                             <input
-                                className={`nick-name container-width`}
+                                className={`nick-name container-width-panel`}
                                 value={userNickName}
                                 onChange={handleUserInputChange}
                             />
-                            <button className={`btn cancel-btn btn-top container-width`} type="submit">Снять кураторство
+                            <button className={`btn cancel-btn btn-top container-width-panel`} type="submit">Снять кураторство
                             </button>
                         </form>
+                    </div>
+                    <div className={`container-function`}>
+                        <button className="btn create-btn margin">Удалить календарь</button>
                     </div>
                 </div>
             </div>

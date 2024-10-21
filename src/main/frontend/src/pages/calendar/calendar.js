@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Day from "./day";
 import Loading from "../loading/loading";
 import ModalWindowComment from "./modalWindowComment";
+import Error from "../error/error";
 
 function Calendar() {
     const dispatch = useDispatch();
@@ -56,21 +57,22 @@ function Calendar() {
     };
 
     // Фильтрация дней по статусу
-    const filteredDays = day.filter(item => {
-        if (filter === 'Success') return item.status === 'Success';
-        if (filter === 'Process') return item.status === 'Process';
-        if (filter === 'no-active') return item.status === 'no-active';
-        if (filter === 'Failed') return item.status === 'Failed';
-        return true; // Возвращаем все дни, если фильтр 'all'
-    });
+    const filteredDays = Array.isArray(day)
+        ? day.filter(item => {
+            if (filter === 'Success') return item.status === 'Success';
+            if (filter === 'Process') return item.status === 'Process';
+            if (filter === 'active') return item.status === 'active';
+            if (filter === 'Failed') return item.status === 'Failed';
+            return true; // Возвращаем все дни, если фильтр 'all'
+        })
+        : [];
     const handleFilterChange = (filter) => {
         setActiveFilter(filter);
         setFilter(filter); // Предполагается, что setFilter - это функция, которая устанавливает фильтр
     };
 
     if (loading) return <Loading />;
-    if (error) return <p>Error: {error}</p>;
-    // console.log(day)
+    if (error) return <Error />;
     return (
         <div>
             <Burger />
@@ -79,24 +81,24 @@ function Calendar() {
                     <h2>Calendar</h2>
                 </div>
                 <ul className="header-list padding-list">
-                    {['All', 'Success', 'Process', 'no-active', 'Failed'].map((filter) => (
+                    {['All', 'Success', 'Process', 'active', 'Failed'].map((filter) => (
                         <li
                             key={filter}
                             className={`header-link ${activeFilter === filter ? 'active' : ''}`}
                             onClick={() => handleFilterChange(filter)}
                         >
-                            {filter === 'no-active' ? 'No active day' : filter}
+                            {filter === 'active' ? 'Active' : filter}
                         </li>
                     ))}
                 </ul>
-                {(role === 'user' && create === false) && (
+                {(role === 'curator' && create === false) && (
                     <div className='button-create-calendar-day'>
-                        <button onClick={createCalendar}><p>Создать календарь</p></button>
+                        <button className={`btn create-btn`} onClick={createCalendar}><p>Создать календарь</p></button>
                         <Modal isOpen={isModalOpen} onClose={closeModal}/>
                     </div>
                 )}
                 <div className='calendar-container'>
-                    {filteredDays.length > 0 ? (
+                    {filteredDays.length > 0 && (
                         filteredDays.map((item, index) => {
                             const dayNumber = index + 1;
                             const suffix = getOrdinalSuffix(dayNumber);
@@ -113,10 +115,6 @@ function Calendar() {
                                 />
                             );
                         })
-                    ) : (
-                        <div className='container-start'>
-                            <h1>Tyt pusto)</h1>
-                        </div>
                     )}
                 </div>
             </div>

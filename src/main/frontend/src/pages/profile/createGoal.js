@@ -30,8 +30,13 @@ function CreateGoal({ goals, changeStatus, handleCreateClick, message, setMessag
                                         <div className={`goal-user ${item.status}`} key={index}>
                                             <div className={`title-goal no-filter-goal`}>{item.title}</div>
                                             <div className={`change-goal`}>
-                                                <button className={`button-goal cancel-btn`} onClick={() => deleteGoal(item)}>delete</button>
-                                                <button className={`button-goal create-btn`} onClick={() => changeStatus(item)}>success</button>
+                                                {item.status !== true && (
+                                                    <button className={`button-goal create-btn`}
+                                                            onClick={() => changeStatus(item)}>success</button>
+                                                )}
+                                                <button className={`button-goal cancel-btn`}
+                                                        onClick={() => deleteGoal(item)}>delete
+                                                </button>
                                             </div>
                                         </div>
                                     ))

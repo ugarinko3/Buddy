@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import {getCommentCounter, handleCommentChange, maxLength } from "../textArea/text";
 import '../../css/calendar.scss';
-import {fetchCreateComment} from "../../store/slice/calendarSlice";
-import {useDispatch} from "react-redux";
+import {fetchCalendar, fetchCreateComment} from "../../store/slice/calendarSlice";
+import {useDispatch, useSelector} from "react-redux";
+import Button from "../button/button";
 
 function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, role }) {
     const [error, setError] = useState('');
+    const {login}  = useSelector((state) => state.token);
     const dispatch = useDispatch();
     const [message, setMessage] = useState('');
     const textareaRef = useRef(null);
@@ -18,6 +20,7 @@ function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, rol
         }
         try {
             await dispatch(fetchCreateComment(data));
+            await dispatch(fetchCalendar(login))
         } catch (error) {
             console.error('Failed to fetch comment:', error.message);
         }
@@ -53,16 +56,21 @@ function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, rol
                         {getCommentCounter(message, maxLength)}
                     </div>
                 </div>
-                <div className="modal-buttons">
-                    <button className="btn cancel-btn" onClick={onClose}>Отмена</button>
-                    {/* Закрываем окно при клике */}
-                    <button
-                        className="btn create-btn"
-                        onClick={handleCreateClick}
-                    >
-                        Создать
-                    </button>
-                </div>
+                <Button
+                    handleCloseModal={onClose}
+                    submit={"create"}
+                    handleFunction={handleCreateClick}
+                />
+                {/*<div className="modal-buttons">*/}
+                {/*    <button className="btn cancel-btn" onClick={onClose}>Отмена</button>*/}
+                {/*    /!* Закрываем окно при клике *!/*/}
+                {/*    <button*/}
+                {/*        className="btn create-btn"*/}
+                {/*        onClick={handleCreateClick}*/}
+                {/*    >*/}
+                {/*        Создать*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
         </div>
     );

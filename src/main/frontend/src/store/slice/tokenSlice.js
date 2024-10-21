@@ -17,7 +17,6 @@ export const tokenSlice = createSlice({
         },
         fetchTokenFail: (state, action) => {
             state.error = action.payload;
-            console.log(action.payload);
         }
     },
 });
@@ -38,7 +37,8 @@ export const fetchToken = (login, token) => async (dispatch) => {
         // console.log(response.data)
         dispatch(fetchTokenSuccess(response.data));
     } catch (error) {
-        dispatch(fetchTokenFail(error.message));
+        const errorCode = error.response?.status || 500;
+        dispatch(fetchTokenFail(errorCode));
     }
 };
 

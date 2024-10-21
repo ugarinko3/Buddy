@@ -6,16 +6,15 @@ import com.camp.Buddy.model.Request.CalendarRequest;
 import com.camp.Buddy.model.Response.CalendarResponse;
 import com.camp.Buddy.model.Response.PostDayUserResponse;
 import com.camp.Buddy.model.Response.UserDayResponse;
-import com.camp.Buddy.repository.CalendarDayRepository;
-import com.camp.Buddy.repository.CalendarRepository;
-import com.camp.Buddy.repository.UserDayRepository;
-import com.camp.Buddy.repository.UserRepository;
+import com.camp.Buddy.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +32,8 @@ public class CalendarService {
     private final UserDayRepository userDayRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+//    private final TeamRepository teamRepository;
+    private final TeamService teamService;
 
 
     public List<CalendarResponse> getCalendar(String login) {
@@ -94,21 +95,12 @@ public class CalendarService {
         List<User> users = userRepository.findAll(); // Предполагается, что у вас есть userRepository
 
         for (User user : users) {
-            createCalendarUser(user, calendarEntities);
+            userService.createCalendarUser(user, calendarEntities);
         }
 
         return true;
     }
 
-    public void createCalendarUser(User user, List<Day> calendarEntities) {
-        for (Day day : calendarEntities) {
-            UserDayResponse userDay = new UserDayResponse();
-            userDay.setUser(user);
-            userDay.setDay(day);
-            userDay.setStatus("no-active");
-            userDayRepository.save(userDay);
-        }
-    }
     public void createCommentDay(Day day) {
         Optional<Day> optionalDay = calendarRepository.findById(day.getId());
         Day newDay = optionalDay.get();
@@ -118,9 +110,12 @@ public class CalendarService {
     public UUID createPostDay(PostDayUser post, MultipartFile photo) throws IOException {
         String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/day/"+post.getId());
         User user = userRepository.findByLogin(post.getLogin()).get();
+        Team team = teamService.getTeamsByParticipantId(user.getId()).get(0);
         changeDayCalendar(user.getId(), post.getIdDay(), "Process");
         post.setUrlPost(imageUrlPost);
         post.setUrlAvatar(userService.getAvatarUrlByLogin(post.getLogin()));
+        post.setCurator(team.getCurator());
+        post.setNameTeam(team.getName());
         post.setStatus("Process");
 
         post.setDate(LocalDateTime.now());
@@ -155,49 +150,63 @@ public class CalendarService {
     public boolean getPostUser(UUID id, String login) {
         return calendarDayRepository.existsByIdDayAndLogin(id, login);
     }
-    public void failPostUser(PostDayUser postDayUser) {
-        Optional<User> optionalUser = userRepository.findByLogin(postDayUser.getLogin());
-        User user = optionalUser.get();
+    public ResponseEntity<?> failPostUser(PostDayUser postDayUser) throws Exception{
+        User user = examinationUser(postDayUser.getLogin());
         changeDayCalendar(user.getId(), postDayUser.getIdDay(), "Fail");
         postDayUser.setStatus("Fail");
         calendarDayRepository.save(postDayUser);
+        return ResponseEntity.ok().build();
     }
-    public void successPostUser(PostDayUser postDayUser) {
-        Optional<User> optionalUser = userRepository.findByLogin(postDayUser.getLogin());
-        User user = optionalUser.get();
-        changeDayCalendar(user.getId(), postDayUser.getIdDay(), "Success");
-        postDayUser.setStatus("Success");
-        calendarDayRepository.save(postDayUser);
-}
-//    public void processPostUser(PostDayUser postDayUser) {
-//        Optional<User> optionalUser = userRepository.findByLogin(postDayUser.getLogin());
-//        User user = optionalUser.get();
-//        UserDayResponse dayUserCalendar = userDayRepository.findByUserIdAndDayId(user.getId(), postDayUser.getIdDay());
-//        dayUserCalendar.setStatus("Process");
-//        userDayRepository.save(dayUserCalendar);
-//    }
+    //Optional<User> userOpt = userRepository.findByLogin(postDayUser.getLogin());
+    //        if (userOpt.isPresent()) {
+//            User user = userOpt.get();
+//            User curator = postDayUser.getCurator();
+//            userService.createToken(user, curator);
+//            changeDayCalendar(user.getId(), postDayUser.getIdDay(), "Success");
+//            postDayUser.setStatus("Success");
+//            calendarDayRepository.save(postDayUser);
+//            return ResponseEntity.ok().body("Success");
+//        } else {
+//            throw new Exception("User with login " + postDayUser.getLogin() + " not found.");
+//        }
+    public ResponseEntity<?> successPostUser(PostDayUser postDayUser) throws Exception {
+        User user = examinationUser(postDayUser.getLogin());
+        User curator = examinationUser(postDayUser.getCurator().getLogin());
+        try {
+            userService.createToken(user, curator);
+            changeDayCalendar(user.getId(), postDayUser.getIdDay(), "Success");
+            postDayUser.setStatus("Success");
+            calendarDayRepository.save(postDayUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    public User examinationUser(String login) throws Exception {
+        Optional<User> userOpt = userRepository.findByLogin(login);
+        if (userOpt.isPresent()) {
+            return userOpt.get();
+        }
+        throw new UserPrincipalNotFoundException("User with login " + login + " not found.");
+    }
 
     public void changeDayCalendar(UUID idUser, UUID idDay, String status) {
         UserDayResponse dayUserCalendar = userDayRepository.findByUserIdAndDayId(idUser, idDay);
         dayUserCalendar.setStatus(status);
-//        System.out.println(dayUserCalendar.getStatus());
         userDayRepository.save(dayUserCalendar);
-//        System.out.print(userDayRepository.findByUserIdAndDayId(idUser, idDay).getStatus());
-
     }
 
-    public void selectStatus(PostDayUser postDayUser) {
+    public ResponseEntity<?> selectStatus(PostDayUser postDayUser) throws Exception {
         if ("successes".equals(postDayUser.getStatus())) {
-            successPostUser(postDayUser);
+            return successPostUser(postDayUser);
         } else {
-            failPostUser(postDayUser);
+            return failPostUser(postDayUser);
         }
     }
 
     public void selectDay(Day day){
         LocalDate currentDate = LocalDate.now();
-//        List<Day> days = calendarRepository.findAllByOrderByDateAsc();
-//        log.info("{}{}{}", day.getDate(), "no-active".equals(day.getStatus()), day.getStatus());
         if (currentDate.equals(day.getDate()) && "no-active".equals(day.getStatus())) {
             day.setStatus("active");
             calendarRepository.save(day);
@@ -208,14 +217,8 @@ public class CalendarService {
             }
 
         };
-
-//        for (Day day : days) {
-//            if (day.getDate() == date){
-//                UserDayResponse userDayResponse = userDayRepository.findAllByDayId(day.getId());
-//                userDayResponse.setStatus(null);
-//                userDayRepository.save(userDayResponse);
-//            }
     }
+
 
 }
 

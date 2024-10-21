@@ -4,11 +4,14 @@ import { submitPost, submitPostDay} from "../../store/slice/addPostSlice";
 import { fetchTeamList } from "../../store/slice/teamList";
 import handleAddPost from "./BorderNews"
 import { adjustTextareaHeight, handleCommentChange, getCommentCounter, maxLength } from '../textArea/text';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPosts} from "../../store/slice/postSlice";
+import {fetchCalendarDay} from "../../store/slice/calendarSlice";
+import Button from "../button/button";
 
 
 function AddPost({boolean, idDay}) {
-
+    const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(true);
     const [image, setImage] = useState(null);
@@ -107,9 +110,9 @@ function AddPost({boolean, idDay}) {
                 "teamName": teamName,
                 "likes": 0,
                 "date": LocationDate.toISOString().replace('Z', ''),
-                "teamNumber": 1,
+                // "teamNumber": 1,
                 "comment": message,
-                "curator": login,
+                "login": login,
             }
         } else {
             post = {
@@ -124,13 +127,16 @@ function AddPost({boolean, idDay}) {
         const postData = new FormData();
 
         postData.append('photo', image);
-        postData.append('post', JSON.stringify(post))
+        postData.append('post', new Blob([JSON.stringify(post)], { type: 'application/json' }));
         try {
             if (boolean) {
                 await submitPost(postData);
+                fetchPosts(login);
             } else {
                 await submitPostDay(postData);
+                dispatch(fetchCalendarDay(login, idDay));
             }
+
             handleCloseModal();
             handleAddPost();
         } catch (error) {
@@ -169,13 +175,13 @@ function AddPost({boolean, idDay}) {
             {isModalOpen && (
                 <div className={`modal ${isAnimating ? 'show' : ''}`} onClick={handleModalClick}>
                     <div className={`modalContent ${isAnimating ? 'show' : ''}`}>
-                        <span className="close" onClick={handleCloseModal}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none">
-                               <g id="Edit / Add_Plus">
-                                   <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                               </g>
-                           </svg>
-                        </span>
+                        {/*<span className="close" onClick={handleCloseModal}>*/}
+                        {/*    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none">*/}
+                        {/*       <g id="Edit / Add_Plus">*/}
+                        {/*           <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>*/}
+                        {/*       </g>*/}
+                        {/*   </svg>*/}
+                        {/*</span>*/}
                         <form className="container-form" onSubmit={(event) => handleSubmit(event, { message, teamName, image }, setIsLoading, setError, handleCloseModal)}>
                             <div className={`border-gradient ${isUploaded ? 'uploaded' : ''}`}>
                                 <div className="upload-an-image">
@@ -267,17 +273,11 @@ function AddPost({boolean, idDay}) {
                                     <div className="error-icon">⚠️</div>
                                 </div>
                             )}
-                            <button
-                                className="button-from"
-                                type="submit"
-                                disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <div className="loading-spinner"></div>
-                                ) : (
-                                    <p>SUBMIT</p>
-                                )}
-                            </button>
+                            <Button
+                                handleCloseModal={handleCloseModal} // Передаем функцию как ссылку
+                                isLoading={isLoading}
+                                submit="Submit"
+                            />
                         </form>
                     </div>
                 </div>

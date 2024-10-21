@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { formatDate } from './dateFun.js';
+import {useSelector} from "react-redux";
 
 function Post({
                   item,
-                  role,
-                  login,
                   handleLikePost,
                   handleDeletePost,
                   showFullText,
@@ -14,6 +14,7 @@ function Post({
               }) {
     const [imageLoading, setImageLoading] = useState({ image: true, avatar: true });
     const post = usePostDayUser ? item.postDayUser : item.post;
+    const {login, role}  = useSelector((state) => state.token);
     const [loadingStatus, setLoadingStatus] = useState({
         fail: false,
         success: false
@@ -31,7 +32,8 @@ function Post({
         await functionStatus(updatedPost);
         setLoadingStatus(prev => ({ ...prev, success: false }));
     };
-// console.log(post)
+// console.log(item)
+//     console.log(login)
 //     console.log(commentPost);
     return (
         <div>
@@ -50,11 +52,11 @@ function Post({
                         </div>
                         <div className='name-curator-a-href'>
                             <h3>{post.teamName}</h3>
-                            <a href='#ff'>Team#{post.teamNumber}</a>
+                            <p>{post.nameTeam}</p>
                         </div>
                     </div>
                     <div className='date-container'>
-                        {!usePostDayUser && (role === 'admin' || (role === 'curator' && login === post.curator))  &&(
+                        {!usePostDayUser && (role === 'admin' || (role === 'curator' && login === post.login))  &&(
                             <span className='delete-icon' onClick={() => handleDeletePost(post.id)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
                                     <path
@@ -86,15 +88,18 @@ function Post({
                     <p>{post.likes} Likes</p>
                 </div>
                 )}
-                <div className='comment'>
+                <div className={`comment ${usePostDayUser}`}>
                     <div className='name-patricipant'>
                         <div>
-                            <p className='nickName'>Nickname: <a href='fff#'>{post.login}<br/></a></p>
+                            <p className='nickName'>
+                                Nickname: <Link to={`/profile/${post.login}`}>{post.login}</Link><br/>
+                            </p>
                             {post.comment}
                         </div>
                         <span onClick={() => showFullText(index)}>more</span>
                     </div>
-                    {(post.status === "Process" && (usePostDayUser && role === 'curator')) ? (
+                    {(post.status === "Process" && (usePostDayUser && login === post.curator.login)) ? (
+                         // console.log(post),
                         <div className='button-curator-container'>
                             <button
                                 className='btn cancel-btn false-button'

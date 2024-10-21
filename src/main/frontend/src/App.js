@@ -14,6 +14,7 @@ import Profile from './pages/profile/profile';
 import PrivateRoute from './PrivateRoute';
 import DayDetails from './pages/calendar/dayDetails';
 import AdminPanel from "./pages/adminPanel/adminPanel";
+import Tournament from "./pages/tournamet/tournament";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
                     <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails} />} />
                     <Route path="/profile/:userName" element={<PrivateRoute element={Profile} />} />
+                    <Route path="/tournament" element={<PrivateRoute element={Tournament} />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </AuthProvider>
