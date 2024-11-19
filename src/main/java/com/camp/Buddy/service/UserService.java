@@ -34,17 +34,15 @@ public class UserService {
 
 
     public String getAvatarUrlByLogin(String login) {
-        return userRepository.findByLogin(login)
-                .map(User::getUrlAvatar) // Предполагается, что у вас есть метод getUrlAvatar в классе User
-                .orElse(null); // Или выбросьте исключение, если пользователь не найден
+        return userRepository.findByLogin(login).getUrlAvatar();
     }
+
 
     public UserResponse getUser(String login) throws EntityNotFoundException {
         UserResponse userProfile = new UserResponse();
-        Optional<User> userOptional = userRepository.findByLogin(login);
+        User user = userRepository.findByLogin(login);
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
+        if (user != null) {
             userProfile.setUser(user);
 
             List<Team> teams;
@@ -81,7 +79,7 @@ public class UserService {
 
 
     public List<String> getTeam(String login) {
-        List<Team> teams = teamService.getTeamsByCuratorId(userRepository.findByLogin(login).get().getId());
+        List<Team> teams = teamService.getTeamsByCuratorId(userRepository.findByLogin(login).getId());
         List<String> teamNames = new ArrayList<>();
         for (Team team : teams) {
             teamNames.add(team.getName());
@@ -90,55 +88,21 @@ public class UserService {
     }
 
     public String getUserRole(String login) {
-        Optional<User> userOptional = userRepository.findByLogin(login);
+        User user = userRepository.findByLogin(login);
 
-        if (userOptional.isPresent()) {
-            return userOptional.get().getRole(); // Предполагается, что у вас есть метод getRole в классе User
+        if (user != null) {
+            return user.getRole(); // Предполагается, что у вас есть метод getRole в классе User
         } else {
             throw new RuntimeException("Пользователь не найден");
         }
     }
-
-//    private List<String> getUserLikes(String login) {
-//        Optional<User> userOptional = userRepository.findByLogin(login);
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//            List<String> stringList = user.getLikePost();
-//            return stringList != null ? stringList : new ArrayList<>();
-//        }
-//        return new ArrayList<>();
-//    }
-
-//    public void getLike(UUID id, String login) {
-//        List<String> stringList = getUserLikes(login);
-//        String idString = id.toString();
-//
-//        if (stringList.contains(idString)) {
-//            stringList.remove(idString);
-//        } else {
-//            stringList.add(idString);
-//        }
-//
-//        // Сохраняем обновленный список лайков
-//        Optional<User> userOptional = userRepository.findByLogin(login);
-//        userOptional.ifPresent(user -> {
-//            user.setLikePost(stringList);
-//            userRepository.save(user);
-//        });
-//    }
-
-//    public boolean checkLikePost(UUID id, String login) {
-//        List<String> stringList = getUserLikes(login);
-//        String idString = id.toString();
-//        return stringList.contains(idString);
-//    }
 
     public int addUser(String login, String accessToken) {
         int result = 1;
         JsonNode jsonNode = requestSchoolService.RequestUser(login, accessToken);
 
         String username = login.split("@")[0]; // Извлекаем имя пользователя из логина
-        if (!userRepository.findByLogin(username).isPresent()) {
+        if (userRepository.findByLogin(username) == null) {
             User user = new User();
             user.setLogin(username);
             user.setRole(USER);
@@ -148,7 +112,7 @@ public class UserService {
             userRepository.save(user);
             result = 0;
         }
-        User user = userRepository.findByLogin(username).get();
+        User user = userRepository.findByLogin(username);
         if (user.getTelegram() == null && user.getName() == null) {
             result = 0;
         }
@@ -196,7 +160,7 @@ public class UserService {
 
     public ResponseEntity<Integer> createTelegram(UserInfoResponse userInfoResponse) {
         try {
-            User user = userRepository.findByLogin(userInfoResponse.getLogin()).get();
+            User user = userRepository.findByLogin(userInfoResponse.getLogin());
             user.setTelegram(userInfoResponse.getTelegram());
             user.setName(userInfoResponse.getName());
             userRepository.save(user);
@@ -207,7 +171,7 @@ public class UserService {
     }
 
     public ResponseEntity<?> createAvatar(MultipartFile photo, String login) throws IOException {
-        User user = userRepository.findByLogin(login).get();
+        User user = userRepository.findByLogin(login);
         String path = "profile/" + login + "/";
         String urlAvatar = firebaseStorageService.uploadPhoto(photo, path);
         user.setUrlAvatar(urlAvatar);

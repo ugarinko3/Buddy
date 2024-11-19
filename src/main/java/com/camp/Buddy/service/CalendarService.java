@@ -38,8 +38,7 @@ public class CalendarService {
     public List<CalendarResponse> getCalendar(String login) {
         List<Day> days = calendarRepository.findAllByOrderByDateAsc();
         if (!days.isEmpty()) {
-            Optional<User> userOptional = userRepository.findByLogin(login);
-            User user = userOptional.get();
+            User user = userRepository.findByLogin(login);
             List<UserDayResponse> userDayResponses = userDayRepository.findAllByUserId(user.getId());
             List<CalendarResponse> calendarResponses = new ArrayList<>();
 
@@ -68,7 +67,7 @@ public class CalendarService {
     }
     public UUID createPostDay(PostDayUser post, MultipartFile photo) throws IOException {
         String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/day/"+post.getId());
-        User user = userRepository.findByLogin(post.getLogin()).get();
+        User user = userRepository.findByLogin(post.getLogin());
         Team team = teamService.getTeamsByParticipantId(user.getId()).get(0);
         changeDayCalendar(user.getId(), post.getIdDay(), "Process");
         post.setUrlPostImage(imageUrlPost);
@@ -131,9 +130,9 @@ public class CalendarService {
     }
 
     public User examinationUser(String login) throws Exception {
-        Optional<User> userOpt = userRepository.findByLogin(login);
-        if (userOpt.isPresent()) {
-            return userOpt.get();
+        User user = userRepository.findByLogin(login);
+        if (user != null) {
+            return user;
         }
         throw new UserPrincipalNotFoundException("User with login " + login + " not found.");
     }
@@ -152,7 +151,7 @@ public class CalendarService {
         }
     }
 
-    @Scheduled(cron = "0 59 17 * * ?")
+    @Scheduled(cron = "0 01 15 * * ?")
     public void triggerSelectDay() {
         List<Day> days = calendarRepository.findAllByOrderByDateAsc();
         LocalDate today = LocalDate.now();

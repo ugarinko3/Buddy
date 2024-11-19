@@ -19,15 +19,15 @@ import java.util.*;
 public class AdminService {
 
     private final UserService userService;
-    public UserRepository userRepository;
-    public TeamRepository teamRepository;
+    private final UserRepository userRepository;
+    private final TeamRepository teamRepository;
 
     public ResponseEntity<String> createRole(String login, String role) {
         try {
-            Optional<User> user = userRepository.findByLogin(login);
-            if (user.isPresent()) {
-                user.get().setRole(role);
-                userRepository.save(user.get());
+            User user = userRepository.findByLogin(login);
+            if (user != null) {
+                user.setRole(role);
+                userRepository.save(user);
                 return ResponseEntity.ok(role + " created successfully");
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(role + " not found");
@@ -39,11 +39,13 @@ public class AdminService {
 
     public List<Team> createTeam(List<User> curators) {
         List<Team> teams = new ArrayList<>();
+        Set<User> users = new HashSet<>();
         for (int i = 0; i < curators.size(); i++) {
             Team team = new Team();
             String TEAM = "Team-";
             team.setName(TEAM + i + 1);
             team.setCurator(curators.get(i));
+            team.setParticipants(users);
             teams.add(team);
         }
         return teams;

@@ -36,7 +36,7 @@ public class PostService {
 
     public List<PostNews> getPostDetails(String login) {
          List<PostNews> postNews = postRepository.findAllByOrderByDateDesc();
-        User user = userRepository.findByLogin(login).get();
+        User user = userRepository.findByLogin(login);
 //
         List<PostNews> postDetails = new ArrayList<>();
         for(PostNews postNew : postNews) {
@@ -64,7 +64,7 @@ public class PostService {
 
 
         PostNews post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found"));
-        User user = userRepository.findByLogin(login).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User user = userRepository.findByLogin(login);
 
 
         if (!post.getLikedByUsers().contains(user)) {
@@ -80,7 +80,7 @@ public class PostService {
 
     public ResponseEntity<Integer> unlikePost(UUID postId, String login) {
         PostNews post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found"));
-        User user = userRepository.findByLogin(login).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User user = userRepository.findByLogin(login);
 
         if (post.getLikedByUsers().contains(user)) {
             post.getLikedByUsers().remove(user);

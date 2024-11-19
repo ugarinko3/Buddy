@@ -18,8 +18,7 @@ public class GoalService {
     private final UserRepository userRepository;
 
     public ResponseEntity<List<Goal>> getAllGoals(String login) {
-        User user = userRepository.findByLogin(login).orElseThrow(() -> new EntityNotFoundException("not found user"));
-        return ResponseEntity.ok(goalsRepository.findAllByUser(user));
+        return ResponseEntity.ok(goalsRepository.findAllByUser(userRepository.findByLogin(login)));
     }
     public void deleteGoal(Goal goal) {
         goalsRepository.deleteById(goal.getId());

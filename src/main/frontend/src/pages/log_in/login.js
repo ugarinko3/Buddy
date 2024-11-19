@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, clearError } from '../../store/slice/logSlice';
 import { ClearCookies } from '../../helpFunction/clearCookies';
-import CreateTelegramAndName from "./createTelegramAndName";
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -32,10 +31,9 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    dispatch(clearError()); // Очистка предыдущего сообщения об ошибке
+    dispatch(clearError());
 
     try {
-      // Добавляем фиксированную часть email к логину
       const fullLogin = `${login}@student.21-school.ru`;
       const action = await dispatch(loginUser({ login: fullLogin, password }));
       if (loginUser.fulfilled.match(action)) {
@@ -44,7 +42,7 @@ function Login() {
         if (action.payload.result === 0){
           navigate('/create-account')
         } else {
-          navigate('/post'); // Перейдите на другую страницу
+          navigate('/post');
         }
       }
     } catch (error) {

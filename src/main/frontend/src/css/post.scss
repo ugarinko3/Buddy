@@ -154,6 +154,7 @@ p {
 .image-news-avatar img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
     z-index: 0;
 }
 .conteiner-main-news .curator-news .NameBuddy .name-curator-a-href {

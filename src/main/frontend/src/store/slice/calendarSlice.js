@@ -119,6 +119,8 @@ export const fetchCreateComment = (comment) => async (dispatch) => {
     }
 };
 export const fetchStatus = (item) => {
+    console.log(item)
+
     return async (dispatch) => {
         dispatch(fetchStatusLoading());
         try {
@@ -127,6 +129,7 @@ export const fetchStatus = (item) => {
                     'Content-Type': 'application/json',
                 },
             });
+              console.log(item)
             dispatch(fetchStatusSuccess());
 
             // Очистка успеха через 2 секунды

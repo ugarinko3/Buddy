@@ -22,16 +22,6 @@ public class User {
     @Column(name = "login")
     private String login;
 
-//    @Column(name = "like_post")
-//    private List<PostNews> likePost;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_likes_post",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "post_id"))
-//    private List<PostNews> likedPosts;
-
-
     @ManyToMany
     @JoinTable(
             name = "user_season",

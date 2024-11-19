@@ -84,7 +84,7 @@ public class SeasonService {
 
     public ResponseEntity<?> registrationUser(String login) {
         try {
-             User user = userRepository.findByLogin(login).get();
+             User user = userRepository.findByLogin(login);
              Season seasons = seasonRepository.findByStatus(REGISTRATION);
              user.getSeasons().add(seasons);
              userRepository.save(user);
@@ -112,7 +112,7 @@ public class SeasonService {
     public ResponseEntity<Season> getSeasonUser(String login) {
         try {
             Season season = seasonRepository.findByStatus(REGISTRATION);
-            User user = userRepository.findByLogin(login).orElseThrow(() -> new RuntimeException("User not found"));
+            User user = userRepository.findByLogin(login);
 
 
             if(season == null) {

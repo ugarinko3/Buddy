@@ -5,16 +5,12 @@ import { useSelector } from "react-redux";
 
 function Post({
                   item,
-                  liked,
                   handleLikePost,
                   handleDeletePost,
-                  showFullText,
-                  index,
                   usePostDayUser,
                   functionStatus
               }) {
     const [imageLoading, setImageLoading] = useState({ image: true, avatar: true });
-    const post = usePostDayUser ? item.postDayUser : item.postNews;
     const { login, role } = useSelector((state) => state.token);
     const [loadingStatus, setLoadingStatus] = useState({
         fail: false,
@@ -32,14 +28,14 @@ function Post({
 
     const handleFailStatus = async () => {
         setLoadingStatus(prev => ({ ...prev, fail: true }));
-        const updatedPost = { ...post, status: "fail" };
+        const updatedPost = { ...item, status: "fail" };
         await functionStatus(updatedPost);
         setLoadingStatus(prev => ({ ...prev, fail: false }));
     };
 
     const handleSuccessStatus = async () => {
         setLoadingStatus(prev => ({ ...prev, success: true }));
-        const updatedPost = { ...post, status: "successes" };
+        const updatedPost = { ...item, status: "successes" };
         await functionStatus(updatedPost);
         setLoadingStatus(prev => ({ ...prev, success: false }));
     };
@@ -116,7 +112,7 @@ function Post({
                         </p>
                         {item.comment}
                     </div>
-                    <span onClick={() => showFullText(index)}>more</span>
+                    {/*<span onClick={() => showFullText(index)}>more</span>*/}
                 </div>
                 {(item.status === "Process" && (usePostDayUser && login === item.curator.login)) ? (
                     <div className='button-curator-container'>

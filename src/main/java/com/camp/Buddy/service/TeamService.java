@@ -44,15 +44,15 @@ public class TeamService {
 
     public ResponseEntity<?> addTeamAndUser(UUID idTeam, String login) {
         try{
-            Optional<User> optionalUser = userRepository.findByLogin(login);
-            if (!optionalUser.isPresent()) {
+            User user = userRepository.findByLogin(login);
+            if (user == null) {
                 return ResponseEntity.badRequest().body("Пользователь не найден");
             }
-            List<Team> teams = teamRepository.findTeamsByParticipantId(userRepository.findByLogin(login).get().getId());
+            List<Team> teams = teamRepository.findTeamsByParticipantId(userRepository.findByLogin(login).getId());
             if (teams.size() == 0) {
                 Team team = teamRepository.findById(idTeam).get();
                 Set<User> users = team.getParticipants();
-                users.add(optionalUser.get());
+                users.add(user);
                 team.setParticipants(users);
                 teamRepository.save(team);
                 return ResponseEntity.ok().build();

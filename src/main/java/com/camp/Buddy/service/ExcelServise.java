@@ -72,7 +72,7 @@ public class ExcelServise {
 
         for (Team team : teams) {
             row = sheet.createRow(rowNum++ + 1);
-            row.createCell(0).setCellValue(userRepository.findByLogin(team.getCurator().getLogin()).get().getCoreProgramm());
+            row.createCell(0).setCellValue(userRepository.findByLogin(team.getCurator().getLogin()).getCoreProgramm());
             row.createCell(1).setCellValue(team.getName());
             row.createCell(2).setCellValue(team.getCurator().getLogin());
             List<PostNews> posts = postRepository.findByLogin(team.getCurator().getLogin());
