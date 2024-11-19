@@ -1,6 +1,5 @@
 package com.camp.Buddy.model;
 
-import com.camp.Buddy.model.Goal;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,15 +22,23 @@ public class User {
     @Column(name = "login")
     private String login;
 
-//    @Column(name = "array_command")
-//    private List<String> arrayCommand;
+//    @Column(name = "like_post")
+//    private List<PostNews> likePost;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_likes_post",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "post_id"))
+//    private List<PostNews> likedPosts;
 
-    @Column(name = "like_post")
-    private List<String> likePost;
 
-//    @ManyToOne
-//    @JoinColumn(name = "goals")
-//    private Goal goals;
+    @ManyToMany
+    @JoinTable(
+            name = "user_season",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "season_id")
+    )
+    private List<Season> seasons;
 
     @Column(name = "token")
     private Integer token;
@@ -42,12 +49,15 @@ public class User {
     @Column(name = "xp")
     private Integer xp;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "telegram")
+    private String telegram;
+
     @Column(name = "role")
     private String role;
 
     @Column(name = "urlAvatar")
     private String urlAvatar;
-//
-//    @Column(name = "team")
-//    private String team;
 }

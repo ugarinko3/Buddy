@@ -3,7 +3,7 @@
   border-radius: 15px;
   max-width: 610px;
   padding: 10px;
-  margin-top: 20px;
+  //margin-top: 20px;
   transition: transform 0.3s ease;
 }
 
@@ -88,14 +88,17 @@
   border: 1px solid #ffcccb;
 }
 @media screen and (max-width: 500px){
-  .mini-calendar {
+  .lvl_2 {
     margin-top: -30px;
     transform: scale(0.8);
   }
 }
 @media screen and (max-width: 400px){
-  .mini-calendar {
+  .lvl_2  {
     margin-top: -60px;
     transform: scale(0.6);
+  }
+  .season-mini-info {
+    min-width: 374px;
   }
 }

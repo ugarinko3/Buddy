@@ -1,4 +1,4 @@
-package com.camp.Buddy.model.Response;
+package com.camp.Buddy.model.response;
 
 import com.camp.Buddy.model.Day;
 import lombok.Getter;

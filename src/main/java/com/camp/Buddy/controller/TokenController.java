@@ -1,9 +1,9 @@
 package com.camp.Buddy.controller;
 
 
-import com.camp.Buddy.model.Response.TokenResponse;
+import com.camp.Buddy.model.response.TokenResponse;
 import com.camp.Buddy.service.TokenService;
-import com.camp.Buddy.model.Request.TokenRequest;
+import com.camp.Buddy.model.request.TokenRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

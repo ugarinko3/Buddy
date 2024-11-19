@@ -19,6 +19,27 @@ p {
   font-size: 16px;
 }
 
+.mr-142 {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+}
+.mr-141 {
+  gap: 20px;
+}
+.mr-140 {
+  padding: 0;
+  margin: 0;
+  max-width: 300px;
+}
+
+
+
+
 body {
   background-color: #1f2632;
   color: #ffffff;
@@ -85,7 +106,7 @@ body {
 	flex-direction: row;
   justify-self: center;
 }
-.entrance-header .login-container .login {
+.login {
   text-align: start;
   display: grid;
   padding: 20px 30px;
@@ -107,7 +128,7 @@ body {
   align-items: center;
   justify-items: center;
 }
-.login .form_item{
+.form_item{
   display: flex;
   align-content: center;
   width: 90%;
@@ -115,6 +136,12 @@ body {
   border-radius: 15px;
   padding: 20px;
   background-color: #fff;
+}
+.mr-139 {
+  width: 100%;
+  margin: 1px 0 10px 0;
+  padding: 10px 20px;
+
 }
 
 .error-message {
@@ -146,6 +173,13 @@ body {
   justify-content: space-between;
   margin: 0 0;
   margin-top: 20px;
+}
+.mr-143 {
+  flex-direction: row-reverse;
+}
+
+.mr-144 {
+  margin-bottom: 0;
 }
 #login-submit {
   display: flex;

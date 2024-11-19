@@ -1,6 +1,6 @@
 package com.camp.Buddy.service;
 
-import com.camp.Buddy.model.Response.TokenResponse;
+import com.camp.Buddy.model.response.TokenResponse;
 import com.camp.Buddy.repository.CalendarRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

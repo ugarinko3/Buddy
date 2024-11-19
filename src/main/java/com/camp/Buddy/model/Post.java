@@ -1,20 +1,22 @@
 package com.camp.Buddy.model;
 
-import java.util.UUID;
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "post")
-public class Post {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Стратегия для отдельных таблиц
+public abstract class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -22,38 +24,18 @@ public class Post {
     @Column(name = "team_name")
     private String teamName;
 
-    @Column(name = "login")
-    private String login;
-
-    @Column(name = "likes")
-    private Integer likes;
-
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "login")
+    private String login;
+
     @Column(name = "date")
     private LocalDateTime date;
-
-//    @Column(name = "team_number")
-//    private Integer teamNumber;
 
     @Column(name = "url_avatar")
     private String urlAvatar;
 
     @Column(name = "url_post_image")
     private String urlPostImage;
-
-
-//    public LocalDateTime parseDate() {
-//        try {
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//            return LocalDateTime.parse(this.date, formatter);
-//        } catch (DateTimeParseException e) {
-//            e.printStackTrace();
-//            return null;  // Возвращаем null в случае ошибки парсинга
-//        }
-//    }
-//    public void setDate(LocalDateTime date) {
-//
-//    }
 }

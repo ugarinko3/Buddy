@@ -10,7 +10,7 @@ import {fetchCalendarDay} from "../../store/slice/calendarSlice";
 import Button from "../button/button";
 
 
-function AddPost({boolean, idDay}) {
+function AddPost({handleAddPost, boolean, idDay}) {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(true);
@@ -86,8 +86,7 @@ function AddPost({boolean, idDay}) {
         }
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         setIsLoading(true);
         if (!isUploaded) {
             setError('Please, upload an image');
@@ -137,6 +136,7 @@ function AddPost({boolean, idDay}) {
                 dispatch(fetchCalendarDay(login, idDay));
             }
 
+
             handleCloseModal();
             handleAddPost();
         } catch (error) {
@@ -150,7 +150,6 @@ function AddPost({boolean, idDay}) {
                 try {
                     const teamList = await fetchTeamList(login); // Получаем логин
                     teamList.forEach(team => {
-                        console.log('Team:', team, 'Type:', typeof team); // Логируем каждую команду и её тип
                     });
                     setTeams(teamList); // Устанавливаем полученные команды в состояние
                 } catch (error) {
@@ -276,7 +275,9 @@ function AddPost({boolean, idDay}) {
                             <Button
                                 handleCloseModal={handleCloseModal} // Передаем функцию как ссылку
                                 isLoading={isLoading}
-                                submit="Submit"
+                                submitYes={"Submit"}
+                                submiteNo={"Close"}
+                                handleFunction={handleSubmit}
                             />
                         </form>
                     </div>

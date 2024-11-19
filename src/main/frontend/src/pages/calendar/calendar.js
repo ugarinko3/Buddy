@@ -1,20 +1,21 @@
 import '../../css/calendar.scss';
 import React, { useEffect, useState } from 'react';
 import Burger from '../header/header_burger';
-import Modal from './modalWindowPeriod';
 import { fetchCalendar } from "../../store/slice/calendarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Day from "./day";
 import Loading from "../loading/loading";
 import ModalWindowComment from "./modalWindowComment";
 import Error from "../error/error";
+import RegistrationSeasonNews from "../post/registrationSeason";
+import {Season} from "../../store/slice/seasonSlice";
 
 function Calendar() {
     const dispatch = useDispatch();
-    const {login, role, create}  = useSelector((state) => state.token);
+    const {season, registration, buttonStatus, dateSeason} = useSelector((state) => state.season);
+    const {login, role}  = useSelector((state) => state.token);
     const [dayWindow, setDayWindow] = useState(null);
     const { day, error, loading } = useSelector((state) => state.calendar);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpenComment, setIsModalComment] = useState(false);
     const [calendar, setCalendar] = useState(null);
     const [filter, setFilter] = useState('all'); // Состояние для фильтрации
@@ -23,9 +24,10 @@ function Calendar() {
 
     useEffect(() => {
         if (login) {
-            if (!Array.isArray(day) || day.length === 0) {
+            if ((!Array.isArray(day) || day.length === 0) && season !== null ) {
                 dispatch(fetchCalendar(login));
-            }
+            } else {
+                dispatch(Season(login));            }
         }
     }, [login, day, dispatch]);
 
@@ -48,13 +50,6 @@ function Calendar() {
         setIsModalComment(false);
     };
 
-    const createCalendar = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     // Фильтрация дней по статусу
     const filteredDays = Array.isArray(day)
@@ -75,12 +70,13 @@ function Calendar() {
     if (error) return <Error />;
     return (
         <div>
+
             <Burger />
             <div className='calendar'>
                 <div className={`link-name`}>
                     <h2>Calendar</h2>
                 </div>
-                <ul className="header-list padding-list">
+                <ul className="header-list padding-list header">
                     {['All', 'Success', 'Process', 'active', 'Failed'].map((filter) => (
                         <li
                             key={filter}
@@ -91,32 +87,32 @@ function Calendar() {
                         </li>
                     ))}
                 </ul>
-                {(role === 'curator' && create === false) && (
-                    <div className='button-create-calendar-day'>
-                        <button className={`btn create-btn`} onClick={createCalendar}><p>Создать календарь</p></button>
-                        <Modal isOpen={isModalOpen} onClose={closeModal}/>
-                    </div>
-                )}
-                <div className='calendar-container'>
-                    {filteredDays.length > 0 && (
-                        filteredDays.map((item, index) => {
-                            const dayNumber = index + 1;
-                            const suffix = getOrdinalSuffix(dayNumber);
+                {role === "admin" || season.status === "Action" ? (
+                    <div className='calendar-container'>
+                        {filteredDays.length > 0 && (
+                            filteredDays.map((item, index) => {
+                                const dayNumber = index + 1;
+                                const suffix = getOrdinalSuffix(dayNumber);
 
-                            return (
-                                <Day
-                                    key={item.day.id}
-                                    item={item}
-                                    suffix={suffix}
-                                    dayNumber={dayNumber}
-                                    role={role}
-                                    onEditDay={editDay}
-                                    handleDayClick={handleDayClick}
-                                />
-                            );
-                        })
-                    )}
-                </div>
+                                return (
+                                    <Day
+                                        key={item.day.id}
+                                        item={item}
+                                        suffix={suffix}
+                                        dayNumber={dayNumber}
+                                        role={role}
+                                        onEditDay={editDay}
+                                        handleDayClick={handleDayClick}
+                                    />
+                                );
+                            })
+                        )}
+                    </div>
+                ):(
+                    <RegistrationSeasonNews
+                        dateSeason={dateSeason}
+                    />
+                )}
             </div>
             <ModalWindowComment
                 isOpen={isModalOpenComment}

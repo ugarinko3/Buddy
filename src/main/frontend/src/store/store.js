@@ -7,7 +7,10 @@ import calendarReducer from './slice/calendarSlice';
 import tokenReducer from './slice/tokenSlice';
 import teamReducer from './slice/teamSlice';
 import tournamentReducer from "./slice/tournamentSlice";
-import seasonReduser from "./slice/seasonSlice";
+import seasonReducer from "./slice/seasonSlice";
+import adminReducer from "./slice/adminSlice";
+import telegramReducer from "./slice/telegramSlice"
+
 
 
 // Configure the Redux store
@@ -15,13 +18,15 @@ const store = configureStore({
     reducer: {
         post: postReducer,
         log: logReducer,
+        telegram: telegramReducer,
         profile:profileReducer,
         // user: userReducer,
         calendar: calendarReducer,
         token: tokenReducer,
         team: teamReducer,
-        season: seasonReduser,
+        season: seasonReducer,
         tournament: tournamentReducer,
+        admin: adminReducer,
 
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Подключаем thunk

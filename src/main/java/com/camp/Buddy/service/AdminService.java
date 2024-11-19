@@ -1,5 +1,6 @@
 package com.camp.Buddy.service;
 
+import com.camp.Buddy.model.Season;
 import com.camp.Buddy.model.Team;
 import com.camp.Buddy.model.User;
 import com.camp.Buddy.repository.TeamRepository;
@@ -17,88 +18,54 @@ import java.util.*;
 @Log4j2
 public class AdminService {
 
-    public final UserRepository userRepository;
-    public final TeamRepository teamRepository;
-    private final Random random = new Random();
+    private final UserService userService;
+    public UserRepository userRepository;
+    public TeamRepository teamRepository;
 
-
-    public ResponseEntity<String> createCurator(String login) {
+    public ResponseEntity<String> createRole(String login, String role) {
         try {
             Optional<User> user = userRepository.findByLogin(login);
             if (user.isPresent()) {
-                user.get().setRole("curator");
+                user.get().setRole(role);
                 userRepository.save(user.get());
-                return ResponseEntity.ok("Curator created successfully");
+                return ResponseEntity.ok(role + " created successfully");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curator not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(role + " not found");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating curator: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating " + role + ": " + e.getMessage());
         }
     }
 
-    public ResponseEntity<String> createUser(String login) {
-
-        try {
-            Optional<User> user = userRepository.findByLogin(login);
-            if (user.isPresent()) {
-                user.get().setRole("user");
-                userRepository.save(user.get());
-                return ResponseEntity.ok("User created successfully");
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating user: " + e.getMessage());
+    public List<Team> createTeam(List<User> curators) {
+        List<Team> teams = new ArrayList<>();
+        for (int i = 0; i < curators.size(); i++) {
+            Team team = new Team();
+            String TEAM = "Team-";
+            team.setName(TEAM + i + 1);
+            team.setCurator(curators.get(i));
+            teams.add(team);
         }
+        return teams;
     }
 
-    public ResponseEntity<String> generationCommand() {
-        try {
-            // Генерация случайного имени команды
-//            String teamName = "Team-" + teamRepository.findAll().size() + 1;
-//            if (teamRepository.existsByName(teamName)) {
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team with this name already exists.");
-//            }
-            // Получение всех кураторов из базы данных по роли
-            List<User> curators = userRepository.findAllByRole("curator");
-            if (curators.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No curators available to assign.");
-            }
 
-            // Выбор случайного куратора
-//            User curator = curators.get(random.nextInt(curators.size()));
+    public void generationCommand(Season season) {
+            int countTeam = 0;
+            List<User> curators = userRepository.findAllBySeasonsAndRole(season, userService.CURATOR);
+            List<User> users = userRepository.findAllBySeasonsAndRole(season, userService.USER);
+            List<Team> teams = createTeam(curators);
+            for (User user : users) {
 
-            // Получение всех обычных пользователей
-            List<User> allUsers = userRepository.findAllByRole("user"); // Предполагается, что у вас есть метод для поиска обычных пользователей
-            if (allUsers.size() < 1) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not enough users available to assign.");
-            }
-
-            // Выбор 5 случайных пользователей
-            for (int i = 0; i < curators.size(); i++){
-                String teamName = "Team-" + (teamRepository.findAll().size() + 1);
-                Set<User> participants = new HashSet<>();
-                while (participants.size() < 1) {
-                    User user = allUsers.get(i);
-                    participants.add(user);
-                    log.error(participants);
-
+                if (countTeam == curators.size()) {
+                    countTeam = 0;
                 }
-
-                Team team = new Team();
-                team.setName(teamName);
-                team.setCurator(curators.get(i));
-                team.setParticipants(participants);
-
-                teamRepository.save(team);
+                teams.get(countTeam).getParticipants().add(user);
+                countTeam++;
             }
-
-            return ResponseEntity.ok("Command created with ID: ");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating command: " + e.getMessage());
-        }
+            teamRepository.saveAll(teams);
     }
+
 
     public List<Team> getTeam() {
         return teamRepository.findAll();

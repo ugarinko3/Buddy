@@ -1,22 +1,20 @@
 package com.camp.Buddy.service;
 
 import com.camp.Buddy.model.*;
-import com.camp.Buddy.model.Response.DayProfileResponse;
-import com.camp.Buddy.model.Response.UserDayResponse;
-import com.camp.Buddy.model.Response.UserResponse;
+import com.camp.Buddy.model.response.DayProfileResponse;
+import com.camp.Buddy.model.response.UserDayResponse;
+import com.camp.Buddy.model.response.UserInfoResponse;
+import com.camp.Buddy.model.response.UserResponse;
 import com.camp.Buddy.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.cloud.firestore.DocumentSnapshot;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 @AllArgsConstructor
 @Service
@@ -27,9 +25,12 @@ public class UserService {
     private final GoalsRepository goalsRepository;
     private final UserDayRepository userDayRepository;
     private final CalendarRepository calendarRepository;
-//    private final CalendarService calendarService;
     private FirebaseStorageService firebaseStorageService;
     private final UserRepository userRepository;
+
+    public final String ADMIN = "admin";
+    public final String USER = "user";
+    public final String CURATOR = "curator";
 
 
     public String getAvatarUrlByLogin(String login) {
@@ -48,9 +49,9 @@ public class UserService {
 
             List<Team> teams;
 
-            if (user.getRole().equals("user")) {
+            if (user.getRole().equals(USER)) {
                 teams = teamService.getTeamsByParticipantId(user.getId());
-            } else if (user.getRole().equals("curator")) {
+            } else if (user.getRole().equals(CURATOR)) {
                 teams = teamService.getTeamsByCuratorId(user.getId());
             } else {
                 teams = teamService.getTeamsByCuratorId(user.getId());
@@ -61,7 +62,7 @@ public class UserService {
 
             userProfile.setTeam(teams);
         } else {
-             throw new EntityNotFoundException("User not found");
+            throw new EntityNotFoundException("User not found");
         }
 
         return userProfile; // Возвращаем объект UserResponse
@@ -77,7 +78,6 @@ public class UserService {
         }
         return dayProfileResponses;
     }
-
 
 
     public List<String> getTeam(String login) {
@@ -99,65 +99,70 @@ public class UserService {
         }
     }
 
-    private List<String> getUserLikes(String login) {
-        Optional<User> userOptional = userRepository.findByLogin(login);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            List<String> stringList = user.getLikePost();
-            return stringList != null ? stringList : new ArrayList<>();
-        }
-        return new ArrayList<>();
-    }
+//    private List<String> getUserLikes(String login) {
+//        Optional<User> userOptional = userRepository.findByLogin(login);
+//        if (userOptional.isPresent()) {
+//            User user = userOptional.get();
+//            List<String> stringList = user.getLikePost();
+//            return stringList != null ? stringList : new ArrayList<>();
+//        }
+//        return new ArrayList<>();
+//    }
 
-    public void getLike(UUID id, String login) {
-        List<String> stringList = getUserLikes(login);
-        String idString = id.toString();
+//    public void getLike(UUID id, String login) {
+//        List<String> stringList = getUserLikes(login);
+//        String idString = id.toString();
+//
+//        if (stringList.contains(idString)) {
+//            stringList.remove(idString);
+//        } else {
+//            stringList.add(idString);
+//        }
+//
+//        // Сохраняем обновленный список лайков
+//        Optional<User> userOptional = userRepository.findByLogin(login);
+//        userOptional.ifPresent(user -> {
+//            user.setLikePost(stringList);
+//            userRepository.save(user);
+//        });
+//    }
 
-        if (stringList.contains(idString)) {
-            stringList.remove(idString);
-        } else {
-            stringList.add(idString);
-        }
+//    public boolean checkLikePost(UUID id, String login) {
+//        List<String> stringList = getUserLikes(login);
+//        String idString = id.toString();
+//        return stringList.contains(idString);
+//    }
 
-        // Сохраняем обновленный список лайков
-        Optional<User> userOptional = userRepository.findByLogin(login);
-        userOptional.ifPresent(user -> {
-            user.setLikePost(stringList);
-            userRepository.save(user);
-        });
-    }
-
-    public boolean checkLikePost(UUID id, String login) {
-        List<String> stringList = getUserLikes(login);
-        String idString = id.toString();
-        return stringList.contains(idString);
-    }
-
-    public void addUser(String login, String accessToken) {
-
+    public int addUser(String login, String accessToken) {
+        int result = 1;
         JsonNode jsonNode = requestSchoolService.RequestUser(login, accessToken);
 
         String username = login.split("@")[0]; // Извлекаем имя пользователя из логина
-        User user = new User();
-        user.setLogin(username);
-        user.setRole("user");
-        user.setUrlAvatar(firebaseStorageService.getPhotoUrl(username));
-        user.setXp(jsonNode.get("expValue").asInt());
-        user.setCoreProgramm(jsonNode.get("className").asText());
-        createCalendar(user);
-    }
-    public void createCalendar(User user) {
-        Optional<User> existingUser = userRepository.findByLogin(user.getLogin());
-        if (existingUser.isPresent()) {
-            return;
+        if (!userRepository.findByLogin(username).isPresent()) {
+            User user = new User();
+            user.setLogin(username);
+            user.setRole(USER);
+            user.setUrlAvatar(firebaseStorageService.getPhotoUrl(username));
+            user.setXp(jsonNode.get("expValue").asInt());
+            user.setCoreProgramm(jsonNode.get("className").asText());
+            userRepository.save(user);
+            result = 0;
         }
-        user.setUrlAvatar(firebaseStorageService.getPhotoUrl(user.getLogin()));
-        userRepository.save(user);
+        User user = userRepository.findByLogin(username).get();
+        if (user.getTelegram() == null && user.getName() == null) {
+            result = 0;
+        }
+
+        return result;
+    }
+
+    public void createCalendar(User user) {
         List<Day> days = calendarRepository.findAll();
         if (!days.isEmpty()) {
-            createCalendarUser(user, days );
+            createCalendarUser(user, days);
         }
     }
+
     public void createCalendarUser(User user, List<Day> calendarEntities) {
         for (Day day : calendarEntities) {
             UserDayResponse userDay = new UserDayResponse();
@@ -167,7 +172,8 @@ public class UserService {
             userDayRepository.save(userDay);
         }
     }
-    public void createToken(User user, User curator){
+
+    public void createToken(User user, User curator) {
         if (curator.getToken() == null) {
             curator.setToken(0);
         }
@@ -179,11 +185,33 @@ public class UserService {
         userRepository.save(user);
         userRepository.save(curator);
     }
-    public ResponseEntity<List<User>> getTournament(){
+
+    public ResponseEntity<List<User>> getTournament() {
         try {
             return ResponseEntity.ok(userRepository.findAllByToken());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    public ResponseEntity<Integer> createTelegram(UserInfoResponse userInfoResponse) {
+        try {
+            User user = userRepository.findByLogin(userInfoResponse.getLogin()).get();
+            user.setTelegram(userInfoResponse.getTelegram());
+            user.setName(userInfoResponse.getName());
+            userRepository.save(user);
+            return ResponseEntity.ok(0);
+        } catch (Exception e) {
+            return ResponseEntity.ok(1);
+        }
+    }
+
+    public ResponseEntity<?> createAvatar(MultipartFile photo, String login) throws IOException {
+        User user = userRepository.findByLogin(login).get();
+        String path = "profile/" + login + "/";
+        String urlAvatar = firebaseStorageService.uploadPhoto(photo, path);
+        user.setUrlAvatar(urlAvatar);
+        userRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 }

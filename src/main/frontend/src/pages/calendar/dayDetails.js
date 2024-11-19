@@ -24,7 +24,6 @@ function DayDetails (){
     useEffect(() => {
         dispatch(fetchCalendarDay(login, id)); // Перезагружаем календарь при успешном обновлении статуса
     }, [dispatch, id, login]);
-    console.log(dayPost)
     const functionStatus =  async (post) => {
 
         await dispatch(fetchStatus(post));
@@ -63,7 +62,7 @@ function DayDetails (){
                                     return (
                                         <Post
                                             key={post.postDayUser.id} // Используем ID поста
-                                            item={post}
+                                            item={post.postDayUser}
                                             role={role}
                                             nickName={post.postDayUser.nameUser}
                                             commentPost={post.messagePost}

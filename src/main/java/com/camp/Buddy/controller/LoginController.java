@@ -1,6 +1,10 @@
 package com.camp.Buddy.controller;
 
+import com.camp.Buddy.model.PostNews;
+import com.camp.Buddy.model.response.LoginResponse;
+import com.camp.Buddy.model.response.UserInfoResponse;
 import com.camp.Buddy.service.LoginService;
+import com.camp.Buddy.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,7 @@ public class LoginController {
   private LoginService loginService;
 
   @PostMapping
-  public ResponseEntity<String> login(@RequestParam String login, @RequestParam String password) throws IOException, ExecutionException, InterruptedException {
+  public ResponseEntity<LoginResponse> login(@RequestParam String login, @RequestParam String password) throws IOException, ExecutionException, InterruptedException {
     return loginService.login(login, password);
   }
 }

@@ -1,7 +1,7 @@
 package com.camp.Buddy.controller;
 
-import com.camp.Buddy.model.Post;
-import com.camp.Buddy.model.Response.PostResponse;
+import com.camp.Buddy.model.PostNews;
+//import com.camp.Buddy.model.dto.PostDTO;
 import com.camp.Buddy.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -25,25 +25,25 @@ public class PostController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UUID> addPost(
-            @RequestPart("post") Post post,  // Получаем JSON-строку
+            @RequestPart("post") PostNews postNews,  // Получаем JSON-строку
             @RequestParam("photo") MultipartFile photo  // файл
     ) throws IOException {
 //        Post post = objectMapper.readValue(postJson, Post.class); // Десериализация JSON в объект Post
-        return ResponseEntity.ok(postService.createPost(post, photo));
+        return ResponseEntity.ok(postService.createPost(postNews, photo));
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<PostResponse>> getPosts(@RequestParam String login) {
+    public ResponseEntity<List<PostNews>> getPosts(@RequestParam String login) {
         return ResponseEntity.ok(postService.getPostDetails(login));
     }
 
     @PostMapping("/like/{postId}")
-    public void likePost(@PathVariable UUID postId, @RequestParam String login) {
-        postService.likePost(postId, login);
+    public ResponseEntity<Integer> likePost(@PathVariable UUID postId, @RequestParam String login) {
+        return postService.likePost(postId, login);
     }
     @PostMapping("/unlike/{postId}")
-    public void unlikePost(@PathVariable UUID postId, @RequestParam String login) {
-        postService.unlikePost(postId, login);
+    public ResponseEntity<Integer>  unlikePost(@PathVariable UUID postId, @RequestParam String login) {
+        return postService.unlikePost(postId, login);
     }
 
     @DeleteMapping("/{id}")

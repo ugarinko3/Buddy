@@ -8,7 +8,11 @@ import CreateGoal from "./createGoal";
 import MiniCalendar from "./mini-calendar";
 import Loading from "../loading/loading";
 import Error from "../error/error";
-import ListTeam from "../adminPanel/listTeam"; // Импортируйте useParams
+import ListTeam from "../adminPanel/listTeam";
+import WindowPhoto from "./windowPhoto";
+import NameTitle from "./nameTitle";
+import ListSeason from "./listSeason";
+import NoInfo from "./noInfo";
 
 function Profile() {
     const { userName } = useParams(); // Получите параметр login из URL
@@ -16,10 +20,11 @@ function Profile() {
     const [imageLoading, setImageLoading] = useState({ avatar: true });
     const dispatch = useDispatch();
     const { login } = useSelector((state) => state.token);
-    const { days, user, team, goals,  error} = useSelector((state) => state.profile);
+    const { days, user, team, goals,  error, loading} = useSelector((state) => state.profile);
     const [message, setMessage] = useState('');
     const [activeIndex, setActiveIndex] = useState(null);
     const [modalWindow, setModalWindow] = useState(false);
+    const [modalWindowPhoto, setModalWindowPhoto] = useState(false);
     const isUserLoggedIn = user?.login && login === user?.login;
     const successDaysCount = days.filter(item => item.status === "Success").length;
     const percentage =  Math.round((successDaysCount / days.length) * 100);
@@ -30,15 +35,26 @@ function Profile() {
     const toggleAnswer = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
-
-
     useEffect(() => {
             dispatch(fetchUser(userName));
     }, [userName, dispatch]);
 
-    if (!user) {
+    const reloadProfile = () => {
+        handeCloseModal();
+        dispatch(fetchUser(userName)); // Вызываем reloadProfile через 3 секунды
+    }
+
+    if (loading) {
         return <Loading />;
     }
+    const handleReplacePhoto = () => {
+        setModalWindowPhoto(true);
+    };
+
+    const handleDeletePhoto = () => {
+        // Логика для удаления фото
+    };
+
 
     const handleCreateClick = async () => {
         const data = {
@@ -61,6 +77,13 @@ function Profile() {
             console.error('Failed to :', error.message);
         }
     }
+    const handeCloseModal = () => {
+        if (modalWindowPhoto) {
+            setModalWindowPhoto(false);
+        } else {
+            setModalWindowPhoto(true);
+        }
+    }
 
     const createGoal = () => {
         setModalWindow(true);
@@ -81,19 +104,37 @@ function Profile() {
     return (
         <div>
             <Burger />
-            <div className="profile" >
+            <div className={`profile`} >
                 <div className={`lvl_1`}>
                     <div className={`profileInfo`}>
                         <div className="profile-cont">
                             <div className="profile-info">
-                                <div className="profile-img">
-                                    {imageLoading.avatar && <div className='loader profile-loader'></div>}
-                                    <img
-                                        src={user.urlAvatar}
-                                        alt={`${user.login} avatar`}
-                                        onLoad={() => setImageLoading(prev => ({...prev, avatar: false}))}
-                                        onError={() => setImageLoading(prev => ({...prev, avatar: false}))}
-                                        style={{display: imageLoading.avatar ? 'none' : 'block'}}/>
+                                <div className={`container-photo`}>
+                                    <div className="profile-img">
+                                        {imageLoading.avatar && <div className='loader profile-loader'></div>}
+                                        <div className={`image-avatar`}>
+                                            <img
+                                                src={user.urlAvatar}
+                                                alt={`${user.login} avatar`}
+                                                onLoad={() => setImageLoading(prev => ({...prev, avatar: false}))}
+                                                onError={() => setImageLoading(prev => ({...prev, avatar: false}))}
+                                                style={{display: imageLoading.avatar ? 'none' : 'block'}}/>
+                                            {login ===  userName && (
+                                                <div className="overlay" onClick={handleReplacePhoto}>
+                                                    <div className="icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <circle opacity="0.5" cx="12" cy="12" r="10" stroke="#75F5C5"
+                                                                    strokeWidth="1.5"/>
+                                                            <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15"
+                                                                  stroke="#75F5C5" strokeWidth="1.5"
+                                                                  strokeLinecap="round"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className={`role ${user.role}`}><p className={`top-1`}>{user.role}</p></div>
                                 <div className="profile-name">
@@ -125,10 +166,9 @@ function Profile() {
                     <div className={`info-team-goals`}>
                         <div className={`container-info`}>
                             <div className={`mini-info`}>
-                                <div className={`name-title`}>
-                                    <h2 className={`ft108`}>GOALS</h2>
-                                    <div className={`line`}></div>
-                                </div>
+                                <NameTitle
+                                    name={"Goals"}
+                                />
                                 <div className={`list`}>
                                     {goals && goals.length > 0 ? (
                                         goals.map((item, index) => (
@@ -143,7 +183,9 @@ function Profile() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div className={`no-goals`}>No goals available</div> // Сообщение, если нет целей
+                                        <NoInfo
+                                            message={`No goals available`}
+                                        />
                                     )}
                                     {isUserLoggedIn && (
                                         <CreateGoal
@@ -162,10 +204,9 @@ function Profile() {
                                 </div>
                             </div>
                             <div className={`mini-info`}>
-                                <div className={`name-title`}>
-                                    <h2 className={`ft108`}>TEAM</h2>
-                                    <div className={`line`}></div>
-                                </div>
+                                <NameTitle
+                                    name={"Team"}
+                                />
                                 {team && team.length > 0 ? (
                                     team.map((item, index) => (
                                     <ListTeam
@@ -176,13 +217,12 @@ function Profile() {
                                          item={item}
                                          imageLoading={imageLoading}
                                          setImageLoading={setImageLoading}
-                                         bool={true}
                                     />
                                     ))
                                 ):(
-                                    <div className={`no-goals no-team`}>
-                                        <p>The user does not have a command</p>
-                                    </div>
+                                    <NoInfo
+                                        message={`The user does not have a command`}
+                                    />
                                 )}
                             </div>
                         </div>
@@ -195,8 +235,35 @@ function Profile() {
                             calendarDayStatus={days}
                         />
                     </div>
+                    <div className={`info-season`}>
+                        <div className={`season-profile`}>
+                            <NameTitle
+                                name={"Season"}
+                            />
+                            <div className={`list-season`}>
+                                {user.seasons ? (
+                                    user.seasons.map((itemSeason, indexSeason) => (
+                                       <ListSeason
+                                            season={itemSeason}
+                                       />
+                                    ))
+                                ) : (
+                                    <NoInfo
+                                        message={`The user does not have a season`}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {modalWindowPhoto && (
+                <WindowPhoto
+                    reloadProfile={reloadProfile}
+                    handeCloseModal={handeCloseModal}
+                    login={login}
+                />
+            )}
         </div>
     );
 }

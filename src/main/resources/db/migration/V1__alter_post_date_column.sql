@@ -1,3 +1,3 @@
--- ALTER TABLE post
+-- ALTER TABLE postNews
 --     ALTER COLUMN date SET DATA TYPE timestamp without time zone
 -- USING date::timestamp without time zone;

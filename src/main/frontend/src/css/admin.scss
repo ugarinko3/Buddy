@@ -11,6 +11,10 @@
   z-index: 49;
   padding: 0 0 20px 0;
 }
+.wh-121 {
+  margin: 0;
+  background-color: #CCCCCC;
+}
 .container-function {
   display: flex;
   flex-direction: column;
@@ -22,6 +26,27 @@
   border-radius: 12px;
   //flex-wrap: wrap;
   gap: 5px;
+}
+.season-button {
+  flex-direction: row;
+}
+.name-season {
+  display: flex;
+  flex-direction: column;
+}
+.season {
+  padding: 5px;
+  border-radius: 10px;
+
+  input{
+    color:#4c4c4cd0;
+    font-weight: 500;
+    font-size: 18px;
+    border: 0;
+    text-indent: 0px;
+    outline: none;
+    width: 86%;
+  }
 }
 .conteiner-team {
   display: flex;
@@ -43,6 +68,42 @@
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+}
+.list-excel-file {
+  display: flex;
+  min-height: 50px;
+  width: 100%;
+  border-radius: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  flex-direction: column;
+  align-content: center;
+}
+.wh-123 {
+  width: 300px;
+
+   h2 {
+     margin-bottom: 20px;
+   }
+}
+.mr-145 {
+  margin-top: 20px;
+}
+.container-excel {
+  border: 1px solid #75F5C5;
+  max-width: 200px;
+  padding: 10px;
+  background-color: #434E63;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.container-excel:hover {
+  background-color: #75F5C5;
+  transition: background-color 0.3s;
+  cursor: pointer;
+
 }
 .label-left {
   //margin-right: 40px;
@@ -85,6 +146,10 @@
 .nameTeam {
   text-align: left;
   margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 
   p{
     padding: 5px;
@@ -93,10 +158,23 @@
     border-radius: 5px;
   }
 }
+.wh-43 {
+  min-width: 300px;
+  margin: 20px auto 0px auto;
+}
+.modal-center {
+  display: flex;
+  width: 400px;
+  //align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
 .box-number {
   display: flex;
   gap: 5px;
-  align-itemss: center;
+  align-items: center;
 }
 .box {
   //width: 20px;
@@ -133,6 +211,9 @@
   max-height: 0;
   margin-top: 0;
   transition: max-height 1s ease,  margin-top 1s ease;
+}
+.create-btn-margin {
+  margin: 0;
 }
 
 .faq-answer.open {
@@ -203,6 +284,36 @@
   gap: 10px;
   flex-direction: row;
   width: 100%;
+}
+.modal-index {
+  z-index: 50000;
+}
+
+.delete-user {
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+
+  path {
+    stroke: rgba(248, 85, 85, 0.84);
+  }
+  circle {
+    stroke: rgba(248, 85, 85, 0.84);
+  }
+}
+.string-mini-info:hover .delete-user{
+  opacity: 1;
+}
+
+@media screen and (max-width: 450px){
+  .season {
+    input {
+      width: 100%;
+    }
+  }
 }
 @media screen and (max-width: 340px){
   .string-mini-info {

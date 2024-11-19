@@ -8,6 +8,7 @@ export const postSlice = createSlice({
         loading: false,
         error: null,
         showMyPosts: false,
+        result: null,
     },
     reducers: {
         // Начало загрузки постов
@@ -37,7 +38,7 @@ export const postSlice = createSlice({
         // Новый экшен для обновления состояния поста
         updatePostState: (state, action) => {
             const updatedPost = action.payload;
-            const index = state.posts.findIndex(post => post.post.id === updatedPost.post.id);
+            const index = state.posts.findIndex(post => post.id === updatedPost.id);
             if (index !== -1) {
                 state.posts[index] = updatedPost;
             }
@@ -48,8 +49,8 @@ export const postSlice = createSlice({
             const { postId, updatedLikes } = action.payload;
             const post = state.posts.find(post => post.id === postId);
             if (post) {
-                post.likes = updatedLikes; // Обновляем количество лайков из ответа
-                post.liked = true; // Отмечаем, что пост лайкнут
+                post.likes = updatedLikes;
+                post.liked = true;
             }
         },
         // Успешное удаление лайка
@@ -71,6 +72,10 @@ export const postSlice = createSlice({
         },
         toggleMyPosts: (state) => {
             state.showMyPosts = !state.showMyPosts;
+        },
+
+        createTelegramResult: (state, action) => {
+            state.result = action.payload;
         }
     },
 });
@@ -103,6 +108,7 @@ export const fetchPosts = (login) => async (dispatch) => {
     }
 };
 
+
 // Функция для удаления поста
 export const deletePost = (postId) => async (dispatch) => {
     try {
@@ -120,7 +126,7 @@ export const likePost = (postId, login) => async (dispatch) => {
             params: { login }
         });
         // Если сервер возвращает количество лайков, обновляем их
-        const updatedLikes = response.data.likes;
+        const updatedLikes = response.data;
         dispatch(likePostSuccess({ postId, updatedLikes }));
     } catch (error) {
         dispatch(likePostFail(error.message));
@@ -134,7 +140,7 @@ export const unlikePost = (postId, login) => async (dispatch) => {
             params: { login }
         });
         // Если сервер возвращает количество лайков, обновляем их
-        const updatedLikes = response.data.likes;
+        const updatedLikes = response.data;
         dispatch(unlikePostSuccess({ postId, updatedLikes }));
     } catch (error) {
         dispatch(unlikePostFail(error.message));

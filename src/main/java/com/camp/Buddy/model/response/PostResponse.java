@@ -1,6 +1,6 @@
-package com.camp.Buddy.model.Response;
+package com.camp.Buddy.model.response;
 
-import com.camp.Buddy.model.Post;
+import com.camp.Buddy.model.PostNews;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 public class PostResponse {
 
-    private Post post;
+    private PostNews postNews;
     private boolean liked;
 }

@@ -166,11 +166,14 @@ p {
 }
 .upload-an-image {
     border-radius: 10px;
-    background-color: $back-color;
+    background-color: #2F3849;
     min-height: 80px;
     max-width: 450px;
+    overflow: hidden;
     position: relative;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    max-height: 367px;
 
     svg {
         position: absolute;

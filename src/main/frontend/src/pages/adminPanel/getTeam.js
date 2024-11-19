@@ -6,8 +6,9 @@ import Loading from "../loading/loading";
 import ListTeam from "./listTeam";
 
 
-function GetTeam ({handleModalClick, isAnimating}) {
+function GetTeam ({handleModalClick, isAnimating, bool, onClickOpenWindow, onClickOpenWindowUser}) {
     // const dispatch = useDispatch();
+    // const panel = true;
     // const [isModal, setIsModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
     const {loading, error, listTeam} = useSelector((state) => state.team);
@@ -21,7 +22,6 @@ function GetTeam ({handleModalClick, isAnimating}) {
 
     if (loading && listTeam.length === 0) return <Loading />;
     if (error) return <p>Error: {error}</p>;
-    // console.log(listTeam)
 
     return (
         <div className={`modal ${isAnimating ? 'show' : ''}`} onClick={handleModalClick}>
@@ -31,6 +31,7 @@ function GetTeam ({handleModalClick, isAnimating}) {
                         <div key={item.id} className="container-function">
                             <div className="nameTeam">
                                 <p>{item.name}</p>
+                                <button className={`btn create-btn create-btn-margin`}  onClick={() => onClickOpenWindowUser(item)}>добавить</button>
                             </div>
                             <div className="summ-participants">
                                 <div className={`box-number`}>
@@ -49,7 +50,8 @@ function GetTeam ({handleModalClick, isAnimating}) {
                                 item={item}
                                 imageLoading={imageLoading}
                                 setImageLoading={setImageLoading}
-                                bool={true}
+                                bool={bool}
+                                onClickOpenWindow={onClickOpenWindow}
                             />
                         </div>
                     ))}

@@ -2,9 +2,8 @@ package com.camp.Buddy.controller;
 
 
 import com.camp.Buddy.model.*;
-import com.camp.Buddy.model.Request.CalendarRequest;
-import com.camp.Buddy.model.Response.CalendarResponse;
-import com.camp.Buddy.model.Response.PostDayUserResponse;
+import com.camp.Buddy.model.response.CalendarResponse;
+import com.camp.Buddy.model.response.PostDayUserResponse;
 import com.camp.Buddy.service.CalendarService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -45,10 +44,10 @@ public class CalendarController {
         return ResponseEntity.ok(calendarResponses);
     }
 
-    @PostMapping("/create")
-    public boolean createCalendar(@RequestBody CalendarRequest calendarRequest) {
-      return calendarService.createCalendar(calendarRequest);
-    }
+//    @PostMapping("/create")
+//    public boolean createCalendar(@RequestBody CalendarRequest calendarRequest) {
+//      return calendarService.createCalendar(calendarRequest);
+//    }
     @PostMapping("/create-comment")
     public void createCommentDay(@RequestBody Day day) {
         calendarService.createCommentDay(day);

@@ -8,6 +8,7 @@ export const profileSlice = createSlice({
         goals: [],
         user: [],
         days: [],
+        role: "",
         loading: false,
         error: null,
     },
@@ -21,6 +22,7 @@ export const profileSlice = createSlice({
             state.team = action.payload.team;
             state.goals = action.payload.goals;
             state.user = action.payload.user;
+            state.role = action.payload.role;
             state.days = action.payload.days;
         },
         UserError: (state, action) => {
@@ -63,6 +65,7 @@ export const fetchUser = (login) => async (dispatch) => {
     try {
         const response = await axios.get(`/users/profile/${login}`);
         dispatch(UserSucces(response.data));
+
     } catch (error) {
         const errorCode = error.response?.status || 500;
         dispatch(UserError(errorCode));
@@ -97,5 +100,24 @@ export const fetchDeleteGoal = (goal) => async (dispatch) => {
         dispatch(UserError(errorCode));
     }
 };
+
+export const fetchCreateAvatar = (image, login) => async (dispatch) => {
+    try {
+        const formData = new FormData();
+        formData.append('avatar', image);
+        formData.append('login', login);
+        await axios.post("/users/profile/createAvatar", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data' // Указываем, что отправляем данные в формате FormData
+            }
+        });
+
+        // Обработка ответа, если необходимо
+        // dispatch(UserSuccesPhoto());
+    } catch (error) {
+        console.error("Error creating avatar:", error);
+        // Обработка ошибок, если необходимо
+    }
+}
 
 export default profileSlice.reducer;

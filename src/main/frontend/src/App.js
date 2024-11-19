@@ -15,6 +15,7 @@ import PrivateRoute from './PrivateRoute';
 import DayDetails from './pages/calendar/dayDetails';
 import AdminPanel from "./pages/adminPanel/adminPanel";
 import Tournament from "./pages/tournamet/tournament";
+import CreateTelegramAndName from "./pages/log_in/createTelegramAndName";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
             <AuthProvider>
                 <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/create-account" element = {<PrivateRoute element={CreateTelegramAndName} />} />
                     <Route path="/admin-panel" element = {<PrivateRoute element={AdminPanel} />} />
                     <Route path="/post" element={<PrivateRoute element={Post} />} />
                     <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />

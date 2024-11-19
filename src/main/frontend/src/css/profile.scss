@@ -26,7 +26,10 @@ p, h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
 }
+
 
 
 
@@ -102,6 +105,7 @@ p, h1, h2, h3, h4, h5, h6 {
     justify-content: center;
 
 }
+
 .line {
     width: 90%;
     height: 1px;
@@ -116,19 +120,63 @@ p, h1, h2, h3, h4, h5, h6 {
     justify-content: center;
 }
 
-
-.profile-img {
+.container-photo {
     display: flex;
     align-items: center;
-    width: 100%;
-    height: 100%;
     justify-content: center;
+}
+
+.profile-img {
+    //display: flex;
+    //align-items: center;
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    align-content: center;
+    justify-items: center;
+    background-color: #2c3443;
+    border-radius: 50%;
+    //border: 1px solid #2c3443;
+    //justify-content: center;
 }
 .profile-img img {
     border-radius: 50%;
     width: 180px;
     height: 180px;
     background-color: #fff;
+    z-index: 40;
+}
+.image-avatar .overlay {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none; /* Скрыто по умолчанию */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Указатель при наведении */
+}
+
+.image-avatar:hover .overlay {
+    display: flex; /* Показываем при наведении */
+}
+
+.image-avatar .overlay .icon {
+    color: white; /* Цвет иконки */
+    font-size: 24px; /* Размер иконки */
+    background-color: rgba(0, 0, 0, 0.5); /* Затемнение */
+    margin: 5px;
+    border-radius: 50%;
+    width: 181px;
+    height: 181px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .profile-info {
     border: 1px solid #434E63;
@@ -159,6 +207,7 @@ p, h1, h2, h3, h4, h5, h6 {
     padding: 13px;
     position: relative;
 }
+
 .faq__item.active .click-me {
     opacity: 0;
     transition: opacity 0.2s;
@@ -377,6 +426,127 @@ p, h1, h2, h3, h4, h5, h6 {
 //    padding: 7px;
 //}
 
+.createImage {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: auto;
+}
+.wh-12 {
+    width: 100%;
+}
+.container {
+    text-align: center;
+    //background: white;
+    min-width: 340px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview {
+    margin-top: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.image-preview img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+
+.loading-container {
+    width: 100%;
+    height: 10px;
+    background-color: #75F5C5; /* Цвет фона прогресс-бара */
+    border-radius: 5px;
+    overflow: hidden; /* Скрываем переполнение */
+    position: relative;
+}
+.news {
+    max-width: 150px;
+    //margin-left: auto;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0; /* Цвет прогресс-бара */
+    position: absolute;
+    left: -100%; /* Начальная позиция за пределами контейнера */
+    animation: loading 12s forwards; /* Анимация на 12 секунд */
+}
+
+.an-120 {
+    animation: loading 3s forwards;
+}
+
+.info-season {
+    background-color: #2c3443;
+    border-radius: 15px;
+    padding: 10px;
+    width: 450px;
+    //border: 1px solid #ADADAD;
+}
+.season-profile {
+    //width: 100%;
+    //height: 100%;
+    border: 1px solid #484f64;
+    border-radius: 15px;
+    padding: 10px;
+}
+.list-season {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.season-mini-info {
+    padding: 5px;
+    min-width: 400px;
+    border: 1px solid #75F5C5;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
+.number-season {
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+.period {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    gap: 10px;
+}
+
+@keyframes loading {
+    0% {
+        left: 0; /* Начальная позиция */
+    }
+    100% {
+        left: 100%; /* Конечная позиция */
+    }
+}
+
 @media screen and (max-width: 970px){
 
     .profileInfo {
@@ -387,14 +557,14 @@ p, h1, h2, h3, h4, h5, h6 {
         position: absolute;
         top: -90px;
         left: 50%;
-        width: 180px;
-        height: 180px;
+        //width: 180px;
+        //height: 180px;
         transform: translateX(-50%);
     }
     .profile-name {
-        margin-top: 90px;
+        margin-top: 100px;
     }
-    .lvl_1 {
+    .lvl_1, .lvl_2 {
         flex-direction: column;
         max-width: 610px;
     }
@@ -405,7 +575,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @media screen and (max-width: 700px){
     .profile-name {
-        margin-top: 90px;
+        margin-top: 100px;
     }
     .profile-cont {
         width: 100%;

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, clearError } from '../../store/slice/logSlice';
 import { ClearCookies } from '../../helpFunction/clearCookies';
+import CreateTelegramAndName from "./createTelegramAndName";
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -38,9 +39,13 @@ function Login() {
       const fullLogin = `${login}@student.21-school.ru`;
       const action = await dispatch(loginUser({ login: fullLogin, password }));
       if (loginUser.fulfilled.match(action)) {
-        document.cookie = `access_token=${action.payload.access_token}; path=/;`;
+        document.cookie = `access_token=${action.payload.accessToken}; path=/;`;
         document.cookie = `login=${fullLogin}; path=/;`;
-        navigate('/post'); // Перейдите на другую страницу
+        if (action.payload.result === 0){
+          navigate('/create-account')
+        } else {
+          navigate('/post'); // Перейдите на другую страницу
+        }
       }
     } catch (error) {
       // Ошибка уже обрабатывается в срезе, поэтому здесь можно ничего не делать

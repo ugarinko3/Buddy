@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function Button({handleCloseModal, isLoading, submit, handleFunction}) {
+function Button({handleCloseModal, isLoading, submiteNo, submitYes, handleFunction, item, login}) {
     return (
         <div className={`modal-buttons `}>
             <button
@@ -10,18 +10,18 @@ function Button({handleCloseModal, isLoading, submit, handleFunction}) {
                 disabled={isLoading}
                 onClick={handleCloseModal}
             >
-                <p>exit</p>
+                <p>{submiteNo}</p>
             </button>
             <button
                 className="btn create-btn"
                 type="submit"
                 disabled={isLoading}
-                onClick={handleFunction}
-            >
+                onClick={() => handleFunction(item, login)}
+                    >
                 {isLoading ? (
                     <div className="loading-spinner"></div>
                 ) : (
-                    <p>{submit}</p>
+                    <p>{submitYes}</p>
                 )}
             </button>
         </div>

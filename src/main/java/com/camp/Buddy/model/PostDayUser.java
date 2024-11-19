@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,41 +13,19 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="post_day_user")
-public class PostDayUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+@Table(name = "post_day_user")  // Имя таблицы для PostDayUser
+public class PostDayUser extends Post {
 
-    @Column(name="id_day")
+    @Column(name = "id_day")
     private UUID idDay;
 
-    @Column(name="name_team")
-    private String nameTeam;
-
-    @Column(name="role")
+    @Column(name = "role")
     private String role;
-
-    @Column(name="login")
-    private String login;
-
-    @Column(name="comment")
-    private String comment;
-
-    @Column(name="date")
-    private LocalDateTime date;
-
-    @Column(name="url_avatar")
-    private String urlAvatar;
 
     @ManyToOne
     @JoinColumn(name = "curator")
     private User curator;
 
-    @Column(name="url_post")
-    private String urlPost;
-
-    @Column(name="status")
+    @Column(name = "status")
     private String status;
-
 }

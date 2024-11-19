@@ -2,7 +2,8 @@ import Curator from "./curator";
 import User from "./user";
 import React from "react";
 
-function ListTeam({activeIndex, toggleAnswer, index, item, imageLoading, setImageLoading}) {
+function ListTeam({activeIndex, toggleAnswer, index, item, imageLoading, setImageLoading, bool,
+                      onClickOpenWindow}) {
     return (
         <div key={index}>
             <div className="faq__col">
@@ -38,6 +39,8 @@ function ListTeam({activeIndex, toggleAnswer, index, item, imageLoading, setImag
                                 itemParticipants={itemParticipants}
                                 imageLoading={imageLoading}
                                 setImageLoading={setImageLoading}
+                                bool={bool}
+                                onClickOpenWindow={onClickOpenWindow}
                             />
                         ))}
                     </div>

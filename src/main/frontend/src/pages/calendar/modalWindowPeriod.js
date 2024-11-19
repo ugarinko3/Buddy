@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux"; // Для использования dispatch
+import {useDispatch, useSelector} from "react-redux"; // Для использования dispatch
 import '../../css/calendar.scss';
+import {fetchCreateSeason} from "../../store/slice/seasonSlice"; // Импортируем нашу функцию
 
-import { fetchCreateCalendar } from '../../store/slice/calendarSlice'; // Импортируем нашу функцию
-
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose}) => {
+    const {error}  = useSelector((state) => state.season);
     const [startDate, setStartDate] = useState(''); // Состояние для начала даты
     const [endDate, setEndDate] = useState(''); // Состояние для конца даты
-    const [showError, setShowError] = useState(false); // Состояние для показа ошибки
+    const [seasonName, setSeasonName] = useState(''); // Состояние для названия сезона
+    const [showError, setShowError] = useState(''); // Состояние для показа общей ошибки
     const dispatch = useDispatch(); // Для отправки действий в Redux
     const maxDate = '2030-12-31'; // Ограничение по дате до 2030 года
 
@@ -17,6 +18,7 @@ const Modal = ({ isOpen, onClose }) => {
         const [year, month, day] = dateString.split('-');
         return `${day}-${month}-${year}`;
     };
+
     const handleDateChange = (e, setDate) => {
         const selectedDate = e.target.value;
 
@@ -27,7 +29,7 @@ const Modal = ({ isOpen, onClose }) => {
             setDate(selectedDate);
         }
 
-        setShowError(false); // Сбрасываем ошибку, если пользователь ввел дату
+        setShowError(''); // Сбрасываем ошибку, если пользователь ввел дату
     };
 
     const handleBlur = (e, setDate) => {
@@ -40,23 +42,38 @@ const Modal = ({ isOpen, onClose }) => {
         }
     };
 
-    // Проверка, заполнены ли обе даты
-    const isFormValid = startDate !== '' && endDate !== '';
+    // Проверка, заполнены ли обе даты и название сезона
+    const isFormValid = startDate !== '' && endDate !== '' && seasonName !== '';
 
     // Обработчик для кнопки создания
     const handleCreateClick = () => {
         if (!isFormValid) {
-            setShowError(true); // Показываем ошибку, если форма невалидна
+            setShowError('Проверьте правильно введена дата или номер сезона'); // Показываем общую ошибку
         } else {
-            dispatch(fetchCreateCalendar(formatDateToDDMMYYYY(startDate), formatDateToDDMMYYYY(endDate)));
-            // console.log(startDate, endDate);
-            onClose();
+            dispatch(fetchCreateSeason(seasonName, formatDateToDDMMYYYY(startDate), formatDateToDDMMYYYY(endDate)));
+            if(error){
+                setShowError(error);
+            } else {
+                onClose();
+            }
         }
     };
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h2 className={`mr-1`}>Выберите период</h2>
+                <h2 className={`mr-1`}>New season</h2>
+
+                <div className={`name-season`}>
+                    <label htmlFor={`numberSeason`}>Номер сезона:</label>
+                    <div className={`season`}>
+                        <input
+                            id={`numberSeason`}
+                            className={`season`}
+                            value={seasonName}
+                            onChange={(e) => setSeasonName(e.target.value)} // Обновляем состояние названия сезона
+                        />
+                    </div>
+                </div>
                 <div className="date-inputs">
                     <div className="date-picker">
                         <label htmlFor="start-date">С какого:</label>
@@ -87,7 +104,7 @@ const Modal = ({ isOpen, onClose }) => {
                 {/* Сообщение об ошибке */}
                 {showError && (
                     <div className="error-message" style={{ color: '#c01e1e'}}>
-                        Please fill in both dates.
+                        {showError}
                     </div>
                 )}
 

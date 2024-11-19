@@ -1,7 +1,6 @@
 package com.camp.Buddy.repository;
 
 import com.camp.Buddy.model.Day;
-import com.camp.Buddy.model.Post;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 

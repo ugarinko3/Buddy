@@ -1,22 +1,21 @@
 package com.camp.Buddy.controller;
 
 import com.camp.Buddy.model.Goal;
-import com.camp.Buddy.model.Post;
-import com.camp.Buddy.model.Response.ErrorResponse;
+import com.camp.Buddy.model.response.ErrorResponse;
 import com.camp.Buddy.model.User;
+import com.camp.Buddy.model.response.UserInfoResponse;
 import com.camp.Buddy.service.GoalService;
 import com.camp.Buddy.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -31,10 +30,15 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserRole(id));
     }
 
-    @PostMapping("/checklike/{postId}")
-    public boolean checkLikePost(@PathVariable UUID postId, @RequestParam String login) {
-        return userService.checkLikePost(postId, login);
+    @PostMapping("/telegram")
+    public ResponseEntity<Integer> createTelegram(@RequestBody UserInfoResponse UserInfo){
+        return userService.createTelegram(UserInfo);
     }
+
+//    @PostMapping("/checklike/{postId}")
+//    public boolean checkLikePost(@PathVariable UUID postId, @RequestParam String login) {
+//        return userService.checkLikePost(postId, login);
+//    }
 
     @GetMapping("/profile/{login}")
     public ResponseEntity<?> getProfile(@PathVariable String login) {
@@ -78,5 +82,12 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Collections.singletonList(e.getMessage()));
         }
+    }
+
+    @PostMapping("/profile/createAvatar")
+    public ResponseEntity<?> createAvatar(@RequestParam("avatar") MultipartFile file,
+                                          @RequestParam("login") String login) throws Exception {
+
+        return userService.createAvatar(file, login);
     }
 }

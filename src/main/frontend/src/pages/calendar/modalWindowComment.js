@@ -58,7 +58,8 @@ function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, rol
                 </div>
                 <Button
                     handleCloseModal={onClose}
-                    submit={"create"}
+                    submitYes={"create"}
+                    submiteNo={"exit"}
                     handleFunction={handleCreateClick}
                 />
                 {/*<div className="modal-buttons">*/}

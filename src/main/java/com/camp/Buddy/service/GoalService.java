@@ -1,7 +1,6 @@
 package com.camp.Buddy.service;
 
 import com.camp.Buddy.model.Goal;
-import com.camp.Buddy.model.Response.ErrorResponse;
 import com.camp.Buddy.model.User;
 import com.camp.Buddy.repository.GoalsRepository;
 import com.camp.Buddy.repository.UserRepository;
@@ -11,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -40,5 +37,10 @@ public class GoalService {
 
     public Goal createGoal(Goal goal) {
         return goalsRepository.save(goal);
+    }
+
+    public List<Goal> getGoals(User user) {
+        List<Goal> goals = goalsRepository.findAllByUser(user);
+        return goals;
     }
 }
