@@ -47,7 +47,7 @@ function Burger() {
             <nav className={'header-menu ' + activeMenu} id="menu">
                 <div className={"header-menu-container " + activeMenu} id='header-menu-function'>
                     <ul className="header-list">
-                        {role === "curator" && (
+                        {role === "admin" && (
                             <li>
                                 <Link to="/admin-panel" className="header-link">Panel</Link>
                             </li>

@@ -26,7 +26,7 @@ function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
                     suffix={suffix}
                 />
             )}
-            {(role === "curator") && (
+            {(role === "admin") && (
                 <div className="button-edit-day">
                     <button
                         className="btn create-btn "

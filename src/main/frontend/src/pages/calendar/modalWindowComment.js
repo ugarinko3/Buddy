@@ -5,7 +5,7 @@ import {fetchCalendar, fetchCreateComment} from "../../store/slice/calendarSlice
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../button/button";
 
-function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, role }) {
+function ModalWindowComment({ isOpen, onClose, item, day}) {
     const [error, setError] = useState('');
     const {login}  = useSelector((state) => state.token);
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, rol
     }
     if (error) return <p>Error: {error}</p>;
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay" key={day.id}>
             <div className="modal-content">
                 <h2 className={`mr-1`}>{day} Day</h2>
                 <p className="edit-comment"> Изменение комментария:</p>
@@ -62,16 +62,6 @@ function ModalWindowComment({ isOpen, onClose, item, day, suffix, dayNumber, rol
                     submiteNo={"exit"}
                     handleFunction={handleCreateClick}
                 />
-                {/*<div className="modal-buttons">*/}
-                {/*    <button className="btn cancel-btn" onClick={onClose}>Отмена</button>*/}
-                {/*    /!* Закрываем окно при клике *!/*/}
-                {/*    <button*/}
-                {/*        className="btn create-btn"*/}
-                {/*        onClick={handleCreateClick}*/}
-                {/*    >*/}
-                {/*        Создать*/}
-                {/*    </button>*/}
-                {/*</div>*/}
             </div>
         </div>
     );

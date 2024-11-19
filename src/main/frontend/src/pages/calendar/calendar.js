@@ -12,7 +12,7 @@ import {Season} from "../../store/slice/seasonSlice";
 
 function Calendar() {
     const dispatch = useDispatch();
-    const {season, registration, buttonStatus, dateSeason} = useSelector((state) => state.season);
+    const {season, dateSeason} = useSelector((state) => state.season);
     const {login, role}  = useSelector((state) => state.token);
     const [dayWindow, setDayWindow] = useState(null);
     const { day, error, loading } = useSelector((state) => state.calendar);
@@ -57,13 +57,13 @@ function Calendar() {
             if (filter === 'Success') return item.status === 'Success';
             if (filter === 'Process') return item.status === 'Process';
             if (filter === 'active') return item.status === 'active';
-            if (filter === 'Failed') return item.status === 'Failed';
-            return true; // Возвращаем все дни, если фильтр 'all'
+            if (filter === 'Fail') return item.status === 'Fail';
+            return true;
         })
         : [];
     const handleFilterChange = (filter) => {
         setActiveFilter(filter);
-        setFilter(filter); // Предполагается, что setFilter - это функция, которая устанавливает фильтр
+        setFilter(filter);
     };
 
     if (loading) return <Loading />;
@@ -77,7 +77,7 @@ function Calendar() {
                     <h2>Calendar</h2>
                 </div>
                 <ul className="header-list padding-list header">
-                    {['All', 'Success', 'Process', 'active', 'Failed'].map((filter) => (
+                    {['All', 'Success', 'Process', 'active', 'Fail'].map((filter) => (
                         <li
                             key={filter}
                             className={`header-link ${activeFilter === filter ? 'active' : ''}`}

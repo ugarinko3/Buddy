@@ -1,8 +1,8 @@
 
 
-function ListSeason({season}) {
+function ListSeason({season, index}) {
     return (
-        <div className={`season-mini-info`}>
+        <div className={`season-mini-info`} key={index}>
             <div className={`number-season`}>
                 {season.numberSeason}
             </div>

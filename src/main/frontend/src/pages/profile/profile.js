@@ -15,8 +15,7 @@ import ListSeason from "./listSeason";
 import NoInfo from "./noInfo";
 
 function Profile() {
-    const { userName } = useParams(); // Получите параметр login из URL
-    // const [activeIndex, setActiveIndex] = useState(null); // Отслеживание активного индекса
+    const { userName } = useParams();
     const [imageLoading, setImageLoading] = useState({ avatar: true });
     const dispatch = useDispatch();
     const { login } = useSelector((state) => state.token);
@@ -29,9 +28,6 @@ function Profile() {
     const successDaysCount = days.filter(item => item.status === "Success").length;
     const percentage =  Math.round((successDaysCount / days.length) * 100);
 
-    // const toggleAnswer = (index) => {
-    //     setActiveIndex(activeIndex === index ? null : index); // Переключение активного индекса
-    // };
     const toggleAnswer = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
@@ -41,7 +37,7 @@ function Profile() {
 
     const reloadProfile = () => {
         handeCloseModal();
-        dispatch(fetchUser(userName)); // Вызываем reloadProfile через 3 секунды
+        dispatch(fetchUser(userName));
     }
 
     if (loading) {
@@ -49,10 +45,6 @@ function Profile() {
     }
     const handleReplacePhoto = () => {
         setModalWindowPhoto(true);
-    };
-
-    const handleDeletePhoto = () => {
-        // Логика для удаления фото
     };
 
 
@@ -94,7 +86,7 @@ function Profile() {
 
     const changeStatus = async (goal) => {
         try {
-            await dispatch(fetchStatusGoal(goal)); // Теперь это обновит состояние автоматически
+            await dispatch(fetchStatusGoal(goal));
             dispatch(fetchUser(userName));
         } catch (error) {
             console.error('Failed to change goal status:', error.message);
@@ -168,6 +160,7 @@ function Profile() {
                             <div className={`mini-info`}>
                                 <NameTitle
                                     name={"Goals"}
+                                    index={`goals-title`}
                                 />
                                 <div className={`list`}>
                                     {goals && goals.length > 0 ? (
@@ -206,11 +199,12 @@ function Profile() {
                             <div className={`mini-info`}>
                                 <NameTitle
                                     name={"Team"}
+                                    index={`team-title`}
                                 />
                                 {team && team.length > 0 ? (
                                     team.map((item, index) => (
                                     <ListTeam
-                                        key={index} // Добавление уникального ключа
+
                                          activeIndex={activeIndex}
                                          toggleAnswer={toggleAnswer}
                                          index={index}
@@ -239,12 +233,14 @@ function Profile() {
                         <div className={`season-profile`}>
                             <NameTitle
                                 name={"Season"}
+                                index={`season-title`}
                             />
                             <div className={`list-season`}>
                                 {user.seasons ? (
                                     user.seasons.map((itemSeason, indexSeason) => (
                                        <ListSeason
                                             season={itemSeason}
+                                            index={indexSeason}
                                        />
                                     ))
                                 ) : (
