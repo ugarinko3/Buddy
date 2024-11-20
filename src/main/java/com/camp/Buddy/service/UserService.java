@@ -103,12 +103,13 @@ public class UserService {
 
         String username = login.split("@")[0];
         if (userRepository.findByLogin(username) == null) {
-            User user = new User();
-            user.setLogin(username);
-            user.setRole(USER);
-            user.setUrlAvatar(firebaseStorageService.getPhotoUrl(username));
-            user.setXp(jsonNode.get("expValue").asInt());
-            user.setCoreProgramm(jsonNode.get("className").asText());
+            User user = User.builder()
+                    .login(username)
+                    .role(USER)
+                    .urlAvatar(firebaseStorageService.getPhotoUrl(username))
+                    .xp(jsonNode.get("expValue").asInt())
+                    .coreProgramm(jsonNode.get("className").asText())
+                    .build();
             userRepository.save(user);
             result = 0;
         }
@@ -129,10 +130,11 @@ public class UserService {
 
     public void createCalendarUser(User user, List<Day> calendarEntities) {
         for (Day day : calendarEntities) {
-            UserDayResponse userDay = new UserDayResponse();
-            userDay.setUser(user);
-            userDay.setDay(day);
-            userDay.setStatus("no-active");
+            UserDayResponse userDay = UserDayResponse.builder()
+                    .user(user)
+                    .day(day)
+                    .status("no-active")
+                    .build();
             userDayRepository.save(userDay);
         }
     }

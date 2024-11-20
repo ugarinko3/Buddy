@@ -3,15 +3,13 @@ package com.camp.Buddy.model.response;
 import com.camp.Buddy.model.Day;
 import com.camp.Buddy.model.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "user_days")
 public class UserDayResponse {

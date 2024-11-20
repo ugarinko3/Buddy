@@ -141,7 +141,6 @@
 
     • js-cookie (v3.0.5)
 
-    • Web Vitals (v2.1.4)
 
 ### Backend
 
@@ -160,8 +159,6 @@
       Хранение изображений и excel таблиц.
 
     • Lombok (v1.18.34)
-
-    • Spring Security
 
     • Apache POI (v5.2.3)
 
