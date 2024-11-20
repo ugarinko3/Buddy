@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTimeConverter {
 
-    public LocalDate convertToLocalDate(LocalDateTime localDateTime) {
+    private LocalDate convertToLocalDate(LocalDateTime localDateTime) {
         return localDateTime.toLocalDate();
     }
 

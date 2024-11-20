@@ -37,7 +37,7 @@ public class AdminService {
         }
     }
 
-    public List<Team> createTeam(List<User> curators) {
+    private List<Team> createTeam(List<User> curators) {
         List<Team> teams = new ArrayList<>();
         Set<User> users = new HashSet<>();
         for (int i = 0; i < curators.size(); i++) {

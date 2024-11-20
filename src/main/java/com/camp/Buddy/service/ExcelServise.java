@@ -52,7 +52,7 @@ public class ExcelServise {
         }
     }
 
-    public void exportMeeting(Workbook workbook) {
+    private void exportMeeting(Workbook workbook) {
 
         Sheet sheet = workbook.createSheet("Meeting");
         int rowNum = 0;
@@ -86,7 +86,7 @@ public class ExcelServise {
         }
     }
 
-    public void exportBuddyCalendar(Workbook workbook, Season season) {
+    private void exportBuddyCalendar(Workbook workbook, Season season) {
         Sheet sheet = workbook.createSheet("Buddy Calendar");
         DateTimeConverter converter = new DateTimeConverter();
         int rowNum = 0;

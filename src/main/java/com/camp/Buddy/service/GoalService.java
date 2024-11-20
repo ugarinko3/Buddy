@@ -16,10 +16,6 @@ public class GoalService {
     private final GoalsRepository goalsRepository;
     private final UserRepository userRepository;
 
-    public ResponseEntity<List<Goal>> getAllGoals(String login) {
-        return ResponseEntity.ok(goalsRepository.findAllByUser(userRepository.findByLogin(login)));
-    }
-
     public void deleteGoal(Goal goal) {
         goalsRepository.deleteById(goal.getId());
     }
@@ -38,8 +34,4 @@ public class GoalService {
         return goalsRepository.save(goal);
     }
 
-    public List<Goal> getGoals(User user) {
-        List<Goal> goals = goalsRepository.findAllByUser(user);
-        return goals;
-    }
 }

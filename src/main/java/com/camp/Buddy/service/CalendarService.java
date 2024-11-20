@@ -129,7 +129,7 @@ public class CalendarService {
         return ResponseEntity.ok().build();
     }
 
-    public User examinationUser(String login) throws Exception {
+    private User examinationUser(String login) throws Exception {
         User user = userRepository.findByLogin(login);
         if (user != null) {
             return user;
@@ -137,7 +137,7 @@ public class CalendarService {
         throw new UserPrincipalNotFoundException("User with login " + login + " not found.");
     }
 
-    public void changeDayCalendar(UUID idUser, UUID idDay, String status) {
+    private void changeDayCalendar(UUID idUser, UUID idDay, String status) {
         UserDayResponse dayUserCalendar = userDayRepository.findByUserIdAndDayId(idUser, idDay);
         dayUserCalendar.setStatus(status);
         userDayRepository.save(dayUserCalendar);
@@ -151,8 +151,8 @@ public class CalendarService {
         }
     }
 
-    @Scheduled(cron = "0 01 15 * * ?")
-    public void triggerSelectDay() {
+    @Scheduled(cron = "0 00 6 * * ?")
+    private void triggerSelectDay() {
         List<Day> days = calendarRepository.findAllByOrderByDateAsc();
         LocalDate today = LocalDate.now();
 
@@ -178,7 +178,7 @@ public class CalendarService {
 
     }
 
-    public void selectDay(Day day) {
+    private void selectDay(Day day) {
         if ("no-active".equals(day.getStatus())) {
             day.setStatus("active");
             calendarRepository.save(day);

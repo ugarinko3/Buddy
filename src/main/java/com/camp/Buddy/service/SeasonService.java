@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SeasonService {
-    final private SeasonRepository seasonRepository;
+    private final SeasonRepository seasonRepository;
     private final CalendarRepository calendarRepository;
     private final UserRepository userRepository;
     private final ExcelServise excelServise;
@@ -44,7 +44,7 @@ public class SeasonService {
         }
     }
 
-    public boolean createCalendar(Season season) {
+    private boolean createCalendar(Season season) {
         List<Day> days = calendarRepository.findAll();
         if (days.isEmpty()) {
             userDayRepository.deleteAll();
@@ -76,10 +76,6 @@ public class SeasonService {
         return true;
     }
 
-//    public ResponseEntity<?> addUserDay(User user, List<Day> days) {
-//
-//    }
-
     public ResponseEntity<?> registrationUser(String login) {
         try {
             User user = userRepository.findByLogin(login);
@@ -107,6 +103,12 @@ public class SeasonService {
         seasonRepository.save(season);
     }
 
+
+    /**
+     * Проверка сезона у пользователя
+     * @param login
+     * @return  Возвращает сущность сезона
+     */
     public ResponseEntity<Season> getSeasonUser(String login) {
         try {
             Season season = seasonRepository.findByStatus(REGISTRATION);
@@ -118,14 +120,13 @@ public class SeasonService {
             }
 
 
-            // Проверяем, есть ли у пользователя этот сезон
             if (user.getSeasons().contains(season)) {
-                return ResponseEntity.ok(season); // Возвращаем сезон, если он есть
+                return ResponseEntity.ok(season);
             } else {
-                return ResponseEntity.ok(null); // Возвращаем сообщение, если сезона нет
+                return ResponseEntity.ok(null);
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null); // Возвращаем сообщение об ошибке
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
@@ -136,20 +137,12 @@ public class SeasonService {
             if (season != null) {
                 return ResponseEntity.ok(season);
             } else {
-                return ResponseEntity.ok(null); // Возвращаем 404 без тела
+                return ResponseEntity.ok(null);
             }
         } catch (Exception e) {
-//            e.printStackTrace();
-            return ResponseEntity.badRequest().body(null); // Возвращаем 400 с пустым телом
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
-
-//    public void closeSeason() {
-//        Season season = seasonRepository.findByStatus("Action");
-//        season.setStatus("Closed");
-//        seasonRepository.save(season);
-//    }
-//    public
 
 }
