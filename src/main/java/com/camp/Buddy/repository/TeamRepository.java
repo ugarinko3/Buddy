@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team, UUID> {
-    boolean existsByName(String name);
 
 
     @Query("SELECT t FROM Team t JOIN t.participants p WHERE p.id = :participantId")

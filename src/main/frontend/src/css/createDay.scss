@@ -1,14 +1,15 @@
 .create-day {
   max-width: 700px;
-  //display: flex;
   .count-day {
     display: flex;
     flex-direction: column;
   }
+
   .day {
     display: flex;
     flex-direction: column;
   }
+
   input {
     border-radius: 5px;
     height: 30px;

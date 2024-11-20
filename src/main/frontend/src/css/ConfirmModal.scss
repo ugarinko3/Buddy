@@ -30,10 +30,11 @@ $grin-color: #75F5C5;
     justify-content: space-around;
     align-items: center;
   }
+
   .text {
-     padding: 20px 0;
+    padding: 20px 0;
     font-size: 16px;
-   }
+  }
 
 }
 
@@ -50,17 +51,20 @@ $grin-color: #75F5C5;
     border: none;
     border-radius: 7px;
   }
+
   .da p {
     font-weight: bold;
     font-size: 22px;
     color: $grin-color;
   }
+
   .net {
     padding: 5px 20px;
     background-color: #424955;
     border: none;
     border-radius: 7px;
   }
+
   .net p {
     font-weight: bold;
     font-size: 22px;

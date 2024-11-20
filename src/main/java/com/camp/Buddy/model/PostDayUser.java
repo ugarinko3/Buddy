@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "post_day_user")  // Имя таблицы для PostDayUser
+@Table(name = "post_day_user")
 public class PostDayUser extends Post {
 
     @Column(name = "id_day")

@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface PostRepository extends JpaRepository<PostNews, UUID> {
     List<PostNews> findAllByOrderByDateDesc();
+
     List<PostNews> findByLogin(String login);
 
 

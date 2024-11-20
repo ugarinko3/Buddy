@@ -1,444 +1,369 @@
 .main {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
-.conteiner-main-news {
-    margin-top: 90px;
-    width: 800px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
-.conteiner-main-news .curator-news {
-    margin:20px 10px;
-    display: grid;
-    //display: flex;
-    max-width: 700px;
-    width: 100%;
-    justify-items: center;
-
-    grid-template-columns: 1fr; /* Один столбец */
-//     gap: 20px;
+.container-main-news {
+  margin-top: 90px;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.post{
-    background-color: #2F3849;
-    border-radius: 7px;
-    margin-bottom: 20px;
-    width: 100%;
+.container-main-news .curator-news {
+  margin: 20px 10px;
+  display: grid;
+  max-width: 700px;
+  width: 100%;
+  justify-items: center;
+  grid-template-columns: 1fr;
+}
+
+.post {
+  background-color: #2F3849;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  width: 100%;
 
 }
+
 .curator-news .button-curator {
-    display: flex;
-    width: 100%;
-    justify-content: space-between; /* Размещает элементы по краям */
-    align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 
 }
+
 .my-post {
-    //width: 100%;
-    display: flex;
-    align-self: center;
-    justify-content: right;
-    align-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
+  display: flex;
+  align-self: center;
+  justify-content: right;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 
 @keyframes borderGradient {
-    0%,
-    100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
+
 $back-color: #2F3849;
 $grin-color: #75F5C5;
 p {
-    font-family: Roboto;
+  font-family: Roboto, serif;
 }
-.my-post {
-    background-color: $back-color;
-    color: transparent; /* Делаем текст прозрачным */
-    border: none;
-    padding: 11px 20px;
-    text-align: center;
-    display: flex;
-    font-size: 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(45deg, #c0c0c0 48.9%, $grin-color 49%); /* Градиент фона */
-    background-size: 300% 300%;
-    animation: borderGradient 4s linear both infinite; /* Анимация фона */
-    -webkit-background-clip: text; /* Для поддержки градиента текста */
-    background-clip: text; /* Для поддержки градиента текста */
 
-    path {
-        stroke: #fff;;
-    }
+.my-post {
+  color: transparent;
+  border: none;
+  padding: 11px 20px;
+  text-align: center;
+  display: flex;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: $back-color linear-gradient(45deg, #c0c0c0 48.9%, $grin-color 49%);
+  background-size: 300% 300%;
+  animation: borderGradient 4s linear both infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  path {
+    stroke: #fff;;
+  }
 }
 
 .my-post:hover {
-    animation: borderGradient 4s linear both infinite; /* Анимация фона */
+  animation: borderGradient 4s linear both infinite;
 }
 
-/* Добавьте псевдоэлемент для эффекта градиента */
 .my-post::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px; /* Закругленные углы */
-    background: linear-gradient(45deg, $back-color 48.9%, $grin-color 49%);
-    background-size: 300% 300%;
-    z-index: -1;
-    opacity: 1;
-    transition: opacity 0.3s;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: linear-gradient(45deg, $back-color 48.9%, $grin-color 49%);
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
 .my-post:hover::before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .my-post {
-    -webkit-text-fill-color: transparent; /* Для поддержки старых браузеров */
-    text-fill-color: transparent; /* Для поддержки старых браузеров */
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 }
 
-.conteiner-main-news .curator-news .NameBuddy {
-    display: flex;
-    padding: 12px 18px;
-    justify-content: space-between;
-    align-items: center;
-}
-.conteiner-main-news .curator-news .NameBuddy .name-buddy-team {
-   display: flex;
-   align-items: center;
-   
+.container-main-news .curator-news .NameBuddy {
+  display: flex;
+  padding: 12px 18px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.conteiner-main-news .curator-news .NameBuddy .name-buddy-team p{
-    color: #c1c1c1;
-    opacity: 0.9;
-    
- }
-.conteiner-main-news .curator-news .NameBuddy p {
-    font-weight: 300;
-    color: #7C8493;
-    opacity: 0.9;
+.container-main-news .curator-news .NameBuddy .name-buddy-team {
+  display: flex;
+  align-items: center;
+
 }
 
-.conteiner-main-news .curator-news .NameBuddy .profile-public-news {
-    display: flex;
+.container-main-news .curator-news .NameBuddy .name-buddy-team p {
+  color: #c1c1c1;
+  opacity: 0.9;
+
+}
+
+.container-main-news .curator-news .NameBuddy p {
+  font-weight: 300;
+  color: #7C8493;
+  opacity: 0.9;
+}
+
+.container-main-news .curator-news .NameBuddy .profile-public-news {
+  display: flex;
 }
 
 .image-news-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    z-index: 1;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.image-news-avatar img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-.conteiner-main-news .curator-news .NameBuddy .name-curator-a-href {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 10px;
+.image-news-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-.conteiner-main-news .curator-news .NameBuddy .name-curator-a-href a{
-    color: #339DCC;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 2px 0 0;
+.container-main-news .curator-news .NameBuddy .name-curator-a-href {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
 }
+
+.container-main-news .curator-news .NameBuddy .name-curator-a-href a {
+  color: #339DCC;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 2px 0 0;
+}
+
 .image-news {
-    max-width: 700px;
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
+  max-width: 700px;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
 }
 
 .image-news img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .container-loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%; /* Ширина совпадает с контейнером */
-    height: 100%; /* Высота совпадает с контейнером */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .loader {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 10vw; /* Относительные единицы для адаптивности */
-    height: 10vw; /* Соответствует ширине */
-    max-width: 40px;
-    max-height: 40px;
-    animation: spin 1s linear infinite;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 10vw;
+  height: 10vw;
+  max-width: 40px;
+  max-height: 40px;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.conteiner-main-news .curator-news .like {
-    padding: 10px 18px;
-    text-align: left;
-    display: flex;
-    align-items: center;
 
-    //svg path {
-    //    fill: #fff;
-    //}
+.container-main-news .curator-news .like {
+  padding: 10px 18px;
+  text-align: left;
+  display: flex;
+  align-items: center;
 }
-.conteiner-main-news .curator-news .like p{
-    font-size: 16px;
-    font-weight: 700;
-    margin-left: 10px;
+
+.container-main-news .curator-news .like p {
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 10px;
 }
+
 .comment {
-    padding: 24px 18px 24px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 24px 18px 24px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 .comment.false {
-    padding:  0px 18px 24px 18px;
+  padding: 0 18px 24px 18px;
 }
-.conteiner-main-news .curator-news .comment a{
-    font-size: 16px;
-    font-weight: bold;
-    color: #339DCC;
-    text-decoration: none;
+
+.container-main-news .curator-news .comment a {
+  font-size: 16px;
+  font-weight: bold;
+  color: #339DCC;
+  text-decoration: none;
 }
+
 #truncateText {
-    color: #fff;
-    font-weight: 200;
-    //display: inline;
-    
+  color: #fff;
+  font-weight: 200;
 }
+
 .valerakrutoy123 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.conteiner-main-news .curator-news .comment span {
-    color: #7C8493;
-    font-weight: 200;
-    cursor: pointer;
-    // margin-top: 3px;
-    // margin-left: 85%;
-    // display: inline;
-
+.container-main-news .curator-news .comment span {
+  color: #7C8493;
+  font-weight: 200;
+  cursor: pointer;
 }
 
 .date-container {
-    display: flex;
-    align-items: center;
-     /* Aligns items vertically */
+  display: flex;
+  align-items: center;
 }
 
 .delete-icon {
-    margin-left: 8px; /* Adds some space between the date and the icon */
-    cursor: pointer; /* Changes the cursor to indicate it's clickable */
-    margin-right: 10px;
-    color: #cccccc; /* Более светлый цвет по умолчанию */
-    transition: color 0.3s ease; /* Плавный переход цвета */
+  margin-left: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+  color: #cccccc;
+  transition: color 0.3s ease;
 }
 
 .delete-icon:hover {
-    color: #FF4C4C; /* Красный цвет при наведении */
+  color: #FF4C4C;
 }
 
 .no-active-post {
-    max-width: 700px;
-    height: 80px;
-    border-radius: 12px;
-    text-align: center; /* Горизонтальное центрирование текста */
-    background-color: $back-color;
+  max-width: 700px;
+  height: 80px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: $back-color;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .active {
-    margin: 0 0 0 0;
+  margin: 0 0 0 0;
 }
 
-//.button-post-day {
-//    width: 35px;
-//    height: 35px;
-//    border-radius: 7px;
-//    display: flex;
-//    align-items: center;
-//    justify-items: center;
-//
-//    path {
-//        fill: #fff;
-//    }
-//}
 .button-curator-container {
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    margin-right: 20px;
-    gap: 7px;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-right: 20px;
+  gap: 7px;
 }
+
 .true-button {
-    background-color: #75F5C5;
-    display: flex;
+  background-color: #75F5C5;
+  display: flex;
 }
+
 .false-button {
-    padding: 8px 30px;
-    display: flex;
+  padding: 8px 30px;
+  display: flex;
 }
+
 .nickName {
-    font-size: 16px;
+  font-size: 16px;
 }
+
 .loading-line {
-    width: 100%;
-    height: 4px; /* Высота линии */
-    background-color: #3498db; /* Цвет линии */
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  height: 4px;
+  background-color: #3498db;
+  position: relative;
+  overflow: hidden;
 }
 
 .loading-line::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -100%; /* Начальная позиция за пределами */
-    height: 100%;
-    width: 100%;
-    background-color: #2980b9; /* Цвет анимации */
-    animation: loading 2s linear infinite; /* Анимация */
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background-color: #2980b9;
+  animation: loading 2s linear infinite;
 }
 
 @keyframes loading {
-    0% {
-        left: -100%; /* Начальная позиция */
-    }
-    50% {
-        left: 100%; /* Конечная позиция */
-    }
-    100% {
-        left: 100%; /* Остается на конечной позиции */
-    }
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
-
-//.moreButton {
-//    height: 50px;
-//    background-color: $back-color;
-//    border-radius: 12px;
-//    padding: 7px;
-//    display: flex;
-//    justify-content: center;
-//    cursor: pointer;
-//
-//    .container {
-//        width: 100%;
-//        transform: translate(0%, 0%);
-//        display: flex;
-//        justify-content: center;
-//        align-items: center;
-//    }
-//
-//    .center {
-//        height: 100%;
-//        width: 100%;
-//        position: absolute;
-//    }
-//
-//    .btn {
-//        height: 100%;
-//        width: 100%;
-//        cursor: pointer;
-//        background: transparent;
-//        border: 1px solid #91C9FF;
-//        border-radius: 10px;
-//        outline: none;
-//        transition: 1s ease-in-out;
-//    }
-//
-//    svg {
-//        width: 100%;
-//        height: 100%;
-//        position: absolute;
-//        left: 0;
-//        top: 0;
-//        fill: none;
-//        stroke: #fff;
-//        stroke-dasharray: 150 480;
-//        stroke-dashoffset: 150;
-//        transition: 1s ease-in-out;
-//
-//    }
-//    svg polyline {
-//        width: 100%;
-//        height: 100%;
-//    }
-//
-//    .btn:hover {
-//        transition: 1s ease-in-out;
-//        background: #40465a;
-//    }
-//
-//    .btn:hover svg {
-//        stroke-dashoffset: -480;
-//    }
-//
-//    .btn span {
-//        color: white;
-//        font-size: 18px;
-//        font-weight: 100;
-//    }
-//}
-
-
-@media screen and (max-width: 720px){
-    .conteiner-main-news .curator-news {
-        width: 90%;
-        height: 400px;
-    }
+@media screen and (max-width: 720px) {
+  .container-main-news .curator-news {
+    width: 90%;
+    height: 400px;
+  }
 }
 
-@media screen and (max-width: 600px){
-    .conteiner-main-news .curator-news .image-news {
-        //max-width: 100%;
-        height: 400px;
-    }
+@media screen and (max-width: 600px) {
+  .container-main-news .curator-news .image-news {
+    height: 400px;
+  }
 }

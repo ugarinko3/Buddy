@@ -1,31 +1,30 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {createTelegram} from "../../store/slice/telegramSlice";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 function CreateTelegramAndName() {
-    const {result}  = useSelector((state) => state.telegram);
-    const {login}  = useSelector((state) => state.token);
-    const [isLoading, setIsLoading] = useState(false); // Состояние загрузки
-    const [telegram, setTelegram] = useState(""); // Инициализируем как пустую строку
-    const [name, setName] = useState(""); // Инициализируем как пустую строку
-    const [error, setError] = useState(""); // Состояние для хранения ошибок
+    const {result} = useSelector((state) => state.telegram);
+    const {login} = useSelector((state) => state.token);
+    const [isLoading, setIsLoading] = useState(false);
+    const [telegram, setTelegram] = useState("");
+    const [name, setName] = useState("");
+    const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
     const validateName = (name) => {
-        // Проверка имени
         if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(name) || name.length < 2) {
             return "Имя должно содержать только буквы и быть не короче 2 символов.";
         }
-        return ""; // Если имя корректно, возвращаем пустую строку
+        return "";
     };
 
     const handleNameChange = (e) => {
         const newName = e.target.value;
-        setName(newName); // Обновляем состояние имени
-        setError(validateName(newName)); // Проверяем имя и обновляем состояние ошибки
+        setName(newName);
+        setError(validateName(newName));
     };
 
     const handleSubmit = async (event) => {
@@ -63,8 +62,8 @@ function CreateTelegramAndName() {
                         <input
                             id="name"
                             placeholder='Name'
-                            value={name} // Привязываем значение к состоянию
-                            onChange={handleNameChange} // Обновляем состояние при изменении
+                            value={name}
+                            onChange={handleNameChange}
                         />
                     </div>
                     <label htmlFor="telegram">Введите ник Телеграм</label>
@@ -72,8 +71,8 @@ function CreateTelegramAndName() {
                         <input
                             id="telegram"
                             placeholder='@telegram'
-                            value={telegram} // Привязываем значение к состоянию
-                            onChange={(e) => setTelegram(e.target.value)} // Обновляем состояние при изменении
+                            value={telegram}
+                            onChange={(e) => setTelegram(e.target.value)}
                         />
                     </div>
                     {error && (
@@ -87,10 +86,10 @@ function CreateTelegramAndName() {
                             className='btn create-btn login-submit'
                             id='login-submit'
                             type="submit"
-                            disabled={isLoading} // Отключаем кнопку во время загрузки
+                            disabled={isLoading}
                         >
                             {isLoading ? (
-                                <div className="loading-spinner"></div> // Индикатор загрузки
+                                <div className="loading-spinner"></div>
                             ) : (
                                 <p>Log in</p>
                             )}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { formatDate } from './dateFun.js';
-import { useSelector } from "react-redux";
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {formatDate} from './dateFun.js';
+import {useSelector} from "react-redux";
 
 function Post({
                   item,
@@ -10,34 +10,32 @@ function Post({
                   usePostDayUser,
                   functionStatus
               }) {
-    const [imageLoading, setImageLoading] = useState({ image: true, avatar: true });
-    const { login, role } = useSelector((state) => state.token);
+    const [imageLoading, setImageLoading] = useState({image: true, avatar: true});
+    const {login, role} = useSelector((state) => state.token);
     const [loadingStatus, setLoadingStatus] = useState({
         fail: false,
         success: false
     });
-    const [likeScale, setLikeScale] = useState(false);  // Состояние для анимации масштаба
+    const [likeScale, setLikeScale] = useState(false);
 
     const handleLikeClick = () => {
-        setLikeScale(true); // Включаем анимацию
-        handleLikePost(item);  // Выполняем функцию лайка
-
-        // Через 300 мс (время анимации) сбрасываем масштаб
+        setLikeScale(true);
+        handleLikePost(item);
         setTimeout(() => setLikeScale(false), 300);
     };
 
     const handleFailStatus = async () => {
-        setLoadingStatus(prev => ({ ...prev, fail: true }));
-        const updatedPost = { ...item, status: "fail" };
+        setLoadingStatus(prev => ({...prev, fail: true}));
+        const updatedPost = {...item, status: "fail"};
         await functionStatus(updatedPost);
-        setLoadingStatus(prev => ({ ...prev, fail: false }));
+        setLoadingStatus(prev => ({...prev, fail: false}));
     };
 
     const handleSuccessStatus = async () => {
-        setLoadingStatus(prev => ({ ...prev, success: true }));
-        const updatedPost = { ...item, status: "successes" };
+        setLoadingStatus(prev => ({...prev, success: true}));
+        const updatedPost = {...item, status: "successes"};
         await functionStatus(updatedPost);
-        setLoadingStatus(prev => ({ ...prev, success: false }));
+        setLoadingStatus(prev => ({...prev, success: false}));
     };
 
 
@@ -54,9 +52,9 @@ function Post({
                         <img
                             src={item.urlAvatar}
                             alt={`${item.teamName} Avatar`}
-                            onLoad={() => setImageLoading(prev => ({ ...prev, avatar: false }))}
-                            onError={() => setImageLoading(prev => ({ ...prev, avatar: false }))}
-                            style={{ display: imageLoading.avatar ? 'none' : 'block' }}
+                            onLoad={() => setImageLoading(prev => ({...prev, avatar: false}))}
+                            onError={() => setImageLoading(prev => ({...prev, avatar: false}))}
+                            style={{display: imageLoading.avatar ? 'none' : 'block'}}
                         />
                     </div>
                     <div className='name-curator-a-href'>
@@ -78,13 +76,15 @@ function Post({
                 </div>
             </div>
             <div className='image-news'>
-                {imageLoading.image && <div className={`container-loader`}><div className='loader'></div></div>}
+                {imageLoading.image && <div className={`container-loader`}>
+                    <div className='loader'></div>
+                </div>}
                 <img
                     src={item.urlPostImage}
                     alt={`${item.teamName} Post`}
-                    onLoad={() => setImageLoading(prev => ({ ...prev, image: false }))}
-                    onError={() => setImageLoading(prev => ({ ...prev, image: false }))}
-                    style={{ display: imageLoading.image ? 'none' : 'block' }}
+                    onLoad={() => setImageLoading(prev => ({...prev, image: false}))}
+                    onError={() => setImageLoading(prev => ({...prev, image: false}))}
+                    style={{display: imageLoading.image ? 'none' : 'block'}}
                 />
             </div>
             {!usePostDayUser && (
@@ -95,7 +95,11 @@ function Post({
                         height="25px"
                         viewBox="0 0 16 16"
                         fill="none"
-                        style={{ fill: item.liked ? 'red' : 'white', transform: likeScale ? 'scale(1.2)' : 'scale(1)', transition: 'transform 0.3s ease' }}
+                        style={{
+                            fill: item.liked ? 'red' : 'white',
+                            transform: likeScale ? 'scale(1.2)' : 'scale(1)',
+                            transition: 'transform 0.3s ease'
+                        }}
                         onClick={handleLikeClick}
                     >
                         <path
@@ -108,11 +112,10 @@ function Post({
                 <div className='name-patricipant'>
                     <div>
                         <p className='nickName'>
-                            Nickname: <Link to={`/profile/${item.login}`}>{item.login}</Link><br />
+                            Nickname: <Link to={`/profile/${item.login}`}>{item.login}</Link><br/>
                         </p>
                         {item.comment}
                     </div>
-                    {/*<span onClick={() => showFullText(index)}>more</span>*/}
                 </div>
                 {(item.status === "Process" && (usePostDayUser && login === item.curator.login)) ? (
                     <div className='button-curator-container'>
@@ -123,10 +126,11 @@ function Post({
                         >
                             {loadingStatus.fail ? (
                                 <svg className="spinner" viewBox="0 0 50 50">
-                                    <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5" />
+                                    <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"/>
                                 </svg>
                             ) : (
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         fillRule="evenodd"
                                         clipRule="evenodd"
@@ -144,10 +148,11 @@ function Post({
                         >
                             {loadingStatus.success ? (
                                 <svg className="spinner" viewBox="0 0 50 50">
-                                    <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5" />
+                                    <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"/>
                                 </svg>
                             ) : (
-                                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         fillRule="evenodd"
                                         clipRule="evenodd"

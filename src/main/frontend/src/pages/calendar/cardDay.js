@@ -5,7 +5,8 @@ function CardDay({item, dayNumber, suffix}) {
     return (
         <div className='day-link'>
             <div key={item.day.id} className='day'>
-                <p className={`fon-status`}><strong>{dayNumber}<sup className="superscript">{suffix}</sup> day</strong></p>
+                <p className={`fon-status`}><strong>{dayNumber}<sup className="superscript">{suffix}</sup> day</strong>
+                </p>
                 <p className={`fon-status ${item.status}`}>{item.status}</p>
             </div>
             <div className='task'><p>{item.day.comment}</p></div>
@@ -17,4 +18,5 @@ function CardDay({item, dayNumber, suffix}) {
         </div>
     );
 }
+
 export default CardDay;

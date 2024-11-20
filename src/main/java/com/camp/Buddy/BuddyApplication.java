@@ -8,9 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class BuddyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BuddyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BuddyApplication.class, args);
+    }
 
 }
 

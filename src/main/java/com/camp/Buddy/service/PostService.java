@@ -23,8 +23,6 @@ public class PostService {
     private final UserRepository userRepository;
     private PostRepository postRepository;
     private FirebaseStorageService firebaseStorageService;
-    private final ExcelServise excelServise;
-    private final ModelMapper modelMapper;
 
     public UUID createPost(PostNews postNews, MultipartFile photo) throws IOException {
         String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/"+ postNews.getId());
@@ -45,7 +43,6 @@ public class PostService {
             }
             postDetails.add(postNew);
         }
-//       return  postDetails.stream().map(post->modelMapper.map(post, PostDTO.class)).toList();
 
         return postDetails;
     }
@@ -54,13 +51,6 @@ public class PostService {
         postRepository.deleteById(id);
     }
     public ResponseEntity<Integer> likePost(UUID postId, String login){
-//        PostNews postNews = postRepository.findById(postId)
-//                .orElseThrow(() -> new NoSuchElementException("Post not found"));
-//        postNews.setLikes(postNews.getLikes() + 1);
-//        userService.getLike(postId, login);
-//        postRepository.save(postNews);
-//        System.out.println(postNews.getLikes());
-//        return ResponseEntity.ok(postNews.getLikes());
 
 
         PostNews post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found"));
@@ -71,10 +61,8 @@ public class PostService {
             post.getLikedByUsers().add(user);
             post.setLikes(post.getLikes() + 1);
             postRepository.save(post);
-//            System.out.println(post.getLikedByUsers());
         }
 
-//        System.out.println(post.getLikedByUsers());
         return ResponseEntity.ok(post.getLikes());
     }
 

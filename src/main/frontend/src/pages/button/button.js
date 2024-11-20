@@ -17,7 +17,7 @@ function Button({handleCloseModal, isLoading, submiteNo, submitYes, handleFuncti
                 type="submit"
                 disabled={isLoading}
                 onClick={() => handleFunction(item, login)}
-                    >
+            >
                 {isLoading ? (
                     <div className="loading-spinner"></div>
                 ) : (

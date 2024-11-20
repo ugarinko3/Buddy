@@ -12,8 +12,9 @@ import java.util.UUID;
 @Repository
 public interface UserDayRepository extends JpaRepository<UserDayResponse, Long> {
     List<UserDayResponse> findAllByUserId(UUID userId);
+
     List<UserDayResponse> findAllByDayId(UUID dayId);
-//    PostDayUser findAllByUserName(String userName);
+
     UserDayResponse findByUserIdAndDayId(UUID userId, UUID dayId);
 
     @Query("SELECT u FROM UserDayResponse u JOIN u.day d WHERE u.user.id = :userId ORDER BY d.date ASC")

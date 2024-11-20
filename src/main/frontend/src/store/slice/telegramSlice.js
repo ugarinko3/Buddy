@@ -28,7 +28,7 @@ export const createTelegram = (formData) => async (dispatch) => {
     try {
         const response = await axios.post(`/users/telegram`, formData, {
             headers: {
-                'Content-Type': 'application/json', // или 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json',
             },
         });
         dispatch(fetchSuccess(response.data));

@@ -26,29 +26,23 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/role-user-cur/{id}")
-    public ResponseEntity<?> getUserRole(@PathVariable String id) throws ExecutionException, InterruptedException {
+    public ResponseEntity<?> getUserRole(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserRole(id));
     }
 
     @PostMapping("/telegram")
-    public ResponseEntity<Integer> createTelegram(@RequestBody UserInfoResponse UserInfo){
+    public ResponseEntity<Integer> createTelegram(@RequestBody UserInfoResponse UserInfo) {
         return userService.createTelegram(UserInfo);
     }
 
-//    @PostMapping("/checklike/{postId}")
-//    public boolean checkLikePost(@PathVariable UUID postId, @RequestParam String login) {
-//        return userService.checkLikePost(postId, login);
-//    }
 
     @GetMapping("/profile/{login}")
     public ResponseEntity<?> getProfile(@PathVariable String login) {
         try {
             return ResponseEntity.ok(userService.getUser(login));
         } catch (EntityNotFoundException e) {
-            // Вернуть 404 с конкретным сообщением
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Пользователь не найден"));
         } catch (Exception e) {
-            // Обработать другие исключения
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Произошла непредвиденная ошибка"));
         }
     }

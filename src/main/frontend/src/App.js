@@ -5,7 +5,7 @@ import {
     Route,
     Navigate
 } from "react-router-dom";
-import { AuthProvider } from './AuthContext'; // Убедитесь, что путь правильный
+import {AuthProvider} from './AuthContext'; // Убедитесь, что путь правильный
 
 import Login from './pages/log_in/login';
 import Post from './pages/post/BorderNews';
@@ -22,15 +22,15 @@ function App() {
         <Router>
             <AuthProvider>
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/create-account" element = {<PrivateRoute element={CreateTelegramAndName} />} />
-                    <Route path="/admin-panel" element = {<PrivateRoute element={AdminPanel} />} />
-                    <Route path="/post" element={<PrivateRoute element={Post} />} />
-                    <Route path="/calendar" element={<PrivateRoute element={Calendar} />} />
-                    <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails} />} />
-                    <Route path="/profile/:userName" element={<PrivateRoute element={Profile} />} />
-                    <Route path="/tournament" element={<PrivateRoute element={Tournament} />} />
-                    <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/" element={<Login/>}/>
+                    <Route path="/create-account" element={<PrivateRoute element={CreateTelegramAndName}/>}/>
+                    <Route path="/admin-panel" element={<PrivateRoute element={AdminPanel}/>}/>
+                    <Route path="/post" element={<PrivateRoute element={Post}/>}/>
+                    <Route path="/calendar" element={<PrivateRoute element={Calendar}/>}/>
+                    <Route path="/calendar/:id" element={<PrivateRoute element={DayDetails}/>}/>
+                    <Route path="/profile/:userName" element={<PrivateRoute element={Profile}/>}/>
+                    <Route path="/tournament" element={<PrivateRoute element={Tournament}/>}/>
+                    <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
             </AuthProvider>
         </Router>

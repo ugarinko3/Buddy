@@ -4,5 +4,4 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-// Экспортируем функцию, чтобы она была доступна в других файлах
-export { getCookie };
+export {getCookie};

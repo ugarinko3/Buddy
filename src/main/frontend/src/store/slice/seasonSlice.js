@@ -1,7 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Slice для работы с командами
 export const seasonSlice = createSlice({
     name: 'season',
     initialState: {
@@ -13,14 +12,13 @@ export const seasonSlice = createSlice({
         error: null,
     },
     reducers: {
-        // Начало загрузки команд
         fetchSeasonStart: (state) => {
             state.loading = true;
             state.error = null;
         },
         fetchSeasonGet: (state, action) => {
             state.registration = action.payload;
-            if(state.registration) {
+            if (state.registration) {
                 state.dateSeason = action.payload.startDate;
             }
         },
@@ -32,7 +30,6 @@ export const seasonSlice = createSlice({
                 state.buttonStatus = true;
             }
         },
-        // Ошибка загрузки команд
         fetchSeasonFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
@@ -40,7 +37,6 @@ export const seasonSlice = createSlice({
     },
 });
 
-// Экспортируем действия
 export const {
     fetchSeasonStart,
     fetchSeasonSuccess,
@@ -48,12 +44,11 @@ export const {
     fetchSeasonGet,
 } = seasonSlice.actions;
 
-// Асинхронное действие (thunk) для получения данных о командах
 export const RegistrationSeason = (login) => async (dispatch) => {
     dispatch(fetchSeasonStart());
     try {
-        await axios.post("/season/registration", null,{
-            params: { login },
+        await axios.post("/season/registration", null, {
+            params: {login},
         });
     } catch (error) {
         dispatch(fetchSeasonFail(error.message));
@@ -63,9 +58,8 @@ export const Season = (login) => async (dispatch) => {
     dispatch(fetchSeasonStart());
     try {
         const response = await axios.get("/season", {
-            params: { login },
+            params: {login},
         });
-        // console.log(response.data, login)
         dispatch(fetchSeasonSuccess(response.data));
     } catch (error) {
         dispatch(fetchSeasonFail(error.message));
@@ -76,7 +70,6 @@ export const getSeason = () => async (dispatch) => {
     dispatch(fetchSeasonStart());
     try {
         const response = await axios.get(`/season/get-season`);
-        console.log(response.data)
         dispatch(fetchSeasonGet(response.data));
     } catch (error) {
         dispatch(fetchSeasonFail(error.message));
@@ -90,14 +83,13 @@ export const fetchCreateSeason = (numberSeason, startDate, endDate) => async (di
             endDate
         }, {
             headers: {
-                'Content-Type': 'application/json',  // Обязательно укажите заголовок JSON
+                'Content-Type': 'application/json',
             },
         });
     } catch (error) {
-        console.log(error.response.data); // Измените на error.response.data для получения сообщения об ошибке
-        dispatch(fetchSeasonFail(error.response.data)); // Передаем конкретное сообщение об ошибке
+        console.log(error.response.data);
+        dispatch(fetchSeasonFail(error.response.data));
     }
 };
 
-// Экспортируем reducer
 export default seasonSlice.reducer;

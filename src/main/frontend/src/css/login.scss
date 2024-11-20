@@ -4,17 +4,20 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'SB Sans Text';
   src: url('../fonts/SBSansText/WebFonts/c68e21ad1a10803b1ef491fd0392b067.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 h1, h2, h3, h4, h5, h6, p, span {
   margin: 0;
   padding: 0;
   font-family: 'SB Sans Text', Helvetica, sans-serif;
 }
+
 p {
   font-size: 16px;
 }
@@ -28,9 +31,11 @@ p {
   justify-content: center;
 
 }
+
 .mr-141 {
   gap: 20px;
 }
+
 .mr-140 {
   padding: 0;
   margin: 0;
@@ -38,12 +43,11 @@ p {
 }
 
 
-
-
 body {
   background-color: #1f2632;
   color: #ffffff;
 }
+
 .entrance {
   width: 100%;
   justify-content: end;
@@ -51,7 +55,8 @@ body {
   align-items: center;
   display: flex;
 }
-.entrance-header{
+
+.entrance-header {
   width: 100%;
   display: grid;
   overflow: hidden;
@@ -63,19 +68,22 @@ body {
   background-position: -155px -400px;
   grid-template-columns: repeat(2, 1fr);
 }
+
 .entrance-header .text-login {
   text-align: center;
   display: grid;
   justify-self: center;
   align-items: center;
 }
-.entrance-header .text-login h1{
+
+.entrance-header .text-login h1 {
   align-self: end;
   text-align: left;
   padding: 0 0 20px 0;
   font-size: 36px;
   font-weight: bold;
 }
+
 .entrance-header .text-login p {
   text-align: left;
   padding: 10px 0 0 0;
@@ -84,28 +92,27 @@ body {
 }
 
 .entrance-header .login p {
-    padding: 15px 0;
+  padding: 15px 0;
 }
 
 .entrance-header .login a {
-    font-weight: bold;
-    font-size: 18px;
-    color: #fff;
-    padding: 10px 0;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+  padding: 10px 0;
 }
 
 .entrance-header .login-container {
   text-align: center;
   max-width: 470px;
-  margin: auto;
   display: grid;
-	/* justify-content: space-between; */
-	flex-wrap: nowrap;
-	margin: 0;
-	padding: 0;
-	flex-direction: row;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  flex-direction: row;
   justify-self: center;
 }
+
 .login {
   text-align: start;
   display: grid;
@@ -113,22 +120,27 @@ body {
   border-radius: 20px;
   background: linear-gradient(#6fbfca, #6be0c6);
 }
-.entrance-header .login-container .login h2{
+
+.entrance-header .login-container .login h2 {
   padding: 15px 0;
 }
-.entrance-header .login-container .login p1{
+
+.entrance-header .login-container .login p1 {
   padding: 15px 0;
   max-width: 350px;
 }
-.entrance-header .submit  p2{
-  padding: 15px 0 ;
+
+.entrance-header .submit p2 {
+  padding: 15px 0;
 }
+
 .login .form {
   display: grid;
   align-items: center;
   justify-items: center;
 }
-.form_item{
+
+.form_item {
   display: flex;
   align-content: center;
   width: 90%;
@@ -137,6 +149,7 @@ body {
   padding: 20px;
   background-color: #fff;
 }
+
 .mr-139 {
   width: 100%;
   margin: 1px 0 10px 0;
@@ -151,29 +164,32 @@ body {
 }
 
 
-.form_item input{
-  color:#4c4c4cd0;
+.form_item input {
+  color: #4c4c4cd0;
   font-weight: 500;
   font-size: 18px;
   border: 0;
-  text-indent: 0px;
+  text-indent: 0;
   outline: none;
   width: 98%;
 }
+
 .form_item input::placeholder {
   color: #3fac9099;
 }
-.form_item input::placeholder{
+
+.form_item input::placeholder {
   font-size: 18px;
 }
+
 .login .submit {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0;
-  margin-top: 20px;
+  margin: 20px 0 0;
 }
+
 .mr-143 {
   flex-direction: row-reverse;
 }
@@ -181,38 +197,30 @@ body {
 .mr-144 {
   margin-bottom: 0;
 }
+
 #login-submit {
   display: flex;
   align-items: center;
   height: 50px;
   margin: 0 0 0 15px;
 }
+
 .submit button svg {
   width: 24px;
   height: 24px;
 }
+
 .submit button svg path {
   stroke: #66cbb2;
   transition: stroke 0.5s ease;
 }
+
 .submit button p {
   margin: 0;
   color: #66cbb2;
 }
 
-//.submit button {
-//  display: flex;
-//  color: #66cbb2;
-//  font-weight: 600;
-//  background-color: #ffffff;
-//  border-radius: 10px;
-//  padding: 0 20px;
-//  font-size: 18px;
-//  border: 0;
-//  transition: background-color 0.5s ease;
-//  transition: color 0.5s ease;
-//}
-.submit a{
+.submit a {
   color: rgb(125, 125, 125);
   cursor: pointer;
   text-decoration: none;
@@ -253,23 +261,32 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 
 .submit a {
   text-justify: center;
 }
+
 @media screen and (max-width: 1024px) {
 
-  .entrance-header{
+  .entrance-header {
     grid-template-columns: repeat(1, 1fr);
     margin: 10px;
     min-height: 95vh;
@@ -281,6 +298,7 @@ body {
     width: 100%;
   }
 }
+
 @media screen and (max-width: 600px) {
   .entrance-header .login-container {
     max-width: 360px;
@@ -288,7 +306,7 @@ body {
   .entrance-header .submit {
     width: 103%;
   }
-  .entrance-header{
+  .entrance-header {
     grid-template-columns: repeat(1, 1fr);
     margin: 10px;
     min-height: 95vh;
@@ -297,8 +315,9 @@ body {
     display: none;
   }
 }
+
 @media screen and (max-width: 430px) {
-  .entrance-header{
+  .entrance-header {
     grid-template-columns: repeat(1, 1fr);
     margin: 10px;
     min-height: 95vh;
@@ -312,8 +331,7 @@ body {
   .entrance-header .submit button {
     padding: 0 10px;
   }
-  .entrance-header .submit  p2{
-    padding: 10px 0 ;
+  .entrance-header .submit p2 {
+    padding: 10px 0;
   }
-
 }

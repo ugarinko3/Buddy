@@ -1,38 +1,33 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Button from "../button/button";
-import { useDispatch } from "react-redux";
-import { fetchCreateAvatar } from "../../store/slice/profileSlice";
-// import './WindowPhoto.css'; // Импортируем CSS файл для стилей
+import {useDispatch} from "react-redux";
+import {fetchCreateAvatar} from "../../store/slice/profileSlice";
 
-function WindowPhoto({ handeCloseModal, login, reloadProfile }) {
+function WindowPhoto({handeCloseModal, login, reloadProfile}) {
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(""); // Состояние для хранения сообщения об ошибке
+    const [error, setError] = useState("");
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setImage(file); // Сохраняем файл
-            setError(""); // Сбрасываем сообщение об ошибке при выборе нового файла
+            setImage(file);
+            setError("");
         }
     };
 
     const createPhoto = () => {
         if (!image) {
-            setError("Пожалуйста, загрузите фотографию."); // Устанавливаем сообщение об ошибке
-            return; // Прерываем выполнение функции, если фотография не загружена
+            setError("Пожалуйста, загрузите фотографию.");
+            return;
         }
-
-        setLoading(true); // Устанавливаем состояние загрузки в true
-        setImage(null); // Убираем изображение
-
-        dispatch(fetchCreateAvatar(image, login)); // Передаем файл в функцию
-
-        // Устанавливаем таймер на 12 секунд
+        setLoading(true);
+        setImage(null);
+        dispatch(fetchCreateAvatar(image, login));
         setTimeout(() => {
-            reloadProfile(); // Вызываем reloadProfile через 12 секунд
-            setLoading(false); // Сбрасываем состояние загрузки
+            reloadProfile();
+            setLoading(false);
         }, 12000);
     }
 
@@ -45,11 +40,11 @@ function WindowPhoto({ handeCloseModal, login, reloadProfile }) {
                     <div className="container">
                         {!loading ? (
                             <>
-                                <input type="file" accept="image/*" onChange={handleImageChange} />
+                                <input type="file" accept="image/*" onChange={handleImageChange}/>
                                 <div className="image-preview">
-                                    {image && <img src={URL.createObjectURL(image)} alt="Image Preview" />}
+                                    {image && <img src={URL.createObjectURL(image)} alt="Image Preview"/>}
                                 </div>
-                                {error && <div className="error-message">{error}</div>} {/* Выводим сообщение об ошибке */}
+                                {error && <div className="error-message">{error}</div>}
                             </>
                         ) : (
                             <div className="loading-container">

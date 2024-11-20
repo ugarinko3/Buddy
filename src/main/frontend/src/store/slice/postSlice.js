@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const postSlice = createSlice({
@@ -11,31 +11,24 @@ export const postSlice = createSlice({
         result: null,
     },
     reducers: {
-        // Начало загрузки постов
         fetchPostsStart: (state) => {
             state.loading = true;
             state.error = null;
         },
-
-        // Успешная загрузка постов
         fetchPostsSuccess: (state, action) => {
             state.loading = false;
             state.posts = action.payload;
         },
-        // Ошибка загрузки постов
         fetchPostsFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
-        // Успешное удаление поста
         deletePostSuccess: (state, action) => {
             state.posts = state.posts.filter(post => post.id !== action.payload);
         },
-        // Ошибка удаления поста
         deletePostFail: (state, action) => {
             state.error = action.payload;
         },
-        // Новый экшен для обновления состояния поста
         updatePostState: (state, action) => {
             const updatedPost = action.payload;
             const index = state.posts.findIndex(post => post.id === updatedPost.id);
@@ -43,30 +36,25 @@ export const postSlice = createSlice({
                 state.posts[index] = updatedPost;
             }
         },
-
-        // Успешное добавление лайка
         likePostSuccess: (state, action) => {
-            const { postId, updatedLikes } = action.payload;
+            const {postId, updatedLikes} = action.payload;
             const post = state.posts.find(post => post.id === postId);
             if (post) {
                 post.likes = updatedLikes;
                 post.liked = true;
             }
         },
-        // Успешное удаление лайка
         unlikePostSuccess: (state, action) => {
-            const { postId, updatedLikes } = action.payload;
+            const {postId, updatedLikes} = action.payload;
             const post = state.posts.find(post => post.id === postId);
             if (post) {
-                post.likes = updatedLikes; // Обновляем количество лайков из ответа
-                post.liked = false; // Отмечаем, что пост разлайкан
+                post.likes = updatedLikes;
+                post.liked = false;
             }
         },
-        // Ошибка при лайке
         likePostFail: (state, action) => {
             state.error = action.payload;
         },
-        // Ошибка при анлайке
         unlikePostFail: (state, action) => {
             state.error = action.payload;
         },
@@ -80,7 +68,6 @@ export const postSlice = createSlice({
     },
 });
 
-// Экшены
 export const {
     toggleMyPosts,
     fetchPostsStart,
@@ -95,12 +82,11 @@ export const {
     unlikePostFail,
 } = postSlice.actions;
 
-// Функция для получения постов
 export const fetchPosts = (login) => async (dispatch) => {
     dispatch(fetchPostsStart());
     try {
         const response = await axios.get('/post/get', {
-            params: { login }
+            params: {login}
         });
         dispatch(fetchPostsSuccess(response.data));
     } catch (error) {
@@ -109,7 +95,6 @@ export const fetchPosts = (login) => async (dispatch) => {
 };
 
 
-// Функция для удаления поста
 export const deletePost = (postId) => async (dispatch) => {
     try {
         await axios.delete(`/post/${postId}`);
@@ -119,29 +104,25 @@ export const deletePost = (postId) => async (dispatch) => {
     }
 };
 
-// Функция для добавления лайка
 export const likePost = (postId, login) => async (dispatch) => {
     try {
         const response = await axios.post(`/post/like/${postId}`, null, {
-            params: { login }
+            params: {login}
         });
-        // Если сервер возвращает количество лайков, обновляем их
         const updatedLikes = response.data;
-        dispatch(likePostSuccess({ postId, updatedLikes }));
+        dispatch(likePostSuccess({postId, updatedLikes}));
     } catch (error) {
         dispatch(likePostFail(error.message));
     }
 };
 
-// Функция для удаления лайка
 export const unlikePost = (postId, login) => async (dispatch) => {
     try {
         const response = await axios.post(`/post/unlike/${postId}`, null, {
-            params: { login }
+            params: {login}
         });
-        // Если сервер возвращает количество лайков, обновляем их
         const updatedLikes = response.data;
-        dispatch(unlikePostSuccess({ postId, updatedLikes }));
+        dispatch(unlikePostSuccess({postId, updatedLikes}));
     } catch (error) {
         dispatch(unlikePostFail(error.message));
     }

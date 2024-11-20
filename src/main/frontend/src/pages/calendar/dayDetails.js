@@ -35,7 +35,7 @@ function DayDetails (){
     return (
         <div>
             <div className='main'>
-                <div className='conteiner-main-news'>
+                <div className='container-main-news'>
                     <Burger/>
                     <div className="curator-news">
                         {(!availability && role === "user" )&&(

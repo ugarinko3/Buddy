@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {createSlice} from "@reduxjs/toolkit";
 import {fetchStatusSuccess} from "./statusSlice";
-// import {fetchGetTeam} from "./teamSlice";
+
 export const adminSlice = createSlice({
     name: 'admin',
     initialState: {
@@ -26,7 +26,7 @@ export const {
 export const fetchCreateCurator = async (login, role) => {
     try {
         await axios.post("/admin/admin-create-role", null, {
-            params: { login, role }
+            params: {login, role}
         });
     } catch (error) {
         throw new Error(error.code);
@@ -35,7 +35,7 @@ export const fetchCreateCurator = async (login, role) => {
 export const fetchCreateUser = async (login) => {
     try {
         await axios.post("/admin/admin-create-user", null, {
-            params: { login }
+            params: {login}
         });
     } catch (error) {
         throw new Error(error.message);
@@ -58,14 +58,13 @@ export const fetchDeleteUser = async (userId) => {
 };
 export const fetchDownload = (fileName) => async (dispatch) => {
     try {
-        // Отправляем запрос с правильным форматом параметров
         const response = await axios.get("/admin/download-file", {
-            params: { nameFile: fileName },  // Используем nameFile как параметр
+            params: {nameFile: fileName},
         });
-        return response.data;  // Возвращаем URL или сообщение от сервера
+        return response.data;
     } catch (error) {
-        console.error("Error during file download:", error);  // Логируем ошибку
-        throw new Error(error.response ? error.response.data : error.message);  // Обрабатываем ошибку, выводим сообщение с сервера, если есть
+        console.error("Error during file download:", error);
+        throw new Error(error.response ? error.response.data : error.message);
     }
 };
 export const fetchAddUser = (teamId, loginUser) => async (dispatch) => {
@@ -76,14 +75,14 @@ export const fetchAddUser = (teamId, loginUser) => async (dispatch) => {
                 login: loginUser
             }
         });
-        return { success: true, data: response.data };
+        return {success: true, data: response.data};
     } catch (error) {
         if (error.response) {
             dispatch(fetchAddFail(error.response.data));
-            return { success: false, error: error.response.data };
+            return {success: false, error: error.response.data};
         } else {
             dispatch(fetchAddFail("Произошла ошибка при добавлении пользователя."));
-            return { success: false, error: "Произошла ошибка при добавлении пользователя." };
+            return {success: false, error: "Произошла ошибка при добавлении пользователя."};
         }
     }
 };

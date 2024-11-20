@@ -1,14 +1,13 @@
 import Button from "../button/button";
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 function ModalWindowAddUser({clickAddUser, onClickOpenWindowUser, team, error}) {
     const [login, setLogin] = useState('');
 
     const clickSetLogin = (event) => {
         const value = event.target.value;
-        // Проверка: только английские буквы
-        const regex = /^[A-Za-z]+$/; // Регулярное выражение для проверки только английских букв
-        if (regex.test(value) || value === '') { // Позволяем пустую строку
+        const regex = /^[A-Za-z]+$/;
+        if (regex.test(value) || value === '') {
             setLogin(value);
         }
     };
@@ -24,7 +23,7 @@ function ModalWindowAddUser({clickAddUser, onClickOpenWindowUser, team, error}) 
                         name={`login`}
                         placeholder={`Login`}
                         value={login}
-                        onChange={clickSetLogin} // Обновляем обработчик события
+                        onChange={clickSetLogin}
                     />
                 </div>
                 {error && (

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Curator({ toggleAnswer, index, item, imageLoading, setImageLoading, bool }) {
+function Curator({toggleAnswer, index, item, imageLoading, setImageLoading, bool}) {
     return (
         <div>
             <div className='string-mini-info gradient-border border-curator-background'
@@ -23,7 +23,7 @@ function Curator({ toggleAnswer, index, item, imageLoading, setImageLoading, boo
                                 ...prev,
                                 avatar: false
                             }))}
-                            style={{ display: imageLoading.avatar ? 'none' : 'block' }}
+                            style={{display: imageLoading.avatar ? 'none' : 'block'}}
                         />
                     </div>
                     <div className='text-flex'>

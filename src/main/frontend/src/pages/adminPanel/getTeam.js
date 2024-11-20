@@ -1,26 +1,20 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import Loading from "../loading/loading";
-// import Curator from "./curator";
-// import User from "./user";
 import ListTeam from "./listTeam";
 
 
-function GetTeam ({handleModalClick, isAnimating, bool, onClickOpenWindow, onClickOpenWindowUser}) {
-    // const dispatch = useDispatch();
-    // const panel = true;
-    // const [isModal, setIsModal] = useState(false);
-    // const [isLoading, setIsLoading] = useState(false);
+function GetTeam({handleModalClick, isAnimating, bool, onClickOpenWindow, onClickOpenWindowUser}) {
     const {loading, error, listTeam} = useSelector((state) => state.team);
-    const [activeIndex, setActiveIndex] = useState(null); // Отслеживание активного индекса
-    const [imageLoading, setImageLoading] = useState({ image: true, avatar: true });
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [imageLoading, setImageLoading] = useState({image: true, avatar: true});
 
 
     const toggleAnswer = (index) => {
-        setActiveIndex(activeIndex === index ? null : index); // Переключение активного индекса
+        setActiveIndex(activeIndex === index ? null : index);
     };
 
-    if (loading && listTeam.length === 0) return <Loading />;
+    if (loading && listTeam.length === 0) return <Loading/>;
     if (error) return <p>Error: {error}</p>;
 
     return (
@@ -31,7 +25,9 @@ function GetTeam ({handleModalClick, isAnimating, bool, onClickOpenWindow, onCli
                         <div key={item.id} className="container-function">
                             <div className="nameTeam">
                                 <p>{item.name}</p>
-                                <button className={`btn create-btn create-btn-margin`}  onClick={() => onClickOpenWindowUser(item)}>добавить</button>
+                                <button className={`btn create-btn create-btn-margin`}
+                                        onClick={() => onClickOpenWindowUser(item)}>добавить
+                                </button>
                             </div>
                             <div className="summ-participants">
                                 <div className={`box-number`}>

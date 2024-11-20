@@ -1,42 +1,32 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { fetchToken } from './store/slice/tokenSlice'; // ваш redux slice
-import { getCookie } from './pages/cookie/getCookie';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchToken} from './store/slice/tokenSlice';
+import {getCookie} from './pages/cookie/getCookie';
 import Loading from "./pages/loading/loading";
-import Error from "./pages/error/error"; // функция для получения токенов из куки
+import Error from "./pages/error/error";
 
-const PrivateRoute = ({ element: Component }) => {
-  const dispatch = useDispatch();
-  const { login, error } = useSelector((state) => state.token); // Извлекаем состояние из redux
+const PrivateRoute = ({element: Component}) => {
+    const dispatch = useDispatch();
+    const {login, error} = useSelector((state) => state.token);
 
-  useEffect(() => {
-    const loginCookie = getCookie('login');
-    const tokenCookie = getCookie('access_token');
+    useEffect(() => {
+        const loginCookie = getCookie('login');
+        const tokenCookie = getCookie('access_token');
 
-    // Проверка: если токен не загружен и нет ошибки, загружаем токен
-    if (!login && !error) {
-      dispatch(fetchToken(loginCookie, tokenCookie)); // делаем запрос
+        if (!login && !error) {
+            dispatch(fetchToken(loginCookie, tokenCookie));
+        }
+    }, [dispatch,login,error]);
+
+    if (error && error !== 429) {
+        return <Error
+            code={error}
+        />;
+    } else if (!login) {
+        return <Loading/>;
     }
-  }, []);
 
-  // Если произошла ошибка с токеном, перенаправляем на страницу логина
-  // if (error) {
-  //   return <Navigate to="/" />;
-  // }
-
-  // Если токен еще не загружен, показываем индикатор загрузки
-
-  if(error && error !== 429) {
-    return <Error
-        code={error}
-    />;
-  } else if (!login) {
-    return <Loading />; // Здесь можно сделать более сложный индикатор
-  }
-
-  // Если токен валиден, рендерим переданный компонент
-  return <Component />;
+    return <Component/>;
 };
 
 export default PrivateRoute;

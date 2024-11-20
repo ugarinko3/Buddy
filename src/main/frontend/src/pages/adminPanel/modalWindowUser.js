@@ -1,8 +1,8 @@
 import React from "react";
 import Button from "../button/button";
 
-function ModalWindowUser({onClickOpenWindow, clickDeleteUser, id}){
-    return(
+function ModalWindowUser({onClickOpenWindow, clickDeleteUser, id}) {
+    return (
         <div className="modal-overlay modal-index">
             <div className="modal-content">
                 <h2>Вы действительно хотите удалить участника из команды?</h2>
@@ -17,4 +17,5 @@ function ModalWindowUser({onClickOpenWindow, clickDeleteUser, id}){
         </div>
     );
 }
+
 export default ModalWindowUser;

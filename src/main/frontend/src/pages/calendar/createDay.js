@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../../css/createDay.scss';
-import { adjustTextareaHeight, getCommentCounter, maxLength } from '../textArea/text';
+import {adjustTextareaHeight, getCommentCounter, maxLength} from '../textArea/text';
 
 const CreateDaysForm = () => {
     const [numDays, setNumDays] = useState(1);
@@ -8,39 +8,35 @@ const CreateDaysForm = () => {
     const textareaRefs = useRef([]);
 
     useEffect(() => {
-        // Clear out any old refs to avoid null values
         textareaRefs.current = textareaRefs.current.slice(0, numDays);
 
-        // Adjust the height for each textarea
         textareaRefs.current.forEach(ref => {
             if (ref) {
                 adjustTextareaHeight(ref);
             }
         });
-    }, [comments, numDays]); // Re-run when comments or numDays change
+    }, [comments, numDays]);
 
     const handleNumDaysChange = (e) => {
-        const value = e.target.value; // Get the raw input value
+        const value = e.target.value;
 
-        // Check if the input is empty
         if (value === '') {
-            setNumDays(1); // Reset to default if empty
-            setComments(['']); // Reset comments to one empty string
+            setNumDays(1);
+            setComments(['']);
             return;
         }
 
         const parsedValue = parseInt(value);
 
-        // Ensure the value is within the range of 1 to 60
         if (parsedValue < 1) {
             setNumDays(1);
-            setComments(['']); // Reset comments
+            setComments(['']);
         } else if (parsedValue > 31) {
             setNumDays(31);
-            setComments(Array(31).fill('')); // Reset comments
+            setComments(Array(31).fill(''));
         } else {
             setNumDays(parsedValue);
-            setComments(Array(parsedValue).fill('')); // Reset comments
+            setComments(Array(parsedValue).fill(''));
         }
     };
 
@@ -54,7 +50,7 @@ const CreateDaysForm = () => {
         <div className="container-calendar-day">
             <div className="create-day">
                 <div>
-                    {Array.from({ length: numDays }, (_, i) => (
+                    {Array.from({length: numDays}, (_, i) => (
                         <div key={i} className='day'>
                             <h3>День {i + 1}</h3>
                             <label htmlFor={`commentDay${i}`}>Комментарий дня:</label>
@@ -63,7 +59,7 @@ const CreateDaysForm = () => {
                                     id={`commentDay${i}`}
                                     className="form_input-comm"
                                     placeholder="Comment"
-                                    ref={el => textareaRefs.current[i] = el} // Assign ref for each textarea
+                                    ref={el => textareaRefs.current[i] = el}
                                     value={comments[i]}
                                     onChange={(event) => handleCommentChange(i, event.target.value)}
                                     rows="1"
@@ -81,7 +77,7 @@ const CreateDaysForm = () => {
                                     {getCommentCounter(comments[i], 256)}
                                 </div>
                             </div>
-                            <br /><br />
+                            <br/><br/>
                         </div>
                     ))}
                 </div>

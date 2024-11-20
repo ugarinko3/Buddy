@@ -3,513 +3,462 @@ $grin-color: #75F5C5;
 $fon-color: #1f2632;
 
 @font-face {
-    font-family: 'Roboto-light';
-    src: url('../fonts/Roboto/Robotolight.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Roboto-light';
+  src: url('../fonts/Roboto/Robotolight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
+
 .no-wrap {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 p {
-    font-family: 'Roboto-light';
-    color: #fff;
+  font-family: 'Roboto-light', serif;
+  color: #fff;
 }
+
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
+
 .calendar {
-    margin-top: 100px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    // background-color: #2F3849;
-    z-index: 54;
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 54;
 }
+
 .calendar-container {
-    display: flex;
-    width: 100%;
-    border-radius: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    z-index: 49;
-    //padding: 0 0 20px 0;
-    background-color: #28303F;
-    //border-radius: 15px;
+  display: flex;
+  width: 100%;
+  border-radius: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  z-index: 49;
+  background-color: #28303F;
 }
+
 .rbc-calendar {
-    width: 610px;
+  width: 610px;
 }
+
 .link-name {
-    padding: 20px;
-    font-size: 18px;
+  padding: 20px;
+  font-size: 18px;
 }
- .calendar-day {
-    width: 250px;
-    background-color: #394156;
-    padding: 10px;
-    //border: 2px solid #ADADAD;
-    border-radius: 15px;
-    margin: 10px 0 ;
-    display: flex; /* Добавляем flex для внутренних элементов */
-    flex-direction: column;
-    transition: all 0.5s ease 0s;
-     box-shadow:
-             0px -4px 8px rgba(67, 74, 103, 0.73), /* Светлая тень сверху */
-             0px 4px 8px rgba(37, 37, 37, 0.71);   /* Темная тень снизу */
+
+.calendar-day {
+  width: 250px;
+  background-color: #394156;
+  padding: 10px;
+  border-radius: 15px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s ease 0s;
+  box-shadow: 0px -4px 8px rgba(67, 74, 103, 0.73),
+  0px 4px 8px rgba(37, 37, 37, 0.71);
 }
- .calendar-day.active {
-     box-shadow:
-             0px -4px 8px rgba(57, 65, 86, 0.66), /* Светлая тень сверху */
-             0px 4px 8px rgba(28, 28, 28, 0.71);
- }
- .day {
-     p{
-         font-size: 12px;
-         font-style: normal;
-         font-family: "SB Sans Text", Helvetica, sans-serif;
-         font-weight: 600;
-         line-height: 18px;
-     }
- }
-.fon-status{
-    background-color: #2F3849;
-    min-width: 75px;
-    color: #ADADAD;
-    padding: 2px;
-    border-radius: 8px;
-    //text-align: center;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-wrap: wrap;
+
+.calendar-day.active {
+  box-shadow: 0px -4px 8px rgba(57, 65, 86, 0.66),
+  0px 4px 8px rgba(28, 28, 28, 0.71);
+}
+
+.day {
+  p {
+    font-size: 12px;
+    font-style: normal;
+    font-family: "SB Sans Text", Helvetica, sans-serif;
+    font-weight: 600;
+    line-height: 18px;
+  }
+}
+
+.fon-status {
+  background-color: #2F3849;
+  min-width: 75px;
+  color: #ADADAD;
+  padding: 2px;
+  border-radius: 8px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
 }
+
 .fon-status.Success {
-    background-color: rgb(68, 235, 153);
-    color: rgb(77, 77, 77);
+  background-color: rgb(68, 235, 153);
+  color: rgb(77, 77, 77);
 
 }
 
 .fon-status.Process {
-    background-color: #1B6CE0;
-    color: #FFFFFF;
- }
+  background-color: #1B6CE0;
+  color: #FFFFFF;
+}
+
 .fon-status.Fail {
-    background-color: rgb(255, 74, 80);
-    color: #FFFFFF;
+  background-color: rgb(255, 74, 80);
+  color: #FFFFFF;
 }
- .calendar-day:hover {
-    scale: 1.07;
-    transition: all 0.5s ease 0s;
-    cursor: pointer;
+
+.calendar-day:hover {
+  scale: 1.07;
+  transition: all 0.5s ease 0s;
+  cursor: pointer;
 }
+
 .no-active:hover {
-    scale: 1;
-    cursor:default;
-    
+  scale: 1;
+  cursor: default;
+
 }
+
 .no-active {
-    border: 0;
-    background-color: #28303F;
-}
- .calendar-day .day {
-    display: flex;
-    justify-content: space-between;
-}
- .calendar-day .day p{
-    margin: 7px;
-    max-width: 81.91px;
-    //background-color: #2F3849;
+  border: 0;
+  background-color: #28303F;
 }
 
-//.Success .day p{
-//    background-color: #75F5C5;
-//}
-
-//.Process .day p{
-//    background-color: #1B6CE0;
-//}
-//.Fail .day p{
-//     background-color: #df5c5c;
-// }
-.no-active .day p{
-    background-color: #2F3849;
+.calendar-day .day {
+  display: flex;
+  justify-content: space-between;
 }
+
 .calendar-day .day p {
-    //margin: 7px 7px;
+  margin: 7px;
+  max-width: 81.91px;
 }
 
- .calendar-day .task {
-    margin: 12px 7px 20px 7px;
-}
- .calendar-day .task p{
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.no-active .day p {
+  background-color: #2F3849;
 }
 
- .calendar-day .data {
-    margin-top: auto;
-    margin-left: 8px;
+
+.calendar-day .task {
+  margin: 12px 7px 20px 7px;
+}
+
+.calendar-day .task p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.calendar-day .data {
+  margin-top: auto;
+  margin-left: 8px;
+  display: flex;
+  justify-content: space-between;
+
+  .dataDay {
     display: flex;
-    justify-content: space-between;
-
-    .dataDay{
-        display: flex;
-        align-items: center;
-    }
-
-    //svg {
-    //    cursor: pointer;
-    //    display: block;
-    //    margin: 20px;
-    //}
-    //
-    //.circle-border {
-    //    stroke-dasharray: 69;
-    //    stroke-dashoffset: 69;
-    //    transition: stroke-dashoffset 0.5s ease, fill 0.3s ease;
-    //}
-    //
-    //svg:hover .circle-border {
-    //    stroke-dashoffset: 0;
-    //}
-    //
-    //svg:hover path {
-    //    fill: #FFFFFF;
-    //    width: 25px;
-    //    height: 25px;
-    //}
-}
-.button-edit-day {
-    display: flex; /* Включаем flex для кнопки */
-    align-self: flex-end;
-    margin-top: auto;
-    z-index: 50;
-}
-
-
-
- .calendar-day .data p{
-    font-size: 12px;
-    color: #C8CFD9;
-}
-.no-active .data p{
-    color: #828994;
-}
-.no-active .task p{
-    color: #434E63;
-}
-.Process .task p{
-    color: #C8CFD9;
-}
-
-.Success .task p{
-    color: #C8CFD9;
-}
-.button-create-calendar-day {
-    margin-left: auto;
-    margin-right: 20px;
-}
-
-
-
-
-/* Задний затемнённый фон */
-.modal-overlay {
-    min-width: 300px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6); /* немного темнее для большего контраста */
-    display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    animation: fadeIn 0.3s forwards;
+  }
+}
+
+.button-edit-day {
+  display: flex;
+  align-self: flex-end;
+  margin-top: auto;
+  z-index: 50;
+}
+
+
+.calendar-day .data p {
+  font-size: 12px;
+  color: #C8CFD9;
+}
+
+.no-active .data p {
+  color: #828994;
+}
+
+.no-active .task p {
+  color: #434E63;
+}
+
+.Process .task p {
+  color: #C8CFD9;
+}
+
+.Success .task p {
+  color: #C8CFD9;
+}
+
+.button-create-calendar-day {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+
+.modal-overlay {
+  min-width: 300px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
 
 }
 
 
-/* Контент модального окна */
 .modal-content {
-    background-color:  $fon-color;
-    border: 0.5px solid $grin-color;
-    padding: 30px;
-    border-radius: 15px;
-    width: 500px;
-    max-width: 90%;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-40px);
-    opacity: 0;
-    animation: slideIn 0.4s forwards;
+  background-color: $fon-color;
+  border: 0.5px solid $grin-color;
+  padding: 30px;
+  border-radius: 15px;
+  width: 500px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-40px);
+  opacity: 0;
+  animation: slideIn 0.4s forwards;
 }
+
 .edit-comment {
-    text-align: left;
-    padding: 7px 7px;
-    color: $grin-color;
+  text-align: left;
+  padding: 7px 7px;
+  color: $grin-color;
 }
 
 .date-inputs {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0 20px 0;
 }
 
 .date-picker {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .date-picker label {
-    font-size: 14px;
-    color: $grin-color;
-    margin-bottom: 8px;
+  font-size: 14px;
+  color: $grin-color;
+  margin-bottom: 8px;
 }
 
 .date-field {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
 }
 
 .date-field:focus {
-    border-color: #4CAF50;
-    outline: none;
+  border-color: #4CAF50;
+  outline: none;
 }
 
-/* Кнопки модального окна */
-/* Кнопки модального окна */
 .modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 .btn {
-    padding: 10px 30px;
-    border: 1px solid $grin-color;
-    background-color: #434E63;
-    color: $grin-color;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Добавляем тень для кнопки */
+  padding: 10px 30px;
+  border: 1px solid $grin-color;
+  background-color: #434E63;
+  color: $grin-color;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Добавляем эффект при наведении */
 .btn:hover {
-    //transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличиваем тень при наведении */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Стили для кнопки отмены */
 .cancel-btn {
-    margin: auto;
+  margin: auto;
 }
 
 .cancel-btn:hover {
-    background-color: #cf2828;
-    color: #fff;
-    border: 1px solid #cf2828;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(207, 40, 40, 0.4); /* Красная тень при наведении */
+  background-color: #cf2828;
+  color: #fff;
+  border: 1px solid #cf2828;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(207, 40, 40, 0.4);
 }
 
-/* Стили для кнопки создания */
 .create-btn {
-    margin: auto;
+  margin: auto;
 }
 
 .create-btn:hover {
-    background-color: $grin-color;
-    color: #FFFFFF;
-    transform: translateY(-3px); /* Чуть больше подъём */
-    box-shadow: 0 8px 16px rgba(117, 245, 197, 0.4); /* Светло-зелёная тень при наведении */
+  background-color: $grin-color;
+  color: #FFFFFF;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(117, 245, 197, 0.4);
 }
+
 .false-button {
-    padding: 8px 30px;
+  padding: 8px 30px;
 }
+
 .log-out {
-    display: flex;
-    padding: 10px 15px;
-    align-items: center;
-    font-size: 16px;
-    //border: none;
-    margin: 0 10px;
-    background-color:  #434E63;
-    gap: 10px;
-    border: 1px solid #75F5C5;
+  display: flex;
+  padding: 10px 15px;
+  align-items: center;
+  font-size: 16px;
+  margin: 0 10px;
+  background-color: #434E63;
+  gap: 10px;
+  border: 1px solid #75F5C5;
 
-    path {
-        fill: #75F5C5;
-    }
+  path {
+    fill: #75F5C5;
+  }
 
 }
+
 .log-out:hover {
-    //box-shadow: 0 8px 16px rgba(207, 40, 40, 0.4);
-    //background-color: #cf2828;
-    //color: #fff;
-    //border: 1px solid #cf2828;
-    path {
-        fill:#fff;
-    }
+  path {
+    fill: #fff;
+  }
 }
 
 
 .modal-over {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); // затемнение фона
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; // чтобы модальное окно отображалось поверх остальных элементов
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
+
 .container-bottom {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
+
 .scale:hover {
   scale: none;
   cursor: auto;
 }
-.scale{
-    width: auto;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    height: 40px;
-    justify-content: center;
+
+.scale {
+  width: auto;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  justify-content: center;
 }
 
 .container-start {
-    border: 2px solid #939393;
-    padding: 20px 30px;
-    border-radius: 15px;
+  border: 2px solid #939393;
+  padding: 20px 30px;
+  border-radius: 15px;
 
-    p{
-        color: #939393;
-    }
+  p {
+    color: #939393;
+  }
 }
+
 .no-post {
-    border: 1px solid #75F5C5;
-    border-radius: 12px;
-    margin: 10px 0 20px 0;
-    scale: 1.1;
-    text-align: center;
+  border: 1px solid #75F5C5;
+  border-radius: 12px;
+  margin: 10px 0 20px 0;
+  scale: 1.1;
+  text-align: center;
 
-    p {
-        padding: 15px 20px;
+  p {
+    padding: 15px 20px;
 
-    }
+  }
 }
 
 .filter-buttons-container {
-    max-width: 100%;
-    display: flex;
-    padding: 20px;
-    gap: 30px;
+  max-width: 100%;
+  display: flex;
+  padding: 20px;
+  gap: 30px;
 }
+
 .button-filter {
-    background: none; /* или background: transparent; */
-    border: none; /* если хотите убрать рамку */
-    color: inherit; /* чтобы текст кнопки наследовал цвет от родителя */
-    cursor: pointer;
-    font-size: 20px;
-
-    //::before {
-    //    content: "";
-    //    position: absolute;
-    //    width: 0;
-    //    height: 2px;
-    //    left: 0;
-    //    bottom: -3px;
-    //    background-color: #75F5C5;
-    //    transition: width 0.3s;
-    //}
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 20px;
 }
+
 .conteiner-comment-day {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .comment-dayDetails {
-    padding: 10px;
-    border-radius: 15px;
-    border: 1px solid #75F5C5;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    text-align: center;
-    margin-bottom: 10px;
-    width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid #75F5C5;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 10px;
+  width: 100%;
 
-    h2{
-        color: #75F5C5;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    }
+  h2 {
+    color: #75F5C5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
 }
+
 .header {
-    z-index: 40;
+  z-index: 40;
 }
 
 
-
-/* Анимации */
 @keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
+@media screen and (max-width: 450px) {
+  .modal-overlay .date-inputs {
+    flex-direction: column;
 
-@media screen and (max-width: 450px){
-    .modal-overlay .date-inputs {
-        flex-direction: column;
-
-        .date-picker {
-            margin-top: 10px;
-        }
+    .date-picker {
+      margin-top: 10px;
     }
+  }
 }
-
-
-
-
-
-
-
-////////DAY
-
-
-// .container-day {
-//     widt
-// }
-

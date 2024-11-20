@@ -4,7 +4,6 @@ import com.camp.Buddy.model.Goal;
 import com.camp.Buddy.model.User;
 import com.camp.Buddy.repository.GoalsRepository;
 import com.camp.Buddy.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,7 @@ public class GoalService {
     public ResponseEntity<List<Goal>> getAllGoals(String login) {
         return ResponseEntity.ok(goalsRepository.findAllByUser(userRepository.findByLogin(login)));
     }
+
     public void deleteGoal(Goal goal) {
         goalsRepository.deleteById(goal.getId());
     }
@@ -30,7 +30,7 @@ public class GoalService {
         return ResponseEntity.ok(createGoal(goalChange));
     }
 
-    public ResponseEntity<Goal> creteGoalUser(Goal goal){
+    public ResponseEntity<Goal> creteGoalUser(Goal goal) {
         return ResponseEntity.ok(createGoal(goal));
     }
 

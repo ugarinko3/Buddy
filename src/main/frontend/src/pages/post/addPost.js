@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import '../../css/addPost.scss';
-import { submitPost, submitPostDay} from "../../store/slice/addPostSlice";
-import { fetchTeamList } from "../../store/slice/teamList";
-import handleAddPost from "./BorderNews"
-import { adjustTextareaHeight, handleCommentChange, getCommentCounter, maxLength } from '../textArea/text';
+import {submitPost, submitPostDay} from "../../store/slice/addPostSlice";
+import {fetchTeamList} from "../../store/slice/teamList";
+import {adjustTextareaHeight, handleCommentChange, getCommentCounter, maxLength} from '../textArea/text';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPosts} from "../../store/slice/postSlice";
 import {fetchCalendarDay} from "../../store/slice/calendarSlice";
@@ -15,17 +14,16 @@ function AddPost({handleAddPost, boolean, idDay}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(true);
     const [image, setImage] = useState(null);
-    const {login, role} = useSelector((state) => state.token) // Use the custom hook
+    const {login, role} = useSelector((state) => state.token)
     const [fileName, setFileName] = useState('');
     const [isUploaded, setIsUploaded] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [teamName, setTeamName] = useState(''); // Инициализируем состояние для выбранной команды
+    const [teamName, setTeamName] = useState('');
     const [teams, setTeams] = useState([]);
     const textareaRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
     let post;
-
 
 
     useEffect(() => {
@@ -41,16 +39,16 @@ function AddPost({handleAddPost, boolean, idDay}) {
     };
 
     const handleTeamChange = (event) => {
-        setTeamName(event.target.value); // Обновляем состояние выбранной команды
-        setError(''); // Сбрасываем ошибку при выборе команды
+        setTeamName(event.target.value);
+        setError('');
         setIsLoading(false);
     };
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const maxSizeInMB = 5; // Максимальный размер в МБ
-            const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Переводим в байты
+            const maxSizeInMB = 5;
+            const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
 
             if (file.size > maxSizeInBytes) {
                 setError(`Файл слишком большой. Максимальный размер: ${maxSizeInMB} МБ.`);
@@ -63,7 +61,7 @@ function AddPost({handleAddPost, boolean, idDay}) {
             setImage(file);
             setFileName(file.name);
             setIsUploaded(true);
-            setError(''); // Сбрасываем ошибку, если файл корректный
+            setError('');
         }
     };
 
@@ -104,7 +102,7 @@ function AddPost({handleAddPost, boolean, idDay}) {
 
 
         const LocationDate = new Date();
-        if (boolean){
+        if (boolean) {
             post = {
                 "teamName": teamName,
                 "likes": 0,
@@ -126,7 +124,7 @@ function AddPost({handleAddPost, boolean, idDay}) {
         const postData = new FormData();
 
         postData.append('photo', image);
-        postData.append('post', new Blob([JSON.stringify(post)], { type: 'application/json' }));
+        postData.append('post', new Blob([JSON.stringify(post)], {type: 'application/json'}));
         try {
             if (boolean) {
                 await submitPost(postData);
@@ -149,13 +147,13 @@ function AddPost({handleAddPost, boolean, idDay}) {
             const loadTeams = async () => {
                 try {
                     const teamList = await fetchTeamList(login); // Получаем логин
-                    teamList.forEach(team => {
-                    });
-                    setTeams(teamList); // Устанавливаем полученные команды в состояние
+                    // teamList.forEach(team => {
+                    // });
+                    setTeams(teamList);
                 } catch (error) {
                     console.error('Ошибка при загрузке команд:', error);
                 }
-            }; // Загружаем команды при открытии модального окна
+            };
             loadTeams();
         }
     }, [isModalOpen, login]);
@@ -165,7 +163,8 @@ function AddPost({handleAddPost, boolean, idDay}) {
             <button className="addButton" onClick={handleOpenModal}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                     <g id="Edit / Add_Plus">
-                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#000000" strokeWidth="2"
+                              strokeLinecap="round" strokeLinejoin="round"/>
                     </g>
                 </svg>
                 add post
@@ -174,14 +173,11 @@ function AddPost({handleAddPost, boolean, idDay}) {
             {isModalOpen && (
                 <div className={`modal ${isAnimating ? 'show' : ''}`} onClick={handleModalClick}>
                     <div className={`modalContent ${isAnimating ? 'show' : ''}`}>
-                        {/*<span className="close" onClick={handleCloseModal}>*/}
-                        {/*    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none">*/}
-                        {/*       <g id="Edit / Add_Plus">*/}
-                        {/*           <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>*/}
-                        {/*       </g>*/}
-                        {/*   </svg>*/}
-                        {/*</span>*/}
-                        <form className="container-form" onSubmit={(event) => handleSubmit(event, { message, teamName, image }, setIsLoading, setError, handleCloseModal)}>
+                        <form className="container-form" onSubmit={(event) => handleSubmit(event, {
+                            message,
+                            teamName,
+                            image
+                        }, setIsLoading, setError, handleCloseModal)}>
                             <div className={`border-gradient ${isUploaded ? 'uploaded' : ''}`}>
                                 <div className="upload-an-image">
                                     {!isUploaded && (
@@ -250,7 +246,7 @@ function AddPost({handleAddPost, boolean, idDay}) {
                                         value={message}
                                         onChange={(event) => handleCommentChange(event, setMessage, setError)}
                                         rows="1"
-                                        cols ="50"
+                                        cols="50"
                                         maxLength={maxLength}
                                         style={{
                                             overflow: 'hidden',
@@ -273,7 +269,7 @@ function AddPost({handleAddPost, boolean, idDay}) {
                                 </div>
                             )}
                             <Button
-                                handleCloseModal={handleCloseModal} // Передаем функцию как ссылку
+                                handleCloseModal={handleCloseModal}
                                 isLoading={isLoading}
                                 submitYes={"Submit"}
                                 submiteNo={"Close"}

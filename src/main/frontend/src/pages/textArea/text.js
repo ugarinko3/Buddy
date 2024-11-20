@@ -1,4 +1,3 @@
-
 export const maxLength = 512;
 export const adjustTextareaHeight = (textareaRef) => {
     if (textareaRef.current) {

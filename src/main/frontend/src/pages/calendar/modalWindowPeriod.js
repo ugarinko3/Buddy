@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import {useDispatch, useSelector} from "react-redux"; // Для использования dispatch
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import '../../css/calendar.scss';
-import {fetchCreateSeason} from "../../store/slice/seasonSlice"; // Импортируем нашу функцию
+import {fetchCreateSeason} from "../../store/slice/seasonSlice";
 
-const Modal = ({ isOpen, onClose}) => {
-    const {error}  = useSelector((state) => state.season);
-    const [startDate, setStartDate] = useState(''); // Состояние для начала даты
-    const [endDate, setEndDate] = useState(''); // Состояние для конца даты
-    const [seasonName, setSeasonName] = useState(''); // Состояние для названия сезона
-    const [showError, setShowError] = useState(''); // Состояние для показа общей ошибки
-    const dispatch = useDispatch(); // Для отправки действий в Redux
-    const maxDate = '2030-12-31'; // Ограничение по дате до 2030 года
+const Modal = ({isOpen, onClose}) => {
+    const {error} = useSelector((state) => state.season);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [seasonName, setSeasonName] = useState('');
+    const [showError, setShowError] = useState('');
+    const dispatch = useDispatch();
+    const maxDate = '2030-12-31';
 
     if (!isOpen) return null;
 
@@ -22,36 +22,32 @@ const Modal = ({ isOpen, onClose}) => {
     const handleDateChange = (e, setDate) => {
         const selectedDate = e.target.value;
 
-        // Если выбранная дата больше 2030-12-31, устанавливаем максимальную дату
         if (selectedDate > maxDate) {
             setDate(maxDate);
         } else {
             setDate(selectedDate);
         }
 
-        setShowError(''); // Сбрасываем ошибку, если пользователь ввел дату
+        setShowError('');
     };
 
     const handleBlur = (e, setDate) => {
         const selectedDate = e.target.value;
 
-        // Автоматически исправляем дату, если она превышает 2030-12-31
         if (selectedDate > maxDate) {
             setDate(maxDate);
-            e.target.value = maxDate; // Обновляем поле ввода
+            e.target.value = maxDate;
         }
     };
 
-    // Проверка, заполнены ли обе даты и название сезона
     const isFormValid = startDate !== '' && endDate !== '' && seasonName !== '';
 
-    // Обработчик для кнопки создания
     const handleCreateClick = () => {
         if (!isFormValid) {
-            setShowError('Проверьте правильно введена дата или номер сезона'); // Показываем общую ошибку
+            setShowError('Проверьте правильно введена дата или номер сезона');
         } else {
             dispatch(fetchCreateSeason(seasonName, formatDateToDDMMYYYY(startDate), formatDateToDDMMYYYY(endDate)));
-            if(error){
+            if (error) {
                 setShowError(error);
             } else {
                 onClose();
@@ -70,7 +66,7 @@ const Modal = ({ isOpen, onClose}) => {
                             id={`numberSeason`}
                             className={`season`}
                             value={seasonName}
-                            onChange={(e) => setSeasonName(e.target.value)} // Обновляем состояние названия сезона
+                            onChange={(e) => setSeasonName(e.target.value)}
                         />
                     </div>
                 </div>
@@ -84,7 +80,7 @@ const Modal = ({ isOpen, onClose}) => {
                             max={maxDate}
                             value={startDate}
                             onChange={(e) => handleDateChange(e, setStartDate)}
-                            onBlur={(e) => handleBlur(e, setStartDate)} // Проверка при потере фокуса
+                            onBlur={(e) => handleBlur(e, setStartDate)}
                         />
                     </div>
                     <div className="date-picker">
@@ -96,14 +92,12 @@ const Modal = ({ isOpen, onClose}) => {
                             max={maxDate}
                             value={endDate}
                             onChange={(e) => handleDateChange(e, setEndDate)}
-                            onBlur={(e) => handleBlur(e, setEndDate)} // Проверка при потере фокуса
+                            onBlur={(e) => handleBlur(e, setEndDate)}
                         />
                     </div>
                 </div>
-
-                {/* Сообщение об ошибке */}
                 {showError && (
-                    <div className="error-message" style={{ color: '#c01e1e'}}>
+                    <div className="error-message" style={{color: '#c01e1e'}}>
                         {showError}
                     </div>
                 )}

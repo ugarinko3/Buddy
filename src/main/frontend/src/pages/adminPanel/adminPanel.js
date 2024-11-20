@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Burger from "../header/header_burger";
 import "../../css/admin.scss"
@@ -16,7 +16,7 @@ import ModalWindowAddUser from "./modalWindowAddUser";
 import ModalWindowExcel from "./modalWindowExcel";
 
 function AdminPanel() {
-    const {error}  = useSelector((state) => state.admin);
+    const {error} = useSelector((state) => state.admin);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [curatorNickName, setCuratorNickName] = useState(''); // Состояние для никнейма куратора
     const [message, setMessage] = useState(''); // Состояние для сообщения
@@ -33,7 +33,6 @@ function AdminPanel() {
     const dispatch = useDispatch();
 
 
-
     const handleCuratorInputChange = (event) => {
         setCuratorNickName(event.target.value);
         setMessage(''); // Сбрасываем сообщение при вводе
@@ -45,7 +44,7 @@ function AdminPanel() {
         setIsError(false); // Сбрасываем состояние ошибки
     };
     const onClickOpenWindowUser = (team) => {
-        if (openWindowUser){
+        if (openWindowUser) {
             setOpenWindowUser(false)
         } else {
             setIdTeam(team);
@@ -53,10 +52,10 @@ function AdminPanel() {
         }
     }
 
-    const onClickOpenWindow = (id) =>{
-        if (openWindow){
+    const onClickOpenWindow = (id) => {
+        if (openWindow) {
             setOpenWindow(false)
-        }else {
+        } else {
             setDeleteUser(id);
             setOpenWindow(true);
         }
@@ -94,14 +93,14 @@ function AdminPanel() {
     };
 
     const handleModalClick = (e) => {
-        if(!openWindow) {
+        if (!openWindow) {
             if (e.target.classList.contains('modal')) {
                 handleCloseModal();
             }
         }
     };
 
-    const clickExcel= () => {
+    const clickExcel = () => {
         try {
             dispatch(fetchGetExcel());
             setOpenWindowExcel(true);
@@ -135,8 +134,8 @@ function AdminPanel() {
 
     return (
         <div className={`main`}>
-            <Burger />
-            <div className={`conteiner-main-news`}>
+            <Burger/>
+            <div className={`container-main-news`}>
                 <div className={`panel-admin`}>
                     <div className={`create-role center`}>
                         {/*<div className={`container-function`}>*/}
@@ -174,7 +173,8 @@ function AdminPanel() {
                     </div>
                     <div className={`create-role`}>
                         <div className={`container-function`}>
-                            <button className="btn create-btn margin" onClick={clickExcel}>Выгрузить данные сезона</button>
+                            <button className="btn create-btn margin" onClick={clickExcel}>Выгрузить данные сезона
+                            </button>
                         </div>
                         <div className={`container-function`}>
                             <button className={`btn create-btn margin`} onClick={createSeason}>Создать сезон</button>
@@ -185,12 +185,12 @@ function AdminPanel() {
             </div>
             {isModal && (
                 <GetTeam
-                isModal={isModal}
-                handleModalClick={handleModalClick}
-                isAnimating={isAnimating}
-                bool={true}
-                onClickOpenWindow={onClickOpenWindow}
-                onClickOpenWindowUser={onClickOpenWindowUser}
+                    isModal={isModal}
+                    handleModalClick={handleModalClick}
+                    isAnimating={isAnimating}
+                    bool={true}
+                    onClickOpenWindow={onClickOpenWindow}
+                    onClickOpenWindowUser={onClickOpenWindowUser}
                 />
             )}
             {openWindow && (

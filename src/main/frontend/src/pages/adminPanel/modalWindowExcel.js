@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDownload} from "../../store/slice/adminSlice";
 
-function ModalWindowExcel({ closeWindowExcel }) {
-    const { season } = useSelector((state) => state.admin);
+function ModalWindowExcel({closeWindowExcel}) {
+    const {season} = useSelector((state) => state.admin);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 

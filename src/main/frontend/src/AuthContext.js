@@ -1,30 +1,23 @@
-// src/AuthContext.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {createContext, useContext, useState, useEffect} from 'react';
 import Cookies from 'js-cookie';
-import {useCheckToken} from "./pages/token/token";
-// Создаем контекст
+
 const AuthContext = createContext();
 
-// Провайдер аутентификации
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    // useCheckToken();
     useEffect(() => {
         let timer;
 
         const handleActivity = () => {
-                clearTimeout(timer); // Сбрасываем таймер
-                timer = setTimeout(() => {
-                    Cookies.remove('access_token');
-                    window.location.href = '/';
-                }, 1200000); // 5 минут (300000 мс)
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                Cookies.remove('access_token');
+                window.location.href = '/';
+            }, 1200000);
         };
-
-        // Добавляем обработчики событий для отслеживания активности
         window.addEventListener('mousemove', handleActivity);
         window.addEventListener('keydown', handleActivity);
 
-        // Убираем обработчики событий при размонтировании компонента
         return () => {
             clearTimeout(timer);
             window.removeEventListener('mousemove', handleActivity);
@@ -36,13 +29,12 @@ export const AuthProvider = ({ children }) => {
     const logout = () => setIsAuthenticated(false);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout}}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-// Хук для использования контекста
 export const useAuth = () => {
     return useContext(AuthContext);
 };

@@ -1,14 +1,14 @@
 import "../../css/error.scss"
 
-function Error({code}){
+function Error({code}) {
     const handleGoBack = () => {
         if (code === 404) {
-            window.location.href = '/'; // Перенаправление на главную страницу (или другую указанную)
+            window.location.href = '/';
         } else {
-            window.history.back(); // Возвращает на предыдущую страницу
+            window.history.back();
         }
     };
-    return(
+    return (
         <div className={`container-error`}>
             <div className={`number-error`}>
                 {code}
@@ -39,4 +39,5 @@ function Error({code}){
         </div>
     );
 }
+
 export default Error;

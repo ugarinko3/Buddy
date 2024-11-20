@@ -24,10 +24,12 @@ public class SeasonController {
     public ResponseEntity<?> registration(@RequestParam String login) {
         return seasonService.registrationUser(login);
     }
+
     @GetMapping
     public ResponseEntity<Season> getSeasonUser(@RequestParam String login) {
         return seasonService.getSeasonUser(login);
     }
+
     @GetMapping("/get-season")
     public ResponseEntity<Season> Season() {
         return seasonService.getSeason();

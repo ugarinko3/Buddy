@@ -1,7 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Slice для работы с командами
 export const teamSlice = createSlice({
     name: 'team',
     initialState: {
@@ -10,18 +9,15 @@ export const teamSlice = createSlice({
         error: null,
     },
     reducers: {
-        // Начало загрузки команд
         fetchTeamStart: (state) => {
             state.loading = true;
             state.error = null;
         },
 
-        // Успешная загрузка команд
         fetchTeamSuccess: (state, action) => {
             state.loading = false;
             state.listTeam = action.payload;
         },
-        // Ошибка загрузки команд
         fetchTeamFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
@@ -29,14 +25,12 @@ export const teamSlice = createSlice({
     },
 });
 
-// Экспортируем действия
 export const {
     fetchTeamStart,
     fetchTeamSuccess,
     fetchTeamFail,
 } = teamSlice.actions;
 
-// Асинхронное действие (thunk) для получения данных о командах
 export const fetchGetTeam = () => async (dispatch) => {
     dispatch(fetchTeamStart());
     try {
@@ -47,5 +41,4 @@ export const fetchGetTeam = () => async (dispatch) => {
     }
 };
 
-// Экспортируем reducer
 export default teamSlice.reducer;

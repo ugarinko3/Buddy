@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react";
-import {getCommentCounter, handleCommentChange, maxLength } from "../textArea/text";
+import React, {useRef, useState} from "react";
+import {getCommentCounter, handleCommentChange, maxLength} from "../textArea/text";
 import '../../css/calendar.scss';
 import {fetchCalendar, fetchCreateComment} from "../../store/slice/calendarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../button/button";
 
-function ModalWindowComment({ isOpen, onClose, item, day}) {
+function ModalWindowComment({isOpen, onClose, item, day}) {
     const [error, setError] = useState('');
-    const {login}  = useSelector((state) => state.token);
+    const {login} = useSelector((state) => state.token);
     const dispatch = useDispatch();
     const [message, setMessage] = useState('');
     const textareaRef = useRef(null);

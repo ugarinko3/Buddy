@@ -1,18 +1,28 @@
-import React, { useRef, useState } from "react";
-import { getCommentCounter, handleCommentChange, maxLength } from "../textArea/text";
+import React, {useRef, useState} from "react";
+import {getCommentCounter, handleCommentChange, maxLength} from "../textArea/text";
 
-function CreateGoal({ goals, changeStatus, handleCreateClick, message, setMessage, createGoal, onClose, deleteGoal, modalWindow }) {
+function CreateGoal({
+                        goals,
+                        changeStatus,
+                        handleCreateClick,
+                        message,
+                        setMessage,
+                        createGoal,
+                        onClose,
+                        deleteGoal,
+                        modalWindow
+                    }) {
     const [error, setError] = useState('');
     const textareaRef = useRef(null);
 
     const handleCreateClickWithValidation = async () => {
-        if (!message.trim()) { // Проверка на пустое сообщение
-            setError('Comment cannot be empty'); // Установка сообщения об ошибке
-            return; // Прекращаем выполнение функции
+        if (!message.trim()) {
+            setError('Comment cannot be empty');
+            return;
         }
 
-        setError(''); // Сбрасываем ошибку, если текст не пустой
-        await handleCreateClick(); // Вызываем оригинальную функцию
+        setError('');
+        await handleCreateClick();
     };
 
     return (
@@ -70,17 +80,17 @@ function CreateGoal({ goals, changeStatus, handleCreateClick, message, setMessag
                                     {getCommentCounter(message, maxLength)}
                                 </div>
                             </div>
-                        ):(
+                        ) : (
                             <div className={`max-goal`}>
                                 <h3 className={`text-h3`}>Added maximum number of targets</h3>
                             </div>
                         )}
-                        {error && <div className="message container-width error">{error}</div>} {/* Отображение сообщения об ошибке */}
+                        {error && <div className="message container-width error">{error}</div>}
                         <div className="modal-buttons container-width">
                             <button className="btn cancel-btn" onClick={onClose}>Exit</button>
                             <button
                                 className="btn create-btn"
-                                onClick={handleCreateClickWithValidation} // Используем новую функцию
+                                onClick={handleCreateClickWithValidation}
                             >
                                 Create
                             </button>

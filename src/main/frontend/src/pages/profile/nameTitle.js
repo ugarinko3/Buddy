@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function NameTitle ({name, index}) {
+function NameTitle({name, index}) {
     return (
         <div className={`name-title`} key={index}>
             <h2 className={`ft108`}>{name}</h2>

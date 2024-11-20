@@ -17,22 +17,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-//@AllArgsConstructor
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/calendar")
-//@CrossOrigin(origins = "http://localhost:3000")
 public class CalendarController {
     private final CalendarService calendarService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UUID> addPostDay(
-            @RequestPart("post") String postJson,  // Получаем JSON-строку
-            @RequestPart("photo") MultipartFile photo  // Получаем файл
+            @RequestPart("post") String postJson,
+            @RequestPart("photo") MultipartFile photo
     ) throws IOException {
-        PostDayUser postDayUser = new ObjectMapper().readValue(postJson, PostDayUser.class); // Преобразуем JSON в объект
+        PostDayUser postDayUser = new ObjectMapper().readValue(postJson, PostDayUser.class);
         return ResponseEntity.ok(calendarService.createPostDay(postDayUser, photo));
     }
+
     @GetMapping("/get-day/{idDay}")
     public ResponseEntity<List<PostDayUserResponse>> getDayPostCalendars(@RequestParam String login, @PathVariable UUID idDay) {
         return ResponseEntity.ok(calendarService.getDayPostCalendar(login, idDay));
@@ -44,10 +43,6 @@ public class CalendarController {
         return ResponseEntity.ok(calendarResponses);
     }
 
-//    @PostMapping("/create")
-//    public boolean createCalendar(@RequestBody CalendarRequest calendarRequest) {
-//      return calendarService.createCalendar(calendarRequest);
-//    }
     @PostMapping("/create-comment")
     public void createCommentDay(@RequestBody Day day) {
         calendarService.createCommentDay(day);
@@ -57,9 +52,9 @@ public class CalendarController {
     public ResponseEntity<Void> changeStatus(@RequestBody PostDayUser postDayUser) {
         try {
             calendarService.selectStatus(postDayUser);
-            return ResponseEntity.status(HttpStatus.OK).build(); // Return 200 OK
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Return 500 Internal Server Error
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

@@ -53,19 +53,19 @@ public class AdminService {
 
 
     public void generationCommand(Season season) {
-            int countTeam = 0;
-            List<User> curators = userRepository.findAllBySeasonsAndRole(season, userService.CURATOR);
-            List<User> users = userRepository.findAllBySeasonsAndRole(season, userService.USER);
-            List<Team> teams = createTeam(curators);
-            for (User user : users) {
+        int countTeam = 0;
+        List<User> curators = userRepository.findAllBySeasonsAndRole(season, userService.CURATOR);
+        List<User> users = userRepository.findAllBySeasonsAndRole(season, userService.USER);
+        List<Team> teams = createTeam(curators);
+        for (User user : users) {
 
-                if (countTeam == curators.size()) {
-                    countTeam = 0;
-                }
-                teams.get(countTeam).getParticipants().add(user);
-                countTeam++;
+            if (countTeam == curators.size()) {
+                countTeam = 0;
             }
-            teamRepository.saveAll(teams);
+            teams.get(countTeam).getParticipants().add(user);
+            countTeam++;
+        }
+        teamRepository.saveAll(teams);
     }
 
 

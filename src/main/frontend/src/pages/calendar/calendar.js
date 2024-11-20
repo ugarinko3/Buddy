@@ -1,8 +1,8 @@
 import '../../css/calendar.scss';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Burger from '../header/header_burger';
-import { fetchCalendar } from "../../store/slice/calendarSlice";
-import { useDispatch, useSelector } from "react-redux";
+import {fetchCalendar} from "../../store/slice/calendarSlice";
+import {useDispatch, useSelector} from "react-redux";
 import Day from "./day";
 import Loading from "../loading/loading";
 import ModalWindowComment from "./modalWindowComment";
@@ -13,23 +13,24 @@ import {Season} from "../../store/slice/seasonSlice";
 function Calendar() {
     const dispatch = useDispatch();
     const {season, dateSeason} = useSelector((state) => state.season);
-    const {login, role}  = useSelector((state) => state.token);
+    const {login, role} = useSelector((state) => state.token);
     const [dayWindow, setDayWindow] = useState(null);
-    const { day, error, loading } = useSelector((state) => state.calendar);
+    const {day, error, loading} = useSelector((state) => state.calendar);
     const [isModalOpenComment, setIsModalComment] = useState(false);
     const [calendar, setCalendar] = useState(null);
-    const [filter, setFilter] = useState('all'); // Состояние для фильтрации
+    const [filter, setFilter] = useState('all');
     const [activeFilter, setActiveFilter] = useState('all');
 
 
     useEffect(() => {
         if (login) {
-            if ((!Array.isArray(day) || day.length === 0) && season !== null ) {
+            if ((!Array.isArray(day) || day.length === 0) && season !== null) {
                 dispatch(fetchCalendar(login));
             } else {
-                dispatch(Season(login));            }
+                dispatch(Season(login));
+            }
         }
-    }, [login, day, dispatch]);
+    }, [login, season, day, dispatch]);
 
     function getOrdinalSuffix(number) {
         const suffixes = ["th", "st", "nd", "rd"];
@@ -51,7 +52,6 @@ function Calendar() {
     };
 
 
-    // Фильтрация дней по статусу
     const filteredDays = Array.isArray(day)
         ? day.filter(item => {
             if (filter === 'Success') return item.status === 'Success';
@@ -66,12 +66,12 @@ function Calendar() {
         setFilter(filter);
     };
 
-    if (loading) return <Loading />;
-    if (error) return <Error />;
+    if (loading) return <Loading/>;
+    if (error) return <Error/>;
     return (
         <div>
 
-            <Burger />
+            <Burger/>
             <div className='calendar'>
                 <div className={`link-name`}>
                     <h2>Calendar</h2>
@@ -108,7 +108,7 @@ function Calendar() {
                             })
                         )}
                     </div>
-                ):(
+                ) : (
                     <RegistrationSeasonNews
                         dateSeason={dateSeason}
                     />

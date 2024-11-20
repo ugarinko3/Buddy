@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Стратегия для отдельных таблиц
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Post {
 
     @Id

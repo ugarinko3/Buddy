@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {clearSuccess, fetchStatusError, fetchStatusLoading, fetchStatusSuccess} from "./statusSlice";
 
@@ -10,22 +10,17 @@ export const calendarSlice = createSlice({
         availability: true,
         loading: false,
         error: null,
-        // calendar: false,
     },
     reducers: {
-        // Начало загрузки постов
         fetchCalendarStart: (state) => {
             state.loading = true;
             state.error = null;
-            // state.dayPost = [];
         },
 
-        // Успешная загрузка постов
         fetchCalendarSuccess: (state, action) => {
             state.loading = false;
             state.day = action.payload;
         },
-        // Ошибка загрузки постов
         fetchCalendarFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
@@ -35,7 +30,6 @@ export const calendarSlice = createSlice({
             state.dayPost = action.payload;
             state.availability = action.payload[0].availability;
         },
-        // Ошибка загрузки постов
         fetchCalendarDayFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
@@ -44,7 +38,6 @@ export const calendarSlice = createSlice({
             state.calendar = action.payload;
 
         },
-        // Ошибка удаления поста
         createCalendarFail: (state, action) => {
             state.error = action.payload;
         },
@@ -63,12 +56,11 @@ export const {
 } = calendarSlice.actions;
 
 
-
 export const fetchCalendar = (login) => async (dispatch) => {
     dispatch(fetchCalendarStart());
     try {
         const response = await axios.get('/calendar/get', {
-            params: { login }
+            params: {login}
         });
         dispatch(fetchCalendarSuccess(response.data));
     } catch (error) {
@@ -79,10 +71,8 @@ export const fetchCalendarDay = (login, idPost) => async (dispatch) => {
     dispatch(fetchCalendarStart());
     try {
         const response = await axios.get(`/calendar/get-day/${idPost}`, {
-            params: { login },
+            params: {login},
         });
-        // console.log(response)
-
         dispatch(fetchCalendarDaySuccess(response.data));
     } catch (error) {
         dispatch(fetchCalendarDayFail(error.message));
@@ -96,7 +86,7 @@ export const fetchCreateCalendar = (startDate, endDate) => async (dispatch) => {
             endDate
         }, {
             headers: {
-                'Content-Type': 'application/json',  // Обязательно укажите заголовок JSON
+                'Content-Type': 'application/json',
             },
         });
         dispatch(createCalendarSuccess(response.data));
@@ -107,8 +97,8 @@ export const fetchCreateCalendar = (startDate, endDate) => async (dispatch) => {
 export const fetchCreateComment = (comment) => async (dispatch) => {
     try {
         await axios.post('/calendar/create-comment', {
-            comment: comment.comment, // Отправляем только поле comment
-            id: comment.id // Если id тоже нужно, отправьте его
+            comment: comment.comment,
+            id: comment.id
         }, {
             headers: {
                 'Content-Type': 'application/json',
@@ -129,12 +119,11 @@ export const fetchStatus = (item) => {
                     'Content-Type': 'application/json',
                 },
             });
-              console.log(item)
+            console.log(item)
             dispatch(fetchStatusSuccess());
 
-            // Очистка успеха через 2 секунды
             setTimeout(() => {
-                dispatch(clearSuccess()); // Новый экшен для очистки флага успеха
+                dispatch(clearSuccess());
             }, 2000);
         } catch (error) {
             dispatch(fetchStatusError(error.message));

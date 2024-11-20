@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function  NoInfo ({message}) {
+function NoInfo({message}) {
     return (
         <div className={`no-goals`}>
             <p>{message}</p>

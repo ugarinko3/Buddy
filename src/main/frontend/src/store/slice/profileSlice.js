@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const profileSlice = createSlice({
@@ -29,7 +29,7 @@ export const profileSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
-        fetchSuccesse: (state, action) => {
+        fetchSuccesse: (state) => {
             state.loading = false;
         },
         fetchCreateGoalFail: (state, action) => {
@@ -40,7 +40,7 @@ export const profileSlice = createSlice({
             const updatedGoal = action.payload;
             const index = state.goals.findIndex(goal => goal.id === updatedGoal.id);
             if (index !== -1) {
-                state.goals[index] = updatedGoal; // Обновляем цель в состоянии
+                state.goals[index] = updatedGoal;
             }
         },
         removeGoal: (state, action) => {
@@ -49,7 +49,6 @@ export const profileSlice = createSlice({
     },
 });
 
-// Экшены
 export const {
     UserSucces,
     UserError,
@@ -101,22 +100,18 @@ export const fetchDeleteGoal = (goal) => async (dispatch) => {
     }
 };
 
-export const fetchCreateAvatar = (image, login) => async (dispatch) => {
+export const fetchCreateAvatar = async (image, login) => {
     try {
         const formData = new FormData();
         formData.append('avatar', image);
         formData.append('login', login);
         await axios.post("/users/profile/createAvatar", formData, {
             headers: {
-                'Content-Type': 'multipart/form-data' // Указываем, что отправляем данные в формате FormData
+                'Content-Type': 'multipart/form-data'
             }
         });
-
-        // Обработка ответа, если необходимо
-        // dispatch(UserSuccesPhoto());
     } catch (error) {
         console.error("Error creating avatar:", error);
-        // Обработка ошибок, если необходимо
     }
 }
 

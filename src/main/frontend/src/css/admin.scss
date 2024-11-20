@@ -1,9 +1,6 @@
 
-
-
 .panel-admin {
   display: flex;
-  //width: 100%;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
@@ -11,35 +8,38 @@
   z-index: 49;
   padding: 0 0 20px 0;
 }
+
 .wh-121 {
   margin: 0;
   background-color: #CCCCCC;
 }
+
 .container-function {
   display: flex;
   flex-direction: column;
   align-items: center;
-  //justify-content: center;
   border: 1px solid #ADADAD;
   padding: 20px;
   background-color: #2F3849;
   border-radius: 12px;
-  //flex-wrap: wrap;
   gap: 5px;
 }
+
 .season-button {
   flex-direction: row;
 }
+
 .name-season {
   display: flex;
   flex-direction: column;
 }
+
 .season {
   padding: 5px;
   border-radius: 10px;
 
-  input{
-    color:#4c4c4cd0;
+  input {
+    color: #4c4c4cd0;
     font-weight: 500;
     font-size: 18px;
     border: 0;
@@ -48,19 +48,22 @@
     width: 86%;
   }
 }
+
 .conteiner-team {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  //max-width: 00px;
 }
+
 .container-width-panel {
   min-width: 220px;
 }
+
 .wh-120 {
   margin-top: 20px;
 }
+
 .create-role {
   display: flex;
   flex-direction: row;
@@ -69,6 +72,7 @@
   gap: 20px;
   flex-wrap: wrap;
 }
+
 .list-excel-file {
   display: flex;
   min-height: 50px;
@@ -80,16 +84,19 @@
   flex-direction: column;
   align-content: center;
 }
+
 .wh-123 {
   width: 300px;
 
-   h2 {
-     margin-bottom: 20px;
-   }
+  h2 {
+    margin-bottom: 20px;
+  }
 }
+
 .mr-145 {
   margin-top: 20px;
 }
+
 .container-excel {
   border: 1px solid #75F5C5;
   max-width: 200px;
@@ -105,11 +112,12 @@
   cursor: pointer;
 
 }
+
 .label-left {
-  //margin-right: 40px;
   font-size: 16px;
   color: #75F5C5;
 }
+
 .nick-name {
   padding: 10px;
   border: 1px solid #75F5C5;
@@ -121,9 +129,10 @@
 }
 
 .nick-name:focus {
-  border-color: #2b735b; /* Цвет рамки при фокусе */
-  outline: none; /* Убираем стандартный контур */
+  border-color: #2b735b;
+  outline: none;
 }
+
 .message {
   font-size: 12px;
   padding: 5px 10px;
@@ -132,17 +141,19 @@
 }
 
 .message.success {
-  color: green; // Цвет для успешного сообщения
-  background-color: #d4edda; // Светлый зеленый фон
+  color: green;
+  background-color: #d4edda;
 }
 
 .message.error {
-  color: red; // Цвет для сообщения об ошибке
-  background-color: #f8d7da; // Светлый красный фон
+  color: red;
+  background-color: #f8d7da;
 }
+
 .btn-top {
   margin-top: 5px;
 }
+
 .nameTeam {
   text-align: left;
   margin-right: auto;
@@ -151,21 +162,22 @@
   justify-content: space-between;
   width: 100%;
 
-  p{
+  p {
     padding: 5px;
     background-color: #75F5C5;
     color: #1f2632;
     border-radius: 5px;
   }
 }
+
 .wh-43 {
   min-width: 300px;
   margin: 20px auto 0px auto;
 }
+
 .modal-center {
   display: flex;
   width: 400px;
-  //align-items: center;
   justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
@@ -176,15 +188,15 @@
   gap: 5px;
   align-items: center;
 }
+
 .box {
-  //width: 20px;
-  //height: 20px;
   padding: 2px 6px;
   text-align: center;
   background-color: #75F5C5;
   color: #1f2632;
   border-radius: 5px;
 }
+
 .summ-participants {
   margin-right: auto;
   display: flex;
@@ -197,34 +209,31 @@
   border: 1px solid #75F5C5;
   border-radius: 12px;
   cursor: pointer;
-  //padding: 10px;
-  //transition: border 0.3s ease;
   padding: 10px;
 }
 
-//.faq__item.active {
-//  border: 1px solid #000; /* Добавляем рамку при активном состоянии */
-//}
 
 .faq-answer {
   overflow: hidden;
   max-height: 0;
   margin-top: 0;
-  transition: max-height 1s ease,  margin-top 1s ease;
+  transition: max-height 1s ease, margin-top 1s ease;
 }
+
 .create-btn-margin {
   margin: 0;
 }
 
 .faq-answer.open {
   margin-top: 10px;
-  max-height: 500px; /* Достаточное значение для высоты */
+  max-height: 500px;
   transition: max-height 1s ease, margin-top 1s ease;
 }
 
 .modal.show .modalContent.show {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 .modalWidth {
   max-width: 900px;
 }
@@ -235,6 +244,7 @@
   gap: 20px;
   min-width: 250px;
 }
+
 .image {
   width: 40px;
   height: 40px;
@@ -247,44 +257,51 @@
     height: 100%;
   }
 }
+
 .text-flex {
   display: flex;
   justify-content: center;
-  //align-items: center;
   flex-direction: column;
 }
+
 .curator-border {
   border-radius: 12px;
   border: 1px solid wheat;
 }
+
 .center {
   justify-content: space-around;
 }
+
 .margin {
   margin: 0;
   min-width: 210px;
 }
+
 .gradient-border {
   position: relative;
-  padding: 1px; /* Пространство для градиентного бордера */
-  border-radius: 10px; /* Закругляем углы */
+  padding: 1px;
+  border-radius: 10px;
 }
+
 .border-curator-background {
   background: linear-gradient(90deg, #ff7e5f, #feb47b);
 }
+
 .border-user-background {
   background: linear-gradient(97.87deg, #0078B0 0.47%, #59EBFF 62.34%);
 }
 
 .inner-content {
   background: #2F3849;
-  border-radius: 8px; /* Закругленные углы внутреннего содержимого */
-  padding: 10px; /* Отступы для содержимого */
+  border-radius: 8px;
+  padding: 10px;
   display: flex;
   gap: 10px;
   flex-direction: row;
   width: 100%;
 }
+
 .modal-index {
   z-index: 50000;
 }
@@ -300,27 +317,31 @@
   path {
     stroke: rgba(248, 85, 85, 0.84);
   }
+
   circle {
     stroke: rgba(248, 85, 85, 0.84);
   }
 }
-.string-mini-info:hover .delete-user{
+
+.string-mini-info:hover .delete-user {
   opacity: 1;
 }
 
-@media screen and (max-width: 450px){
+@media screen and (max-width: 450px) {
   .season {
     input {
       width: 100%;
     }
   }
 }
-@media screen and (max-width: 340px){
+
+@media screen and (max-width: 340px) {
   .string-mini-info {
     min-width: 0;
   }
 }
-@media screen and (max-width:750px){
+
+@media screen and (max-width: 750px) {
   .modalWidth {
     max-width: 400px;
 

@@ -1,10 +1,11 @@
-
-function User ({index,
-                   itemParticipants,
-                   imageLoading,
-                   setImageLoading,
-                   bool,
-                   onClickOpenWindow}) {
+function User({
+                  index,
+                  itemParticipants,
+                  imageLoading,
+                  setImageLoading,
+                  bool,
+                  onClickOpenWindow
+              }) {
     return (
         <div
             className={`string-mini-info gradient-border border-user-background`} key={index}>
@@ -33,10 +34,10 @@ function User ({index,
                 {bool && (
                     <div className={`delete-user margin-left`} onClick={() => onClickOpenWindow(itemParticipants.id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24"
-                             fill="none" >
-                            <circle cx="12" cy="12" r="10" stroke="#cf2828" stroke-width="1.5"/>
-                            <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#cf2828" stroke-width="1.5"
-                                  stroke-linecap="round"/>
+                             fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#cf2828" strokeWidth="1.5"/>
+                            <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#cf2828" strokeWidth="1.5"
+                                  strokeLinecap="round"/>
                         </svg>
                     </div>
                 )}

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TokenResponse {
-  private String role;
-  private String login;
-  private boolean create;
+    private String role;
+    private String login;
+    private boolean create;
 }

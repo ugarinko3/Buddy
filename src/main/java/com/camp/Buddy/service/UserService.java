@@ -63,7 +63,7 @@ public class UserService {
             throw new EntityNotFoundException("User not found");
         }
 
-        return userProfile; // Возвращаем объект UserResponse
+        return userProfile;
     }
 
     public List<DayProfileResponse> changeDayProfile(List<UserDayResponse> userDayResponses) {
@@ -91,7 +91,7 @@ public class UserService {
         User user = userRepository.findByLogin(login);
 
         if (user != null) {
-            return user.getRole(); // Предполагается, что у вас есть метод getRole в классе User
+            return user.getRole();
         } else {
             throw new RuntimeException("Пользователь не найден");
         }
@@ -101,7 +101,7 @@ public class UserService {
         int result = 1;
         JsonNode jsonNode = requestSchoolService.RequestUser(login, accessToken);
 
-        String username = login.split("@")[0]; // Извлекаем имя пользователя из логина
+        String username = login.split("@")[0];
         if (userRepository.findByLogin(username) == null) {
             User user = new User();
             user.setLogin(username);

@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import React from "react";
 import CardDay from "./cardDay"
 
-function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
+function Day({item, suffix, dayNumber, role, onEditDay, handleDayClick}) {
     const handleEditClick = (event) => {
         event.preventDefault();
         onEditDay(item.day.id);
@@ -19,7 +19,7 @@ function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
                         suffix={suffix}
                     />
                 </Link>
-            ):(
+            ) : (
                 <CardDay
                     item={item}
                     dayNumber={dayNumber}
@@ -30,7 +30,7 @@ function Day({ item, suffix, dayNumber, role, onEditDay,handleDayClick}) {
                 <div className="button-edit-day">
                     <button
                         className="btn create-btn "
-                        style={{ padding: '10px 20px'}}
+                        style={{padding: '10px 20px'}}
                         onClick={handleEditClick}
                     >
                         create

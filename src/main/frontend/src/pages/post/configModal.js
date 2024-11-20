@@ -1,8 +1,7 @@
-// ConfirmModal.js
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../css/ConfirmModal.scss';
 
-const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
+const ConfirmModal = ({isOpen, onClose, onConfirm}) => {
     const [isAnimating, setIsAnimating] = useState(false);
     const [show, setShow] = useState(false);
 
@@ -12,10 +11,10 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
             setIsAnimating(false);
             setTimeout(() => {
                 setIsAnimating(true);
-            }, 50); // Небольшая задержка перед началом анимации
+            }, 50);
         } else {
             setIsAnimating(false);
-            const timer = setTimeout(() => setShow(false), 300); // Время должно совпадать с продолжительностью анимации
+            const timer = setTimeout(() => setShow(false), 300);
             return () => clearTimeout(timer);
         }
     }, [isOpen]);

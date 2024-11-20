@@ -32,7 +32,6 @@ public class CalendarService {
     private final UserService userService;
     private final TeamService teamService;
     private final SeasonService seasonService;
-    private final AdminService adminService;
 
 
     public List<CalendarResponse> getCalendar(String login) {
@@ -58,15 +57,15 @@ public class CalendarService {
     }
 
 
-
     public void createCommentDay(Day day) {
         Optional<Day> optionalDay = calendarRepository.findById(day.getId());
         Day newDay = optionalDay.get();
         newDay.setComment(day.getComment());
         calendarRepository.save(newDay);
     }
+
     public UUID createPostDay(PostDayUser post, MultipartFile photo) throws IOException {
-        String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/day/"+post.getId());
+        String imageUrlPost = firebaseStorageService.uploadPhoto(photo, "posts/day/" + post.getId());
         User user = userRepository.findByLogin(post.getLogin());
         Team team = teamService.getTeamsByParticipantId(user.getId()).get(0);
         changeDayCalendar(user.getId(), post.getIdDay(), "Process");
@@ -89,7 +88,7 @@ public class CalendarService {
 
         if (postDayUsers.isEmpty()) {
             PostDayUserResponse availabilityResponse = new PostDayUserResponse();
-            availabilityResponse.setAvailability(isUserAvailable); // Устанавливаем availability
+            availabilityResponse.setAvailability(isUserAvailable);
             availabilityResponse.setMessagePost(day.getComment());
             postDayUserResponses.add(availabilityResponse);
         }
@@ -97,7 +96,6 @@ public class CalendarService {
             PostDayUserResponse postResponse = new PostDayUserResponse();
             postResponse.setPostDayUser(post);
             postResponse.setAvailability(isUserAvailable);
-//            postResponse.setMessagePost(day.getComment());
             postDayUserResponses.add(postResponse);
         }
 
@@ -108,13 +106,15 @@ public class CalendarService {
     public boolean getPostUser(UUID id, String login) {
         return calendarDayRepository.existsByIdDayAndLogin(id, login);
     }
-    public ResponseEntity<?> failPostUser(PostDayUser postDayUser) throws Exception{
+
+    public ResponseEntity<?> failPostUser(PostDayUser postDayUser) throws Exception {
         User user = examinationUser(postDayUser.getLogin());
         changeDayCalendar(user.getId(), postDayUser.getIdDay(), "Fail");
         postDayUser.setStatus("Fail");
         calendarDayRepository.save(postDayUser);
         return ResponseEntity.ok().build();
     }
+
     public ResponseEntity<?> successPostUser(PostDayUser postDayUser) throws Exception {
         User user = examinationUser(postDayUser.getLogin());
         User curator = examinationUser(postDayUser.getCurator().getLogin());

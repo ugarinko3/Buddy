@@ -26,12 +26,10 @@ public class RequestSchoolService {
     public JsonNode RequestUser(String login, String token){
         String url = url_verification + login;
 
-        // Создаем заголовки
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
-        headers.setContentType(MediaType.APPLICATION_JSON); // Может потребоваться установить другой тип, если нужно
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Создаем запрос
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
         try {

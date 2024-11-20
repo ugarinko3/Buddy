@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-//@AllArgsConstructor
 @Service
 public class TokenService {
 
@@ -43,23 +42,22 @@ public class TokenService {
         if (response.getStatusCode().is2xxSuccessful()) {
             String loginName = login.split("@")[0];
             TokenResponse tokenResponse = new TokenResponse();
-                tokenResponse.setRole(userService.getUserRole(loginName));
-                tokenResponse.setLogin(loginName);
+            tokenResponse.setRole(userService.getUserRole(loginName));
+            tokenResponse.setLogin(loginName);
             tokenResponse.setCreate(isTableExists("day") && !calendarRepository.findAll().isEmpty());
 
             return tokenResponse;
         }
         return null;
     }
+
     private boolean isTableExists(String tableName) {
         try {
-            // Выполняем запрос для проверки существования таблицы
             Long count = (Long) entityManager.createNativeQuery("SELECT COUNT(*) FROM information_schema.tables WHERE table_name = :tableName")
                     .setParameter("tableName", tableName)
                     .getSingleResult();
             return count > 0;
         } catch (Exception e) {
-            // Обработка исключений, если таблица не существует или произошла ошибка
             return false;
         }
     }

@@ -13,9 +13,8 @@ import RegistrationSeasonNews from "./registrationSeason";
 
 function BorderNews() {
     const {season, registration, buttonStatus, dateSeason} = useSelector((state) => state.season);
-    // const [dateSeason, setDateSeason] =useState("will be known soon");
     const dispatch = useDispatch();
-    const {login, role, idUser}  = useSelector((state) => state.token);
+    const {login, role}  = useSelector((state) => state.token);
     const { posts, error: postError, loading, showMyPosts } = useSelector((state) => state.post);
     const [expandedPostIndex, setExpandedPostIndex] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +25,7 @@ function BorderNews() {
     useEffect(() => {
         dispatch(getSeason());
         dispatch(Season(login));
-    }, [dispatch]);
+    }, [dispatch, login]);
 
 
     const getStatus = () => {
@@ -130,7 +129,7 @@ function BorderNews() {
         <div className='main'>
             <Burger/>
             {role === "admin" || season.status === "Action" ? (
-                <div className='conteiner-main-news'>
+                <div className='container-main-news'>
                     <div className='curator-news'>
                         {(role === 'admin' || role === 'curator') && (
                             <div className='button-curator'>

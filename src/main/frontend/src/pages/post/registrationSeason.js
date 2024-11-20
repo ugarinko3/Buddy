@@ -15,7 +15,7 @@ function RegistrationSeasonNews({loadingSeason, registration, buttonStatus, date
                         want to learn more about Buddy Team and how you can join us, please sign up for our</p><br/>
                     <p className={`margin-right`}>The new season starts on: <strong>{dateSeason}</strong></p>
                     <div className={`container-status-season`}>
-                        {loadingSeason ? ( // Проверяем состояние загрузки
+                        {loadingSeason ? (
                             <div className="loading-container news">
                                 <div className="loading-bar an-120"></div>
                             </div>
@@ -41,4 +41,5 @@ function RegistrationSeasonNews({loadingSeason, registration, buttonStatus, date
         </div>
     );
 }
+
 export default RegistrationSeasonNews;

@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import "../../css/mini-calendar.scss";
 
-const MiniCalendar = ({ calendarDayStatus = [] }) => {
+const MiniCalendar = ({calendarDayStatus = []}) => {
     const [currentDate, setCurrentDate] = useState(new Date()); // Текущая дата
-    const [days, setDays] = useState([]); // Дни месяца
+    const [days, setDays] = useState([]);
 
     useEffect(() => {
         generateCalendar(currentDate);
     }, [currentDate]);
 
-    // Функция для генерации массива дат для текущего месяца
     const generateCalendar = (date) => {
         const year = date.getFullYear();
         const month = date.getMonth();
@@ -21,30 +20,25 @@ const MiniCalendar = ({ calendarDayStatus = [] }) => {
             daysArray.push(i);
         }
 
-        // Добавим пустые ячейки перед первым днем месяца (если месяц не начинается с воскресенья)
         for (let i = 0; i < firstDayOfMonth; i++) {
-            daysArray.unshift(''); // Добавляем пустые ячейки
+            daysArray.unshift('');
         }
 
-        // Добавляем пустые ячейки в конце месяца, чтобы заполнить до следующей недели
         const totalDaysInGrid = Math.ceil((daysArray.length) / 7) * 7;
         const emptyDaysCount = totalDaysInGrid - daysArray.length;
         for (let i = 0; i < emptyDaysCount; i++) {
             daysArray.push('');
         }
-
-        setDays(daysArray); // Устанавливаем массив дней
+        setDays(daysArray);
     };
 
-    // Функция для получения статуса дня
     const getDayStatus = (day) => {
-        // Проверяем, что день не пустой
         if (!day) return null;
 
         const dateString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const statusObj = calendarDayStatus.find(item => item.date === dateString);
 
-        return statusObj ? statusObj.status : null; // Возвращаем статус или null
+        return statusObj ? statusObj.status : null;
     };
 
     return (
@@ -56,7 +50,7 @@ const MiniCalendar = ({ calendarDayStatus = [] }) => {
                 >
                     Prev
                 </button>
-                <h2>{currentDate.toLocaleString('en-US', { month: 'long' })} {currentDate.getFullYear()}</h2>
+                <h2>{currentDate.toLocaleString('en-US', {month: 'long'})} {currentDate.getFullYear()}</h2>
                 <button
                     className={`btn create-btn mrc-1`}
                     onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)))}
@@ -72,7 +66,7 @@ const MiniCalendar = ({ calendarDayStatus = [] }) => {
                 ))}
 
                 {days.map((day, index) => {
-                    const dayStatus = getDayStatus(day); // Получаем статус дня
+                    const dayStatus = getDayStatus(day);
                     return (
                         <div
                             key={index}

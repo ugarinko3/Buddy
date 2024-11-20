@@ -1,7 +1,6 @@
 package com.camp.Buddy.controller;
 
 import com.camp.Buddy.model.PostNews;
-//import com.camp.Buddy.model.dto.PostDTO;
 import com.camp.Buddy.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,14 +20,12 @@ import java.util.UUID;
 public class PostController {
 
     private final PostService postService;
-//    private final ObjectMapper objectMapper;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UUID> addPost(
-            @RequestPart("post") PostNews postNews,  // Получаем JSON-строку
-            @RequestParam("photo") MultipartFile photo  // файл
+            @RequestPart("post") PostNews postNews,
+            @RequestParam("photo") MultipartFile photo
     ) throws IOException {
-//        Post post = objectMapper.readValue(postJson, Post.class); // Десериализация JSON в объект Post
         return ResponseEntity.ok(postService.createPost(postNews, photo));
     }
 
@@ -41,8 +38,9 @@ public class PostController {
     public ResponseEntity<Integer> likePost(@PathVariable UUID postId, @RequestParam String login) {
         return postService.likePost(postId, login);
     }
+
     @PostMapping("/unlike/{postId}")
-    public ResponseEntity<Integer>  unlikePost(@PathVariable UUID postId, @RequestParam String login) {
+    public ResponseEntity<Integer> unlikePost(@PathVariable UUID postId, @RequestParam String login) {
         return postService.unlikePost(postId, login);
     }
 

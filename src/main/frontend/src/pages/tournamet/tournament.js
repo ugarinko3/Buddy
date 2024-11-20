@@ -21,7 +21,7 @@ function Tournament(){
     return(
         <div className={`main`}>
             <Burger />
-            <div className={`conteiner-main-news tournament-container`}>
+            <div className={`container-main-news tournament-container`}>
                 <div className={`link-name`}>
                     <h2>Tournament in Peer</h2>
                 </div>

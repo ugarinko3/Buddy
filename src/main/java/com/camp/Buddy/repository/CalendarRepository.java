@@ -9,8 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface CalendarRepository extends JpaRepository<Day, UUID> {
-    List<Day> findAllById(UUID id);
-    List<Day> findAllByOrderByDateDesc();
+
     List<Day> findAllByOrderByDateAsc();
 
 }

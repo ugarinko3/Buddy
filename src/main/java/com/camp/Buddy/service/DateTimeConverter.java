@@ -12,7 +12,7 @@ public class DateTimeConverter {
 
     public String formatLocalDateTime(LocalDateTime localDateTime) {
         LocalDate localDate = convertToLocalDate(localDateTime);
-         return formatLocalDate(localDate);
+        return formatLocalDate(localDate);
     }
 
     public String formatLocalDate(LocalDate localDate) {

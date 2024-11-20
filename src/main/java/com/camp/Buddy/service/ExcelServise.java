@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ExcelServise {
 
-    private final UserRepository userRepository; // JpaRepository для твоей таблицы
+    private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final FirebaseStorageService firebaseStorageService;
     private final TeamRepository teamRepository;
@@ -64,8 +65,8 @@ public class ExcelServise {
 
         List<Long> sizePosts = postRepository.findAllPostCountsByLogin();
 
-        for (int i = 0, column = 3; i < sizePosts.get(0); i++, column++){
-            row.createCell(column).setCellValue(i+1);
+        for (int i = 0, column = 3; i < sizePosts.get(0); i++, column++) {
+            row.createCell(column).setCellValue(i + 1);
         }
 
         List<Team> teams = teamRepository.findAll();
@@ -77,9 +78,9 @@ public class ExcelServise {
             row.createCell(2).setCellValue(team.getCurator().getLogin());
             List<PostNews> posts = postRepository.findByLogin(team.getCurator().getLogin());
 
-            for(int t = 3; t < posts.size()+3; t++){
+            for (int t = 3; t < posts.size() + 3; t++) {
                 DateTimeConverter converter = new DateTimeConverter();
-                row.createCell(t).setCellValue(converter.formatLocalDateTime(posts.get(t-3).getDate()));
+                row.createCell(t).setCellValue(converter.formatLocalDateTime(posts.get(t - 3).getDate()));
 
             }
         }
@@ -102,14 +103,13 @@ public class ExcelServise {
 
         }
         List<User> users = userRepository.findAllBySeasons(season);
-//        System.out.println(users);
         int rowNumUser = 1;
         for (User user : users) {
             row = sheet.createRow(rowNumUser++);
-             row.createCell(0).setCellValue(user.getName());  // Name user
-            row.createCell(1).setCellValue(user.getTelegram()); // Telegram user
-            row.createCell(2).setCellValue(user.getLogin()); // Login user
-            row.createCell(3).setCellValue(String.valueOf(user.getToken())); // Token user
+            row.createCell(0).setCellValue(user.getName());
+            row.createCell(1).setCellValue(user.getTelegram());
+            row.createCell(2).setCellValue(user.getLogin());
+            row.createCell(3).setCellValue(String.valueOf(user.getToken()));
 
             List<UserDayResponse> daysUser = userDayRepository.findAllByUserIdSortedByDate(user.getId());
 

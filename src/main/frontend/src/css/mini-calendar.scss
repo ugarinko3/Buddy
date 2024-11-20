@@ -3,7 +3,6 @@
   border-radius: 15px;
   max-width: 610px;
   padding: 10px;
-  //margin-top: 20px;
   transition: transform 0.3s ease;
 }
 
@@ -52,8 +51,7 @@
   align-items: center;
   width: 35px;
   height: 35px;
-  border-radius: 50%; /* Круглые даты */
-  //background-color: #2c3443;
+  border-radius: 50%;
   border: 1px solid #6be0c6;
   background-color: #434E63;
   color: #fff;
@@ -70,10 +68,12 @@
   background-color: #448f74;
   border: 1px solid #448f74;
 }
+
 .calendar-day-mini.Process {
   background-color: #1B6CE0;
   border: 1px solid #1B6CE0;
 }
+
 .calendar-day-mini.Fail {
   background-color: rgb(255, 74, 80);
   border: 1px solid rgb(255, 74, 80);
@@ -87,14 +87,16 @@
 .weekend {
   border: 1px solid #ffcccb;
 }
-@media screen and (max-width: 500px){
+
+@media screen and (max-width: 500px) {
   .lvl_2 {
     margin-top: -30px;
     transform: scale(0.8);
   }
 }
-@media screen and (max-width: 400px){
-  .lvl_2  {
+
+@media screen and (max-width: 400px) {
+  .lvl_2 {
     margin-top: -60px;
     transform: scale(0.6);
   }

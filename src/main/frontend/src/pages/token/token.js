@@ -1,34 +1,27 @@
-import { fetchToken } from '../../store/slice/tokenSlice';
-import { useEffect, useState } from "react";
-import { getCookie } from "../cookie/getCookie";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {fetchToken} from '../../store/slice/tokenSlice';
+import {useEffect, useState} from "react";
+import {getCookie} from "../cookie/getCookie";
+import {useDispatch, useSelector} from "react-redux";
 
 export function useCheckToken() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [hasCheckedToken, setHasCheckedToken] = useState(false); // Состояние для отслеживания проверки токена
+    const [hasCheckedToken, setHasCheckedToken] = useState(false);
 
-    const { error, login, role, create } = useSelector((state) => state.token);
+    const {login, role, create} = useSelector((state) => state.token);
 
     useEffect(() => {
         const loginCookie = getCookie('login');
         const tokenCookie = getCookie('access_token');
 
         const fetchAndCheckToken = async () => {
-            if (!hasCheckedToken) { // Проверяем, был ли уже выполнен запрос
+            if (!hasCheckedToken) {
                 await dispatch(fetchToken(loginCookie, tokenCookie));
-                setHasCheckedToken(true); // Устанавливаем флаг, что проверка токена выполнена
-
-                // Проверяем наличие ошибки после получения токена
-                // if (error) {
-                //     navigate('/'); // Перенаправление на главную страницу в случае ошибки
-                // }
+                setHasCheckedToken(true);
             }
         };
 
         fetchAndCheckToken();
-    }, [dispatch]); // Добавляем hasCheckedToken в зависимости
+    }, [dispatch]);
 
-    return { login, role, create };
+    return {login, role, create};
 }

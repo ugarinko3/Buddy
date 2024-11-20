@@ -1,597 +1,613 @@
 p, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto-light';
+  font-family: 'Roboto-light', serif;
 }
-
 
 
 .profile {
-    width: 100%;
-    margin-top: 180px;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-    //max-width: 600px;
-
+  width: 100%;
+  margin-top: 180px;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
+
 .lvl_1 {
-    display: flex;
-    width: 100%;
-    gap: 20px;
-
-    //flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: center;
 }
+
 .lvl_2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
 }
-
-
-
 
 .create-goal {
-    margin: 0;
-    margin-left: auto;
+  margin: 0 0 0 auto;
 }
+
 .mr-2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 .mr-3 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
+
 .container-width {
-    margin-top: 20px;
-    width: 100%;
+  margin-top: 20px;
+  width: 100%;
 }
+
 .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
+
 .profileInfo {
-    background-color: #2c3443;
-    border-radius: 15px;
+  background-color: #2c3443;
+  border-radius: 15px;
 }
+
 .info-team-goals {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .container-info {
-    display: flex;
-    gap: 20px;
-    border-radius: 15px;
-    background-color: #2c3443;
-    padding: 10px;
-    min-height: 389px;
-    //border-radius: 15px;
+  display: flex;
+  gap: 20px;
+  border-radius: 15px;
+  background-color: #2c3443;
+  padding: 10px;
+  min-height: 389px;
 }
+
 .mini-info {
-    border: 1px solid #484f64;
-    border-radius: 15px;
-    padding: 10px;
-    max-width: 322px;
+  border: 1px solid #484f64;
+  border-radius: 15px;
+  padding: 10px;
+  max-width: 322px;
 }
+
 .mini-name-team {
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-size: 18px;
-    margin-bottom: 0;
-    transition: font-size 1s ease, margin-bottom 1s ease;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  margin-bottom: 0;
+  transition: font-size 1s ease, margin-bottom 1s ease;
 }
+
 .mini-name-team.open {
-    font-size: 10px;
-    margin-bottom: 30px;
-    transition: font-size 0.4s ease, margin-bottom 1s ease;
+  font-size: 10px;
+  margin-bottom: 30px;
+  transition: font-size 0.4s ease, margin-bottom 1s ease;
 }
+
 .faq-flex {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
+
 .name-title {
-    padding: 10px 30px;
-    //background-color: #343E51;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
+  padding: 10px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
 
 }
 
 .line {
-    width: 90%;
-    height: 1px;
-    background-color: #ADADAD;
-    margin-bottom: 10px
+  width: 90%;
+  height: 1px;
+  background-color: #ADADAD;
+  margin-bottom: 10px
 }
+
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    //align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
 }
 
 .container-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-img {
-    //display: flex;
-    //align-items: center;
-    position: relative;
-    display: inline-block;
-    width: 200px;
-    height: 200px;
-    align-content: center;
-    justify-items: center;
-    background-color: #2c3443;
-    border-radius: 50%;
-    //border: 1px solid #2c3443;
-    //justify-content: center;
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  align-content: center;
+  justify-items: center;
+  background-color: #2c3443;
+  border-radius: 50%;
 }
+
 .profile-img img {
-    border-radius: 50%;
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    background-color: #fff;
-    z-index: 40;
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  background-color: #fff;
+  z-index: 40;
 }
+
 .image-avatar .overlay {
-    position: absolute;
-    border-radius: 50%;
-    overflow: hidden;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: none; /* Скрыто по умолчанию */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer; /* Указатель при наведении */
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .image-avatar:hover .overlay {
-    display: flex; /* Показываем при наведении */
+  display: flex;
 }
 
 .image-avatar .overlay .icon {
-    color: white; /* Цвет иконки */
-    font-size: 24px; /* Размер иконки */
-    background-color: rgba(0, 0, 0, 0.5); /* Затемнение */
-    margin: 5px;
-    border-radius: 50%;
-    width: 181px;
-    height: 181px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-wrap: wrap;
+  color: white;
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 5px;
+  border-radius: 50%;
+  width: 181px;
+  height: 181px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+
 .profile-info {
-    border: 1px solid #434E63;
-    padding: 10px 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
-    flex-direction: column;
-    border-radius: 7px;
-    position: relative;
+  border: 1px solid #434E63;
+  padding: 10px 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  flex-direction: column;
+  border-radius: 7px;
+  position: relative;
 }
+
 .role {
-    position: absolute;
-    transform: rotate(90deg);
-    left: calc( 100% - 32px);
-    top: 50px;
-    border-radius: 8px;
-    padding: 2px 8px;
-    text-align: center;
-    background-color: #6be0c6;
+  position: absolute;
+  transform: rotate(90deg);
+  left: calc(100% - 32px);
+  top: 50px;
+  border-radius: 8px;
+  padding: 2px 8px;
+  text-align: center;
+  background-color: #6be0c6;
 }
+
 .list-team {
-    border-radius: 8px;
-    border: 1px solid #c0c0c0;
-    min-height: 60px;
-    padding: 13px;
-    position: relative;
+  border-radius: 8px;
+  border: 1px solid #c0c0c0;
+  min-height: 60px;
+  padding: 13px;
+  position: relative;
 }
 
 .faq__item.active .click-me {
-    opacity: 0;
-    transition: opacity 0.2s;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
+
 .click-me {
-    position: absolute;
-    top: 37px;
-    left: 211px;
-    color: #434E63;
-    transition: opacity 2s;
+  position: absolute;
+  top: 37px;
+  left: 211px;
+  color: #434E63;
+  transition: opacity 2s;
 }
 
 
 .role.curator {
-    background-color: rgb(255, 165, 0);
+  background-color: rgb(255, 165, 0);
 }
+
 .role.user {
-    left: calc( 100% - 24px);
+  left: calc(100% - 24px);
 }
+
 .role.admin {
-    left: calc( 100% - 30px);
-    background-color: rgb(255, 74, 80);
+  left: calc(100% - 30px);
+  background-color: rgb(255, 74, 80);
 }
 
 .top-1 {
-    margin-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 .profile-cont {
-    min-width: 300px;
-    height: 100%;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    position: relative;
+  min-width: 300px;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
 
 }
+
 .profile-name {
-    text-align: center;
-    margin-top: 10px;
+  text-align: center;
+  margin-top: 10px;
 }
+
 .profile-info .profile-team-name {
-    text-align: center;
-    position: relative;
-    top: 20px;
+  text-align: center;
+  position: relative;
+  top: 20px;
 }
+
 .profile-info .profile-team-name p {
-    font-size: 24px;
-    font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .profile-info .profile-progress {
-    display: flex;
-    margin-top: 30px;
-    width: 100%;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  margin-top: 30px;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
 }
+
 .username-profile {
-    font-family: Roboto;
-    font-size: 18px;
+  font-family: Roboto, serif;
+  font-size: 18px;
 }
+
 .core-programm {
-    font-size: 12px;
-    font-family: Roboto;
+  font-size: 12px;
+  font-family: Roboto, serif;
 }
+
 .profile-info .profile-progress .profile-progress-day {
-    display:flex;
-    justify-content: space-between;
-    padding: 0px 25px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25px;
 }
-.profile-info .profile-progress .progress-bar{
-    padding: 0 15px;
-    height: 10px;
+
+.profile-info .profile-progress .progress-bar {
+  padding: 0 15px;
+  height: 10px;
 
 }
+
 .profile-info .profile-progress .progress-bar .progress {
-    background-color: #d1d3d6;
-    border-radius: 12px;
-    height: 100%;
-    width: 100%;
+  background-color: #d1d3d6;
+  border-radius: 12px;
+  height: 100%;
+  width: 100%;
 }
 
 .profile-info .profile-progress .progress-bar .progress .progress-bar-inner {
-    //width: %;
-    height: 100%;
-    border-radius: 12px;
-    background: linear-gradient(to right, #78B2CD, #75F5C5);
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(to right, #78B2CD, #75F5C5);
 }
 
 .profile-info .profile-active {
-    display: flex;
-    padding: 5px;
-    margin-top: 10px;
-    gap: 10px;
-    justify-content: space-around;
+  display: flex;
+  padding: 5px;
+  margin-top: 10px;
+  gap: 10px;
+  justify-content: space-around;
 
 
-    .xp {
-        background: linear-gradient(to right, #41A4FF, #1400FF);
-        text-align: center;
-        border-radius: 5px;
-        padding: 7px 30px;
-    }
-
-
-}
-.token {
-    background: linear-gradient(to right, #FF0F00, #FF7528);
+  .xp {
+    background: linear-gradient(to right, #41A4FF, #1400FF);
     text-align: center;
     border-radius: 5px;
     padding: 7px 30px;
+  }
+
+
+}
+
+.token {
+  background: linear-gradient(to right, #FF0F00, #FF7528);
+  text-align: center;
+  border-radius: 5px;
+  padding: 7px 30px;
 }
 
 .no-goals {
-    min-width: 276px;
-    text-align: center;
-    border-radius: 8px;
-    padding: 10px;
-    border: 1px solid #75F5C5;
+  min-width: 276px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #75F5C5;
 }
+
 .no-team {
-    //height: 100%;
-    max-height: 500px;
+  max-height: 500px;
 }
+
 .goal-user {
-    padding: 10px;
-    min-width: 276px;
-    border-radius: 8px;
-    border: 1px solid #c0c0c0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Позволяет переносить элементы внутри контейнера */
-    max-width: 100%; /* Ограничивает максимальную ширину, если это необходимо */
+  padding: 10px;
+  min-width: 276px;
+  border-radius: 8px;
+  border: 1px solid #c0c0c0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
+
 .goal-user.true {
-    border: 1px solid #75F5C5;
+  border: 1px solid #75F5C5;
 }
 
 .title-goal {
-    word-wrap: break-word; /* Позволяет переносить длинные слова */
-    overflow-wrap: anywhere; /* Современный аналог word-wrap */
-    white-space: normal;
-    flex: 1; /* Позволяет элементу занимать доступное пространство */
-    min-width: 0; /* Позволяет тексту правильно переноситься в флекс-контейнере */
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  flex: 1;
+  min-width: 0;
 }
+
 .no-filter-goal {
-    text-align: left;
+  text-align: left;
 }
+
 .change-goal {
-    display: flex;
-    gap: 5px;
-    margin-left: 10px;
+  display: flex;
+  gap: 5px;
+  margin-left: 10px;
 }
+
 .button-goal {
-    border: 1px solid #75F5C5;
-    padding: 5px 15px;
-    border-radius: 10px;
-    background-color: #434E63;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid #75F5C5;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: #434E63;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
 .max-goal {
-    padding: 30px 10px;
-    border-radius: 12px;
-    border: 1px solid #75F5C5;
-    margin-top: 20px;
+  padding: 30px 10px;
+  border-radius: 12px;
+  border: 1px solid #75F5C5;
+  margin-top: 20px;
 }
+
 .text-h3 {
-    text-align: center;
-    font-size: 18px;
-    padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px;
 }
 
 
 .checkbox-goal {
-    appearance: none; /* Убираем стандартный стиль чекбокса */
-    margin-left: 20px;
-    width: 20px; /* Ширина чекбокса */
-    height: 20px; /* Высота чекбокса */
-    border: 2px solid #ccc; /* Цвет рамки */
-    border-radius: 4px; /* Скругление углов */
-    cursor: pointer; /* Курсор при наведении */
-    outline: none; /* Убираем обводку */
-    cursor: default;
-    position: relative; /* Позиционирование для псевдоэлементов */
-    transition: background-color 0.3s, border-color 0.3s; /* Плавный переход */
+  appearance: none;
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  cursor: default;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .checkbox-goal:checked {
-    background-color: #6be0c6; /* Цвет фона при checked */
-    border-color: #75F5C5; /* Цвет рамки при checked */
+  background-color: #6be0c6;
+  border-color: #75F5C5;
 }
 
 .checkbox-goal:checked::after {
-    content: ''; /* Создаем псевдоэлемент */
-    position: absolute; /* Абсолютное позиционирование */
-    left: 5px; /* Смещение по горизонтали */
-    top: 2px; /* Смещение по вертикали */
-    width: 5px; /* Ширина галочки */
-    height: 10px; /* Высота галочки */
-    border: solid white; /* Цвет галочки */
-    border-width: 0 2px 2px 0; /* Толщина галочки */
-    transform: rotate(45deg); /* Поворот для создания галочки */
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
-//.profile-loader {
-//    width: 100%;
-//    height: 100%;
-//    //border: 2px solid #434E63;
-//    padding: 7px;
-//}
 
 .createImage {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    margin: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: auto;
 }
+
 .wh-12 {
-    width: 100%;
+  width: 100%;
 }
+
 .container {
-    text-align: center;
-    //background: white;
-    min-width: 340px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 340px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .image-preview {
-    margin-top: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 50%;
-    width: 300px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  margin-top: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .image-preview img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
 }
 
 
 .loading-container {
-    width: 100%;
-    height: 10px;
-    background-color: #75F5C5; /* Цвет фона прогресс-бара */
-    border-radius: 5px;
-    overflow: hidden; /* Скрываем переполнение */
-    position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #75F5C5;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
 }
+
 .news {
-    max-width: 150px;
-    //margin-left: auto;
+  max-width: 150px;
 }
 
 .loading-bar {
-    width: 100%;
-    height: 100%;
-    background-color: #e0e0e0; /* Цвет прогресс-бара */
-    position: absolute;
-    left: -100%; /* Начальная позиция за пределами контейнера */
-    animation: loading 12s forwards; /* Анимация на 12 секунд */
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  position: absolute;
+  left: -100%;
+  animation: loading 12s forwards;
 }
 
 .an-120 {
-    animation: loading 3s forwards;
+  animation: loading 3s forwards;
 }
 
 .info-season {
-    background-color: #2c3443;
-    border-radius: 15px;
-    padding: 10px;
-    width: 450px;
-    //border: 1px solid #ADADAD;
+  background-color: #2c3443;
+  border-radius: 15px;
+  padding: 10px;
+  width: 450px;
 }
+
 .season-profile {
-    //width: 100%;
-    //height: 100%;
-    border: 1px solid #484f64;
-    border-radius: 15px;
-    padding: 10px;
+  border: 1px solid #484f64;
+  border-radius: 15px;
+  padding: 10px;
 }
+
 .list-season {
-    height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .season-mini-info {
-    padding: 5px;
-    min-width: 400px;
-    border: 1px solid #75F5C5;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: row;
-    align-self: center;
+  padding: 5px;
+  min-width: 400px;
+  border: 1px solid #75F5C5;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
 }
+
 .number-season {
-    min-width: 40px;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 24px;
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
 }
+
 .period {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 10px;
 }
 
 @keyframes loading {
-    0% {
-        left: 0; /* Начальная позиция */
-    }
-    100% {
-        left: 100%; /* Конечная позиция */
-    }
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
-@media screen and (max-width: 970px){
+@media screen and (max-width: 970px) {
 
-    .profileInfo {
-        margin: 20px;
-    }
+  .profileInfo {
+    margin: 20px;
+  }
 
-    .profile-img {
-        position: absolute;
-        top: -90px;
-        left: 50%;
-        //width: 180px;
-        //height: 180px;
-        transform: translateX(-50%);
-    }
-    .profile-name {
-        margin-top: 100px;
-    }
-    .lvl_1, .lvl_2 {
-        flex-direction: column;
-        max-width: 610px;
-    }
-    .container-info {
-        min-height: 0;
-    }
+  .profile-img {
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .profile-name {
+    margin-top: 100px;
+  }
+  .lvl_1, .lvl_2 {
+    flex-direction: column;
+    max-width: 610px;
+  }
+  .container-info {
+    min-height: 0;
+  }
 }
 
-@media screen and (max-width: 700px){
-    .profile-name {
-        margin-top: 100px;
-    }
-    .profile-cont {
-        width: 100%;
-        min-width: auto;
-    }
-    .profile-info .profile-team-name h2 {
-        font-size: 18px;
-    }
+@media screen and (max-width: 700px) {
+  .profile-name {
+    margin-top: 100px;
+  }
+  .profile-cont {
+    width: 100%;
+    min-width: auto;
+  }
+  .profile-info .profile-team-name h2 {
+    font-size: 18px;
+  }
 }
-@media screen and (max-width: 600px){
-    .profile {
-        flex-wrap: nowrap;
-    }
-    .container-info {
-        flex-direction: column;
-        gap: 30px;
-    }
+
+@media screen and (max-width: 600px) {
+  .profile {
+    flex-wrap: nowrap;
+  }
+  .container-info {
+    flex-direction: column;
+    gap: 30px;
+  }
 }

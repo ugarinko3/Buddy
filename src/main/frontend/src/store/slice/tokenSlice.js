@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const tokenSlice = createSlice({
@@ -27,14 +27,12 @@ export const {
 } = tokenSlice.actions;
 
 
-
 export const fetchToken = (login, token) => async (dispatch) => {
     try {
         const response = await axios.post('/token', {
             token: token,
             login: login
         });
-        // console.log(response.data)
         dispatch(fetchTokenSuccess(response.data));
     } catch (error) {
         const errorCode = error.response?.status || 500;

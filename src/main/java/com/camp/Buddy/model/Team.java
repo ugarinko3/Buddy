@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Setter
 @Getter
-@Entity // Убедитесь, что эта аннотация присутствует
-@Table(name = "team") // Опционально, если хотите задать имя таблицы
+@Entity
+@Table(name = "team")
 public class Team {
 
     @Id
@@ -22,7 +21,7 @@ public class Team {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "curator_id") // Убедитесь, что имя колонки соответствует вашей базе данных
+    @JoinColumn(name = "curator_id")
     private User curator;
 
     @OneToMany

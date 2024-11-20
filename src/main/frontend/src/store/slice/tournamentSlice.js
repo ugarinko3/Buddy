@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const tournamentSlice = createSlice({
@@ -24,7 +24,6 @@ export const {
     fetchTournamentFail,
     fetchTournamentSuccess
 } = tournamentSlice.actions;
-
 
 
 export const fetchUserTournament = () => async (dispatch) => {

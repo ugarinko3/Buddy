@@ -1,5 +1,3 @@
-
-
 function ListSeason({season, index}) {
     return (
         <div className={`season-mini-info`} key={index}>
@@ -16,4 +14,5 @@ function ListSeason({season, index}) {
 
     );
 }
+
 export default ListSeason;

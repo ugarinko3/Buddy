@@ -1,6 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
-// Create a slice for managing status
 const statusSlice = createSlice({
     name: 'status',
     initialState: {
@@ -27,16 +26,8 @@ const statusSlice = createSlice({
     },
 });
 
-// Export actions
-export const { fetchStatusLoading, fetchStatusSuccess, fetchStatusError } = statusSlice.actions;
-
-// Async action creator
-
-
-// Новый экшен для очистки состояния успеха
+export const {fetchStatusLoading, fetchStatusSuccess, fetchStatusError} = statusSlice.actions;
 export const clearSuccess = () => (dispatch) => {
     dispatch(fetchStatusSuccess(false));
 };
-
-// Export the reducer
 export default statusSlice.reducer;

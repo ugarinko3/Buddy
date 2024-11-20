@@ -8,7 +8,6 @@ import com.camp.Buddy.repository.SeasonRepository;
 import com.camp.Buddy.repository.UserDayRepository;
 import com.camp.Buddy.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +43,7 @@ public class SeasonService {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     public boolean createCalendar(Season season) {
         List<Day> days = calendarRepository.findAll();
         if (days.isEmpty()) {
@@ -64,11 +64,9 @@ public class SeasonService {
             calendarEntities.add(day);
         }
 
-        // Сохраните все дни в репозитории
         calendarRepository.saveAll(calendarEntities);
 
-//         Получите всех существующих пользователей
-        List<User> users = userRepository.findAllByRole(userService.ADMIN); // Предполагается, что у вас есть userRepository
+        List<User> users = userRepository.findAllByRole(userService.ADMIN);
 
 
         for (User user : users) {
@@ -84,12 +82,12 @@ public class SeasonService {
 
     public ResponseEntity<?> registrationUser(String login) {
         try {
-             User user = userRepository.findByLogin(login);
-             Season seasons = seasonRepository.findByStatus(REGISTRATION);
-             user.getSeasons().add(seasons);
-             userRepository.save(user);
-             userService.createCalendar(user);
-             return ResponseEntity.ok().build();
+            User user = userRepository.findByLogin(login);
+            Season seasons = seasonRepository.findByStatus(REGISTRATION);
+            user.getSeasons().add(seasons);
+            userRepository.save(user);
+            userService.createCalendar(user);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -115,7 +113,7 @@ public class SeasonService {
             User user = userRepository.findByLogin(login);
 
 
-            if(season == null) {
+            if (season == null) {
                 season = seasonRepository.findByStatus(ACTION);
             }
 
