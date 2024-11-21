@@ -22,7 +22,6 @@ public class PostNews extends Post {
 
     @OneToMany
     private Set<User> likedByUsers = new HashSet<>();
-    ;
 
     @Transient
     private boolean liked;
